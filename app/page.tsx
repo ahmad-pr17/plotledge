@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ArrowRight, BarChart3, BookOpen, Building2, Check, ChevronRight, CircleDollarSign, ClipboardList, Download, FileSpreadsheet, FileText, HandCoins, Landmark, LayoutDashboard, Menu, Moon, Receipt, ShieldCheck, Sparkles, Sun, Tags, TrendingUp, Send, Users, WalletCards, X } from 'lucide-react'
-
+//git chek
 const features = [
   ['Plot inventory', 'Know what is available, reserved, or sold at a glance.', LayoutDashboard, 'lg:col-span-2'],
   ['Deals & installments', 'Build flexible plans and keep every promise visible.', HandCoins, ''],
