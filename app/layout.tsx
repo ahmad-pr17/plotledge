@@ -7,19 +7,19 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta' })
 
 export const metadata: Metadata = {
-  title: 'Plot Ledge — Every plot. Every payment. One ledger.',
-  description: 'The clear, calm CRM for real estate developers, plot dealers, and housing societies.',
+  title: 'Plot Ledge — Track plots, installments and payments',
+  description: 'A CRM for plot and property dealers. Keep plots, deals, installments and payment slips in one place.',
   generator: 'v0.app',
   openGraph: {
-    title: 'Plot Ledge — Every plot. Every payment. One ledger.',
-    description: 'The clear, calm CRM for real estate developers, plot dealers, and housing societies.',
+    title: 'Plot Ledge — Track plots, installments and payments',
+    description: 'A CRM for plot and property dealers. Keep plots, deals, installments and payment slips in one place.',
     type: 'website',
     siteName: 'Plot Ledge',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Plot Ledge — Every plot. Every payment. One ledger.',
-    description: 'The clear, calm CRM for real estate developers, plot dealers, and housing societies.',
+    title: 'Plot Ledge — Track plots, installments and payments',
+    description: 'A CRM for plot and property dealers. Keep plots, deals, installments and payment slips in one place.',
   },
   icons: {
     icon: [
