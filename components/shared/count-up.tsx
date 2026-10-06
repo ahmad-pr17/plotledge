@@ -10,7 +10,7 @@ type Props = {
   suffix?: string
   duration?: number
   className?: string
-  /** Use Indian digit grouping (lakh style) for large integers. */
+  /** Use thousands grouping for large integers. */
   indian?: boolean
 }
 
@@ -26,7 +26,7 @@ export function CountUp({ value, decimals = 0, prefix = '', suffix = '', duratio
 
   const fmt = (n: number) => {
     const body = indian
-      ? n.toLocaleString('en-IN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+      ? n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
       : n.toFixed(decimals)
     return `${prefix}${body}${suffix}`
   }

@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from 'motion/react'
 import { Check, CircleX, TrendingUp } from 'lucide-react'
-import { SampleTag } from '@/components/shared/sample-tag'
 import type { Role } from '@/data/roles'
 import { cn } from '@/lib/utils'
 
@@ -31,10 +30,7 @@ export function RoleCard({ role }: { role: Role }) {
       <div className="on-deep rounded-2xl bg-deep-card p-5 text-white ring-1 ring-white/10">
         <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
           <span className="text-sm text-white/70">{panel.title}</span>
-          <span className="flex items-center gap-2">
-            <SampleTag className="border-white/30 text-white/70">Sample data</SampleTag>
-            <TrendingUp className="size-5 text-amber-300" aria-hidden />
-          </span>
+          <TrendingUp className="size-5 text-amber-300" aria-hidden />
         </div>
         <p className="num mt-5 font-display text-4xl font-bold">{panel.value}</p>
         <p className="mt-1 text-sm text-emerald-100/80">{panel.caption}</p>

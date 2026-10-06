@@ -35,7 +35,7 @@ export function LeadForm() {
         <CheckCircle2 className="size-10 text-paid" aria-hidden="true" />
         <h3 className="t-h3 mt-4">Request received</h3>
         <p className="measure mt-2 text-muted-foreground">{state.message}</p>
-        <ButtonLink href={whatsappLink('Hi Plot Ledge, I just sent a demo request on the website.')} variant="whatsapp" className="mt-6">
+        <ButtonLink href={whatsappLink('Hi Plot Ledge, I just sent a demo request on the website.')} variant="secondary" className="mt-6">
           <MessageCircle aria-hidden="true" /> Continue on WhatsApp
         </ButtonLink>
       </div>
@@ -81,7 +81,7 @@ export function LeadForm() {
         type="submit"
         disabled={pending}
         className={cn(
-          'btn-shine inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-amber-500 px-6 text-base font-semibold text-emerald-950 transition-colors hover:bg-amber-400',
+          'btn-shine inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-amber-500 px-6 text-base font-semibold text-emerald-950 transition-colors hover:bg-amber-400',
           'disabled:cursor-not-allowed disabled:opacity-70',
         )}
       >

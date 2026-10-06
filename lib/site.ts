@@ -8,9 +8,9 @@ export const SITE_DESCRIPTION =
 
 export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://realestatemanager-chi.vercel.app/login'
 
-// PLACEHOLDER: replace with the real WhatsApp number (international format, digits only) in .env.local.
+// Set the real WhatsApp number (international format, digits only) in .env.local or in Vercel.
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923000000000'
-// PLACEHOLDER: replace with the real contact details.
+// Set the real contact details in .env.local or in Vercel.
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'hello@plotledge.com'
 export const CONTACT_PHONE_DISPLAY = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '+92 300 0000000'
 export const CONTACT_CITY = 'Lahore, Pakistan'
@@ -25,6 +25,8 @@ export const NAV_LINKS = [
   { label: 'Features', href: '/#features' },
   { label: 'How it works', href: '/#how' },
   { label: 'Pricing', href: '/#pricing' },
-  { label: 'Guides', href: '/guides' },
   { label: 'FAQ', href: '/#faq' },
 ] as const
+
+/** Chat events and the sticky mobile bar read the same open/closed flag from the <html> element. */
+export const CHAT_OPEN_ATTR = 'data-chat-open'

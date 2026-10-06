@@ -1,11 +1,10 @@
 'use client'
 
 import { motion, useReducedMotion } from 'motion/react'
-import { receipt } from '@/data/sample'
-import { formatPKR } from '@/lib/format'
+import { receipt } from '@/data/showcase'
+import { formatRs } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { LogoMark } from '@/components/shared/logo'
-import { SampleTag } from '@/components/shared/sample-tag'
 
 const scallop = {
   maskImage: 'linear-gradient(#000, #000), radial-gradient(circle at 7px 7px, transparent 5px, #000 5.5px)',
@@ -30,7 +29,7 @@ export function ReceiptCard({ className }: { className?: string }) {
   ]
   return (
     <div className={cn('drop-shadow-[0_18px_28px_rgb(var(--shadow-color)/.14)]', className)}>
-      <article aria-label={`Receipt ${receipt.id} (sample)`} className="relative bg-card px-5 pb-10 pt-5 sm:px-6" style={{ ...scallop, border: '1px solid var(--border)' }}>
+      <article aria-label={`Receipt ${receipt.id}`} className="relative bg-card px-5 pb-10 pt-5 sm:px-6" style={{ ...scallop, border: '1px solid var(--border)' }}>
         <header className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <LogoMark className="size-9" />
@@ -39,7 +38,6 @@ export function ReceiptCard({ className }: { className?: string }) {
               <p className="num text-xs text-muted-foreground">{receipt.id}</p>
             </div>
           </div>
-          <SampleTag>Sample</SampleTag>
         </header>
 
         <div className="my-5 border-t border-dashed border-[var(--border-strong)]" />
@@ -58,7 +56,7 @@ export function ReceiptCard({ className }: { className?: string }) {
         <div className="flex items-end justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-wider text-muted-foreground">Amount received</p>
-            <p className="num mt-1 font-display text-3xl font-bold tracking-tight">{formatPKR(receipt.amount)}</p>
+            <p className="num mt-1 font-display text-3xl font-bold tracking-tight">{formatRs(receipt.amount)}</p>
           </div>
           <motion.div
             aria-label="Paid"
@@ -72,7 +70,7 @@ export function ReceiptCard({ className }: { className?: string }) {
             PAID
           </motion.div>
         </div>
-        <p className="mt-4 text-xs text-muted-foreground">Received by {receipt.receivedBy}. Sample receipt for demonstration only.</p>
+        <p className="mt-4 text-xs text-muted-foreground">Received by {receipt.receivedBy}.</p>
       </article>
     </div>
   )

@@ -15,7 +15,7 @@ export function PricingTable() {
     { key: 'enterprise', label: 'Enterprise' },
   ] as const
   return (
-    <div className="card-solid mt-14 overflow-hidden">
+    <div className="card-solid mt-6 overflow-hidden">
       <div className="table-scroll">
         <table className="w-full min-w-[620px] border-collapse text-left">
           <caption className="sr-only">Feature comparison of the Starter, Growth and Enterprise plans</caption>

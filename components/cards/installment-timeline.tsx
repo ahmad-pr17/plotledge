@@ -2,8 +2,8 @@
 
 import { motion, useReducedMotion } from 'motion/react'
 import { CalendarClock, Circle, CircleCheck, Clock, TriangleAlert, type LucideIcon } from 'lucide-react'
-import { deal, timeline, type TimelineState } from '@/data/sample'
-import { formatPKR } from '@/lib/format'
+import { deal, timeline, type TimelineState } from '@/data/showcase'
+import { formatRs } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { CardShell } from './card-shell'
 import { EASE, FillBar } from './fill-bar'
@@ -55,7 +55,7 @@ export function InstallmentTimeline({ className }: { className?: string }) {
                   <p className="-mt-1 text-xs text-muted-foreground">{step.date}</p>
                 </div>
                 <div className="text-right">
-                  <p className="num text-sm font-semibold leading-8">{formatPKR(step.amount)}</p>
+                  <p className="num text-sm font-semibold leading-8">{formatRs(step.amount)}</p>
                   <p className={cn('-mt-1 text-xs font-medium', meta.text)}>{meta.label}</p>
                 </div>
               </div>

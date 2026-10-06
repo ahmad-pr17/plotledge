@@ -1,5 +1,6 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { PricingCard } from '@/components/cards/pricing-card'
 import { PricingTable } from '@/components/sections/pricing-table'
@@ -21,8 +22,8 @@ export function Pricing() {
       <SectionHeading
         align="center"
         eyebrow="Pricing"
-        title={<span id="pricing-title">Start free. Pay when your team grows.</span>}
-        description="Clear prices in PKR. No setup fee, and the Starter plan stays free."
+        title={<span id="pricing-title">Simple pricing. Start free.</span>}
+        description="Clear prices in rupees. The Starter plan stays free, and you pay only when your team grows."
       />
 
       <Reveal className="mt-8 flex flex-col items-center gap-3">
@@ -48,7 +49,7 @@ export function Pricing() {
             </button>
           ))}
         </div>
-        {currency !== 'PKR' && <p className="text-xs text-muted-foreground">Local amounts are approximate. Billing is in PKR.</p>}
+        {currency !== 'PKR' && <p className="text-xs text-muted-foreground">Amounts in other currencies are approximate. Billing is in rupees.</p>}
       </Reveal>
 
       <div className="mt-12 grid gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6">
@@ -59,9 +60,14 @@ export function Pricing() {
         ))}
       </div>
 
-      <Reveal>
-        <h3 className="t-h3 mt-20 text-center">Compare every feature</h3>
-        <PricingTable />
+      <Reveal className="mt-14">
+        <details className="group mx-auto max-w-4xl">
+          <summary className="mx-auto flex min-h-11 w-fit cursor-pointer list-none items-center gap-2 rounded-xl px-4 text-sm font-semibold text-primary hover:bg-primary/10 [&::-webkit-details-marker]:hidden">
+            Compare every feature
+            <ChevronDown className="size-4 transition-transform group-open:rotate-180" aria-hidden />
+          </summary>
+          <PricingTable />
+        </details>
       </Reveal>
     </Section>
   )

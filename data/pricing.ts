@@ -8,7 +8,7 @@ export type Plan = {
   id: 'starter' | 'growth' | 'enterprise'
   name: string
   blurb: string
-  /** Monthly price in PKR, or null for custom pricing. */
+  /** Monthly price in rupees, or null for custom pricing. */
   monthly: number | null
   yearlyPerMonth: number | null
   yearlyTotal: number | null

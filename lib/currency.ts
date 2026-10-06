@@ -1,5 +1,7 @@
-// Prices are defined in PKR. Visitors outside Pakistan see an approximate local amount.
-// PLACEHOLDER RATES (PKR per 1 unit): review and update before relying on them. Billing stays in PKR.
+// Prices are defined in rupees. Visitors outside Pakistan see an approximate local amount.
+// Rates are rupees per 1 unit. Review them from time to time. Billing itself stays in rupees.
+import { CURRENCY_PREFIX } from '@/lib/format'
+
 export const RATES_PKR: Record<string, number> = { PKR: 1, USD: 280, AED: 76, SAR: 75, GBP: 370, EUR: 325, INR: 3.3 }
 
 const EURO_REGIONS = ['DE', 'FR', 'IT', 'ES', 'NL', 'BE', 'AT', 'IE', 'PT', 'FI', 'GR']
@@ -21,7 +23,7 @@ export function detectCurrency(): string {
 }
 
 export function formatPrice(amountPkr: number, currency: string): string {
-  if (currency === 'PKR') return `PKR ${amountPkr.toLocaleString('en-IN')}`
+  if (currency === 'PKR') return `${CURRENCY_PREFIX} ${amountPkr.toLocaleString('en-US')}`
   const converted = Math.round(amountPkr / RATES_PKR[currency])
   return `~${new Intl.NumberFormat('en', { style: 'currency', currency, maximumFractionDigits: 0 }).format(converted)}`
 }

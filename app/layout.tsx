@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque, Inter } from 'next/font/google'
+import { ChatMount } from '@/components/chatbot/ChatMount'
 import { jsonLdString, siteJsonLd } from '@/lib/jsonld'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site'
 import './globals.css'
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className={`${inter.variable} ${display.variable}`}>
         {children}
+        <ChatMount />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>

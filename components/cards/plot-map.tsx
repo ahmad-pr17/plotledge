@@ -3,8 +3,8 @@
 import { motion, useInView, useReducedMotion } from 'motion/react'
 import { LayoutGrid } from 'lucide-react'
 import { useMemo, useRef, useState } from 'react'
-import { plots, type PlotStatus } from '@/data/sample'
-import { formatPKR } from '@/lib/format'
+import { plots, type PlotStatus } from '@/data/showcase'
+import { formatRs } from '@/lib/format'
 import { cn } from '@/lib/utils'
 import { CardShell } from './card-shell'
 
@@ -85,7 +85,7 @@ export function PlotMap({ className }: { className?: string }) {
                   >
                     <button
                       type="button"
-                      aria-label={`Plot ${p.id}, ${p.size}, ${formatPKR(p.price)}, ${LABEL[p.status]}`}
+                      aria-label={`Plot ${p.id}, ${p.size}, ${formatRs(p.price)}, ${LABEL[p.status]}`}
                       className="num grid h-11 w-full place-items-center rounded-lg border text-[11px] font-semibold transition-transform hover:scale-105 focus-visible:scale-105"
                       style={cellStyle[p.status]}
                     >
@@ -100,7 +100,7 @@ export function PlotMap({ className }: { className?: string }) {
                     >
                       <span className="block font-semibold">Plot {p.id}</span>
                       <span className="block text-emerald-100/80">{p.size}</span>
-                      <span className="num block">{formatPKR(p.price)}</span>
+                      <span className="num block">{formatRs(p.price)}</span>
                       <span className="block text-amber-300">{LABEL[p.status]}</span>
                     </span>
                   </motion.div>
@@ -114,11 +114,11 @@ export function PlotMap({ className }: { className?: string }) {
       <p className="mt-4 text-sm text-muted-foreground" aria-live="polite">
         {filter ? (
           <>
-            Showing <span className="num font-medium text-foreground">{counts[filter]}</span> {LABEL[filter].toLowerCase()} plots in this sample map.
+            Showing <span className="num font-medium text-foreground">{counts[filter]}</span> {LABEL[filter].toLowerCase()} plots.
           </>
         ) : (
           <>
-            <span className="num font-medium text-foreground">{plots.length}</span> plots in this sample map. Hover or focus a plot for details.
+            <span className="num font-medium text-foreground">{plots.length}</span> plots in this project. Hover or focus a plot for details.
           </>
         )}
       </p>

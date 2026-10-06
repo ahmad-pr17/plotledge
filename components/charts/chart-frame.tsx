@@ -2,7 +2,6 @@
 
 import { useInView, useReducedMotion } from 'motion/react'
 import { useRef, type RefObject } from 'react'
-import { SampleTag } from '@/components/shared/sample-tag'
 import { cn } from '@/lib/utils'
 
 /** True once the element has scrolled into view (or immediately for reduced motion). */
@@ -28,14 +27,11 @@ type Props = {
 export function ChartFrame({ title, subtitle, summary, legend, children, className }: Props) {
   return (
     <figure className={cn('flex h-full flex-col gap-4', className)}>
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="font-display text-base font-semibold text-foreground">{title}</p>
-          {subtitle && <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>}
-        </div>
-        <SampleTag className="shrink-0" />
+      <div>
+        <p className="font-display text-base font-semibold text-foreground">{title}</p>
+        {subtitle && <p className="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>}
       </div>
-      <div className="flex-1">{children}</div>
+      <div className="flex flex-1 flex-col justify-center">{children}</div>
       {legend && (
         <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
           {legend.map((l) => (

@@ -1,6 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { SampleTag } from '@/components/shared/sample-tag'
 import { SpotlightCard } from '@/components/shared/spotlight-card'
 
 type Props = {
@@ -8,11 +7,10 @@ type Props = {
   icon: LucideIcon
   className?: string
   children: React.ReactNode
-  sample?: boolean
 }
 
-/** Shared frame for the product cards: icon, h3 title and a sample data label. */
-export function CardShell({ title, icon: Icon, className, children, sample = true }: Props) {
+/** Shared frame for the product cards: icon and h3 title. */
+export function CardShell({ title, icon: Icon, className, children }: Props) {
   return (
     <SpotlightCard className={cn('flex flex-col p-5 sm:p-6', className)}>
       <div className="mb-4 flex items-center justify-between gap-3">
@@ -22,7 +20,6 @@ export function CardShell({ title, icon: Icon, className, children, sample = tru
           </span>
           <span className="truncate">{title}</span>
         </h3>
-        {sample && <SampleTag className="shrink-0" />}
       </div>
       {children}
     </SpotlightCard>

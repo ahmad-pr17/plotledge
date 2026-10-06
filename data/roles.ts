@@ -1,3 +1,6 @@
+import { collectionsM, plotCounts, plots } from '@/data/showcase'
+import { formatMillion } from '@/lib/format'
+
 export type RoleId = 'owner' | 'accountant' | 'agent'
 
 export type Permission = { label: string; allowed: boolean }
@@ -7,7 +10,7 @@ export type Role = {
   name: string
   heading: string
   description: string
-  /** Mini dashboard panel. All numbers are sample data. */
+  /** Mini dashboard panel. */
   panel: { title: string; value: string; caption: string; progress: number; progressLabel: string }
   permissions: Permission[]
 }
@@ -18,7 +21,7 @@ export const roles: Role[] = [
     name: 'Owner',
     heading: 'See where the business stands.',
     description: 'Total sales, money received, what is still outstanding, and the profit on each deal. Investor and dealer balances are one click away.',
-    panel: { title: 'This month', value: 'PKR 68.4L', caption: 'received across 42 active deals', progress: 74, progressLabel: '74% of what was due' },
+    panel: { title: 'This month', value: `Rs ${formatMillion(collectionsM[collectionsM.length - 1])}`, caption: 'received in July across 42 active deals', progress: 74, progressLabel: '74% of what was due' },
     permissions: [
       { label: 'Sales, received and outstanding', allowed: true },
       { label: 'Profit on each deal', allowed: true },
@@ -46,7 +49,7 @@ export const roles: Role[] = [
     name: 'Sales Agent',
     heading: 'Enter deals, follow your buyers.',
     description: 'Agents add new deals and look up plots and buyers. Editing and deleting deals stays with the Owner and Accountant.',
-    panel: { title: 'Open inventory', value: '148 plots', caption: 'still available to sell', progress: 41, progressLabel: '41% of plots sold' },
+    panel: { title: 'Open inventory', value: `${plotCounts.available} plots`, caption: 'still available to sell', progress: Math.round((plotCounts.sold / plots.length) * 100), progressLabel: `${Math.round((plotCounts.sold / plots.length) * 100)}% of plots sold` },
     permissions: [
       { label: 'Look up available plots', allowed: true },
       { label: 'See buyer details', allowed: true },
