@@ -21,7 +21,7 @@ export function detectCurrency(): string {
 }
 
 export function formatPrice(amountPkr: number, currency: string): string {
-  if (currency === 'PKR') return `Rs ${amountPkr.toLocaleString('en-IN')}`
+  if (currency === 'PKR') return `PKR ${amountPkr.toLocaleString('en-IN')}`
   const converted = Math.round(amountPkr / RATES_PKR[currency])
   return `~${new Intl.NumberFormat('en', { style: 'currency', currency, maximumFractionDigits: 0 }).format(converted)}`
 }
