@@ -2,6 +2,29 @@
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://plotledge.com').replace(/\/$/, '')
 
 export const SITE_NAME = 'Plot Ledge'
-export const SITE_TITLE = 'Plot Ledge: CRM for Plot and Property Dealers'
+export const SITE_TITLE = 'Plot Management Software for Property Dealers'
 export const SITE_DESCRIPTION =
-  'Plot Ledge is a CRM for plot and property dealers. Track plots, deals, installment schedules, payments and bank slips in one place, with receipts and reports.'
+  'Plot management software for Pakistani dealers. Track installments, payments and receipts in one place. Start free or book a demo.'
+
+export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://realestatemanager-chi.vercel.app/login'
+
+// PLACEHOLDER: replace with the real WhatsApp number (international format, digits only) in .env.local.
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923000000000'
+// PLACEHOLDER: replace with the real contact details.
+export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'hello@plotledge.com'
+export const CONTACT_PHONE_DISPLAY = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '+92 300 0000000'
+export const CONTACT_CITY = 'Lahore, Pakistan'
+
+export const DEMO_URL = '/contact#demo'
+
+export function whatsappLink(message = 'Hi Plot Ledge, I would like a demo for my plot business.') {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
+export const NAV_LINKS = [
+  { label: 'Features', href: '/#features' },
+  { label: 'How it works', href: '/#how' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Guides', href: '/guides' },
+  { label: 'FAQ', href: '/#faq' },
+] as const
