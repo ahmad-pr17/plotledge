@@ -76,3 +76,6 @@
 
 @layer base { body { font-family: var(--font-inter), Arial, Helvetica, sans-serif; } h1, h2, h3, h4, h5, h6 { font-family: var(--font-jakarta), Arial, Helvetica, sans-serif; } button, a { @apply inline-flex items-center gap-2 whitespace-nowrap; } }
 
+
+/* Without JavaScript the scroll-reveal observer never runs, so show content immediately. */
+@media (scripting: none) { .reveal { opacity: 1; transform: none; } }
