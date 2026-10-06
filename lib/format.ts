@@ -1,19 +1,18 @@
-// Money helpers for lakh and crore. Amounts are PKR.
-export function formatPKR(amount: number): string {
-  return `PKR ${Math.round(amount).toLocaleString('en-IN')}`
+// Money helpers. Amounts are shown in rupees and millions. Change CURRENCY_PREFIX to switch "Rs" to "PKR" everywhere.
+export const CURRENCY_PREFIX = 'Rs'
+
+export function formatRs(amount: number): string {
+  return `${CURRENCY_PREFIX} ${Math.round(amount).toLocaleString('en-US')}`
 }
 
-/** 4_82_00_000 -> "PKR 4.82Cr", 6_840_000 -> "PKR 68.4L". */
-export function formatCompactPKR(amount: number): string {
-  const abs = Math.abs(amount)
-  if (abs >= 1_00_00_000) return `PKR ${trim(amount / 1_00_00_000, 2)}Cr`
-  if (abs >= 1_00_000) return `PKR ${trim(amount / 1_00_000, 1)}L`
-  return formatPKR(amount)
+/** 38_300_000 -> "Rs 38.3 million". Amounts under a million keep full digits. */
+export function formatCompactRs(amount: number): string {
+  return Math.abs(amount) >= 1_000_000 ? `${CURRENCY_PREFIX} ${trim(amount / 1_000_000, 2)} million` : formatRs(amount)
 }
 
-/** Lakh figure to compact text: 31.2 -> "31.2L", 316.4 -> "3.16Cr". */
-export function formatLakh(lakh: number): string {
-  return lakh >= 100 ? `${trim(lakh / 100, 2)}Cr` : `${trim(lakh, 1)}L`
+/** Value already in millions: 3.12 -> "3.12 million". */
+export function formatMillion(millions: number): string {
+  return `${trim(millions, 2)} million`
 }
 
 function trim(n: number, digits: number): string {

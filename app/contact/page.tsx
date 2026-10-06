@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const steps = [
   'We ask how you track plots and installments today.',
-  'You see Plot Ledge with sample plots, deals and receipts.',
+  'You see how plots, deals, installments and receipts work together.',
   'We set up a Starter account if you want to try it with your own data.',
 ]
 
@@ -33,7 +33,7 @@ export default function ContactPage() {
         <aside className="flex flex-col gap-8 lg:pt-24" aria-label="Other ways to reach us">
           <div className="card-glass p-6">
             <h2 className="t-h3">Prefer to chat?</h2>
-            <ButtonLink href={whatsappLink()} variant="whatsapp" className="mt-4 w-full">
+            <ButtonLink href={whatsappLink()} variant="secondary" className="mt-4 w-full">
               <MessageCircle aria-hidden="true" /> Chat on WhatsApp
             </ButtonLink>
             <ul className="mt-6 flex flex-col gap-1 text-sm">

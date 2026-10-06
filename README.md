@@ -23,7 +23,7 @@ Marketing website for **Plot Ledge**, a CRM for plot and property dealers. It tr
 - Server-rendered HTML, so content is crawlable without JavaScript
 - Technical SEO: canonical URL, Open Graph and Twitter/X cards, `robots.txt`, `sitemap.xml`, JSON-LD structured data
 - Generated 1200×630 social sharing image
-- Pricing displayed in PKR, with an approximate local currency for visitors in other regions
+- Pricing displayed in rupees, with an approximate local currency for visitors in other regions
 - Accessible FAQ, tabs and mobile navigation built on Base UI
 
 ## Tech stack
@@ -108,7 +108,7 @@ public/                  Static assets and favicons
 
 ## Regional pricing
 
-Prices are defined in PKR in `app/page.tsx`. Visitors outside Pakistan see an approximate amount in their local currency (USD, AED, SAR, GBP, EUR or INR), chosen from the browser's language region. Structured data and billing remain in PKR.
+Prices are defined in rupees in `data/pricing.ts`. Visitors outside Pakistan see an approximate amount in their local currency (USD, AED, SAR, GBP, EUR or INR), chosen from the browser's language region. Structured data and billing remain in rupees.
 
 > **Note:** the exchange rates in `lib/currency.ts` are placeholders. Review and update them before relying on them.
 
@@ -130,3 +130,27 @@ The site is deployed on Vercel.
 ## License
 
 No license has been specified. All rights reserved by the repository owner unless stated otherwise.
+
+## Chat assistant
+
+The assistant lives in `components/chatbot/`, `hooks/useChat.ts`, `app/api/chat*`, `app/api/lead` and `lib/chatbot/`.
+
+- `lib/chatbot/knowledge.ts` is everything it may state about the product. Prices come from `data/pricing.ts`.
+- `lib/chatbot/system-prompt.ts` holds its rules.
+- Replies stream from `/api/chat` (server side only). If the AI service fails, a small offline matcher answers the top questions.
+- Rate limit: 20 messages per 10 minutes per IP (in memory per server instance; add Vercel Firewall rate limiting for a hard limit).
+
+### Environment variables on Vercel
+
+Project Settings > Environment Variables. Add every name from `.env.example` (at least `ANTHROPIC_API_KEY`, `CHAT_MODEL`, `NEXT_PUBLIC_WHATSAPP_NUMBER`, and either `LEAD_WEBHOOK_URL` or `RESEND_API_KEY` plus `LEAD_EMAIL_TO`), choose Production and Preview, then redeploy. `NEXT_PUBLIC_` values are baked in at build time, so a redeploy is required after changing them.
+
+### Content you must fill in
+
+- `data/testimonials.ts` and `data/logos.ts`: empty, so those sections stay hidden until you add real entries.
+- `data/pricing.ts`: confirm the final prices.
+
+## Custom domain and Google Search Console
+
+1. Vercel: Project > Settings > Domains > Add your domain, then add the DNS records Vercel shows at your registrar.
+2. Set `NEXT_PUBLIC_SITE_URL` to the final `https://` address and redeploy. Canonical links, the sitemap and structured data use it.
+3. In Google Search Console add the domain as a property, verify it with the DNS TXT record, then open Sitemaps and submit `sitemap.xml`.

@@ -2,7 +2,7 @@ import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
 import { CountUp } from '@/components/shared/count-up'
 import { Sparkline } from '@/components/shared/sparkline'
 import { SpotlightCard } from '@/components/shared/spotlight-card'
-import type { Kpi } from '@/data/sample'
+import type { Kpi } from '@/data/showcase'
 import { cn } from '@/lib/utils'
 
 export function KpiCard({ kpi }: { kpi: Kpi }) {
@@ -23,7 +23,7 @@ export function KpiCard({ kpi }: { kpi: Kpi }) {
         </span>
         <span className="text-xs text-muted-foreground">{kpi.deltaLabel}</span>
       </div>
-      <Sparkline data={kpi.spark} color={good ? 'var(--chart-1)' : 'var(--overdue)'} className="mt-4" label={`${kpi.label} trend, sample data`} />
+      <Sparkline data={kpi.spark} color={good ? 'var(--chart-1)' : 'var(--overdue)'} className="mt-4" label={`${kpi.label} trend, January to July`} />
     </SpotlightCard>
   )
 }

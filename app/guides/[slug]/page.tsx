@@ -74,10 +74,10 @@ export default async function GuidePage({ params }: Params) {
 
       <aside className="card-glass mt-14 flex flex-col gap-4 p-6 sm:p-8" aria-label="Try Plot Ledge">
         <h2 className="t-h3">See it with your own plots</h2>
-        <p className="measure text-muted-foreground">Book a free demo and we will set up a sample project with installments, receipts and slips.</p>
+        <p className="measure text-muted-foreground">Book a free demo and we will set up a few of your own plots with installments, receipts and slips.</p>
         <div className="flex flex-col gap-3 sm:flex-row">
           <ButtonLink href={DEMO_URL}>Book a free demo</ButtonLink>
-          <ButtonLink href={whatsappLink()} variant="whatsapp"><MessageCircle aria-hidden="true" /> Chat on WhatsApp</ButtonLink>
+          <ButtonLink href={whatsappLink()} variant="secondary"><MessageCircle aria-hidden="true" /> Chat on WhatsApp</ButtonLink>
         </div>
       </aside>
 

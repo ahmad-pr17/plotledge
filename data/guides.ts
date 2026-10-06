@@ -49,7 +49,7 @@ export const guides: Guide[] = [
       { type: 'h2', text: 'Separate the slip from the receipt' },
       { type: 'p', text: 'The slip is what the buyer gets from the bank, with a reference number. The receipt is what you give back to confirm that you accepted the money. Keep both, and link them to each other and to the deal.' },
       { type: 'h2', text: 'Give every receipt a unique ID' },
-      { type: 'p', text: 'Use a running number that never repeats, for example the year plus a sequence. Unique IDs stop duplicate receipts and make an audit simple: any receipt can be found from its number alone. Handwritten books make this hard, because pages get lost and numbers get skipped.' },
+      { type: 'p', text: 'Use a running number that never repeats, such as the year plus a sequence. Unique IDs stop duplicate receipts and make an audit simple: any receipt can be found from its number alone. Handwritten books make this hard, because pages get lost and numbers get skipped.' },
       { type: 'h2', text: 'Record these fields every time' },
       { type: 'ul', items: ['Receipt ID and date.', 'Buyer name and plot number.', 'Amount, and which installment it covers.', 'Payment method: cash, bank transfer, cheque or other.', 'Slip or reference number for anything that is not cash.', 'Who received the payment.'] },
       { type: 'h2', text: 'Reconcile weekly against the bank' },
@@ -68,7 +68,7 @@ export const guides: Guide[] = [
     body: [
       { type: 'p', text: 'Plot projects are often funded by several people: a few partners buy land, develop it and sell plots over time. Disagreements rarely start with the profit itself. They start because nobody wrote down who put in what, and which costs came off before profit. Here is a clean way to handle it.' },
       { type: 'h2', text: 'Write down contributions first' },
-      { type: 'p', text: 'Record each investor, the amount and the date. Share percentages follow from contributions: if one partner puts in 90 lakh of a 200 lakh project, their share is 45 percent. Agree this in writing before the first plot is sold, and keep the figures in your ledger.' },
+      { type: 'p', text: 'Record each investor, the amount and the date. Share percentages follow from contributions: if one partner puts in Rs 9 million of a Rs 20 million project, their share is 45 percent. Agree this in writing before the first plot is sold, and keep the figures in your ledger.' },
       { type: 'h2', text: 'Agree what counts as a project cost' },
       { type: 'p', text: 'Profit is sale proceeds minus costs, so the list of costs matters. Typical items are land price, development, legal and transfer fees, marketing and agent commission. Decide this list up front, and record each expense against the project.' },
       { type: 'h2', text: 'Calculate profit as sales come in' },

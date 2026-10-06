@@ -2,13 +2,13 @@
 
 import { motion, useScroll, useSpring } from 'motion/react'
 import Link from 'next/link'
-import { MessageCircle, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ButtonLink } from '@/components/shared/button-link'
 import { Logo } from '@/components/shared/logo'
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { CRM_LOGIN_URL, DEMO_URL, NAV_LINKS, whatsappLink } from '@/lib/site'
+import { CRM_LOGIN_URL, DEMO_URL, NAV_LINKS } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 export function Navbar() {
@@ -45,7 +45,6 @@ export function Navbar() {
         <div className="hidden items-center gap-2 lg:flex">
           <ThemeToggle />
           <ButtonLink href={CRM_LOGIN_URL} variant="ghost">Log in</ButtonLink>
-          <ButtonLink href={CRM_LOGIN_URL} variant="secondary">Open the CRM</ButtonLink>
           <ButtonLink href={DEMO_URL}>Book a free demo</ButtonLink>
         </div>
 
@@ -76,11 +75,7 @@ export function Navbar() {
                 ))}
                 <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5">
                   <ButtonLink href={DEMO_URL} size="lg" onClick={() => setOpen(false)}>Book a free demo</ButtonLink>
-                  <ButtonLink href={CRM_LOGIN_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>Open the CRM</ButtonLink>
-                  <ButtonLink href={whatsappLink()} variant="whatsapp" size="lg">
-                    <MessageCircle /> Chat on WhatsApp
-                  </ButtonLink>
-                  <ButtonLink href={CRM_LOGIN_URL} variant="ghost" onClick={() => setOpen(false)}>Log in</ButtonLink>
+                  <ButtonLink href={CRM_LOGIN_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>Log in</ButtonLink>
                 </div>
               </nav>
             </SheetContent>

@@ -30,12 +30,12 @@ export function RoleViews() {
   return (
     <Section id="roles">
       <SectionHeading
-        eyebrow="Role-based views"
-        title={<>Same records, <span className="grad-text">different jobs.</span></>}
-        description="Owners, accountants and sales agents each get the screens they need and nothing more."
+        eyebrow="Your team"
+        title="Same records, different jobs."
+        description="The Owner, the Accountant and the Sales Agent each get their own login and see what they need."
       />
       <Reveal className="mt-10">
-        <div role="tablist" aria-label="Team roles" className="flex w-full gap-1 overflow-x-auto rounded-2xl border border-border bg-card p-1 sm:w-fit">
+        <div role="tablist" aria-label="Team roles" className="flex w-full gap-1 overflow-x-auto rounded-full border border-border bg-card p-1 sm:w-fit">
           {roles.map((r, i) => {
             const selected = r.id === active
             return (
@@ -51,14 +51,14 @@ export function RoleViews() {
                 onClick={() => setActive(r.id)}
                 onKeyDown={(e) => onKeyDown(e, i)}
                 className={cn(
-                  'relative min-h-11 flex-1 whitespace-nowrap rounded-xl px-4 text-sm font-semibold transition-colors sm:flex-none sm:px-6',
+                  'relative min-h-11 flex-1 whitespace-nowrap rounded-full px-4 text-sm font-semibold transition-colors sm:flex-none sm:px-6',
                   selected ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground',
                 )}
               >
                 {selected && (
                   <motion.span
                     layoutId="role-indicator"
-                    className="absolute inset-0 rounded-xl bg-primary"
+                    className="absolute inset-0 rounded-full bg-primary"
                     transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 34 }}
                   />
                 )}

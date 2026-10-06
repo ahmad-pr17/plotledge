@@ -7,24 +7,19 @@ import { Hero } from '@/components/sections/hero'
 import { HowItWorks } from '@/components/sections/how-it-works'
 import { Navbar } from '@/components/sections/navbar'
 import { ProblemSolution } from '@/components/sections/problem-solution'
-import { SocialProof } from '@/components/sections/social-proof'
+import { TrustStrip } from '@/components/sections/trust-strip'
 import { faqJsonLd, jsonLdString } from '@/lib/jsonld'
 
 // Below-the-fold sections with charts and interactive widgets are split into their own chunks.
 // They still render on the server, so the content stays in the HTML for search engines.
 const DashboardShowcase = dynamic(() => import('@/components/sections/dashboard-showcase').then((m) => m.DashboardShowcase))
+const DealShowcase = dynamic(() => import('@/components/sections/deal-showcase').then((m) => m.DealShowcase))
 const RoleViews = dynamic(() => import('@/components/sections/role-views').then((m) => m.RoleViews))
-const InstallmentDemo = dynamic(() => import('@/components/sections/installment-demo').then((m) => m.InstallmentDemo))
-const PlotMapDeal = dynamic(() => import('@/components/sections/plot-map-deal').then((m) => m.PlotMapDeal))
-const ExportsIntegrations = dynamic(() => import('@/components/sections/exports-integrations').then((m) => m.ExportsIntegrations))
-const ComparisonTable = dynamic(() => import('@/components/sections/comparison-table').then((m) => m.ComparisonTable))
-const UseCases = dynamic(() => import('@/components/sections/use-cases').then((m) => m.UseCases))
 const SavingsCalculator = dynamic(() => import('@/components/sections/savings-calculator').then((m) => m.SavingsCalculator))
-const SecurityTrust = dynamic(() => import('@/components/sections/security-trust').then((m) => m.SecurityTrust))
 const Testimonials = dynamic(() => import('@/components/sections/testimonials').then((m) => m.Testimonials))
+const SecurityNote = dynamic(() => import('@/components/sections/security-note').then((m) => m.SecurityNote))
 const Pricing = dynamic(() => import('@/components/sections/pricing').then((m) => m.Pricing))
 const Faq = dynamic(() => import('@/components/sections/faq').then((m) => m.Faq))
-const GuidesPreview = dynamic(() => import('@/components/sections/guides-preview').then((m) => m.GuidesPreview))
 
 export default function Page() {
   return (
@@ -38,23 +33,18 @@ export default function Page() {
       <Navbar />
       <main id="content">
         <Hero />
-        <SocialProof />
+        <TrustStrip />
         <ProblemSolution />
         <BentoFeatures />
         <HowItWorks />
         <DashboardShowcase />
+        <DealShowcase />
         <RoleViews />
-        <InstallmentDemo />
-        <PlotMapDeal />
-        <ExportsIntegrations />
-        <ComparisonTable />
-        <UseCases />
         <SavingsCalculator />
-        <SecurityTrust />
         <Testimonials />
+        <SecurityNote />
         <Pricing />
         <Faq />
-        <GuidesPreview />
         <FinalCta />
       </main>
       <Footer />

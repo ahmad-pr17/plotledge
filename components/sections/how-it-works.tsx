@@ -20,8 +20,8 @@ export function HowItWorks() {
       <SectionHeading
         tone="deep"
         eyebrow="How it works"
-        title={<>From listing a plot <span className="text-amber-300">to the last installment.</span></>}
-        description="Three steps, and your installment tracking runs from one screen."
+        title="Three steps, from the first plot to the last installment."
+        description="Set it up once. After that, every payment is one entry."
       />
       <ol className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
         <div aria-hidden="true" className="absolute left-[16.6%] right-[16.6%] top-6 hidden h-px bg-white/15 md:block">

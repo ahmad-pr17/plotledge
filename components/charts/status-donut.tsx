@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react'
 import { CountUp } from '@/components/shared/count-up'
-import { paymentStatus } from '@/data/sample'
+import { paymentStatus } from '@/data/showcase'
 import { ChartFrame, useDrawIn } from './chart-frame'
 
 const R = 70
@@ -12,7 +12,7 @@ const COLORS = { paid: 'var(--paid)', pending: 'var(--pending)', overdue: 'var(-
 export function StatusDonut() {
   const { ref, show, reduce } = useDrawIn<HTMLDivElement>()
   const total = paymentStatus.reduce((a, s) => a + s.count, 0)
-  const summary = `Sample data. ${total} installments: ${paymentStatus.map((s) => `${s.count} ${s.label.toLowerCase()}`).join(', ')}.`
+  const summary = `${total} installments: ${paymentStatus.map((s) => `${s.count} ${s.label.toLowerCase()}`).join(', ')}.`
   let offset = 0
   const GAP = 3
 
