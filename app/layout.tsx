@@ -1,125 +1,63 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google'
-import { faqs } from '@/lib/faqs'
+import { Bricolage_Grotesque, Inter } from 'next/font/google'
+import { jsonLdString, siteJsonLd } from '@/lib/jsonld'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site'
 import './globals.css'
 
-// Every entry describes content visible on the page. No ratings, reviews, prices or addresses are claimed.
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${SITE_URL}/#organization`,
-      name: SITE_NAME,
-      url: `${SITE_URL}/`,
-      logo: `${SITE_URL}/apple-icon.png`,
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_URL}/#website`,
-      url: `${SITE_URL}/`,
-      name: SITE_NAME,
-      publisher: { '@id': `${SITE_URL}/#organization` },
-      inLanguage: 'en',
-    },
-    {
-      '@type': 'WebPage',
-      '@id': `${SITE_URL}/#webpage`,
-      url: `${SITE_URL}/`,
-      name: SITE_TITLE,
-      description: SITE_DESCRIPTION,
-      isPartOf: { '@id': `${SITE_URL}/#website` },
-      about: { '@id': `${SITE_URL}/#software` },
-    },
-    {
-      '@type': 'SoftwareApplication',
-      '@id': `${SITE_URL}/#software`,
-      name: SITE_NAME,
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Web',
-      description: SITE_DESCRIPTION,
-      url: `${SITE_URL}/`,
-      publisher: { '@id': `${SITE_URL}/#organization` },
-      offers: [
-        { '@type': 'Offer', name: 'Starter', price: 0, priceCurrency: 'PKR' },
-        {
-          '@type': 'Offer',
-          name: 'Growth',
-          price: 2999,
-          priceCurrency: 'PKR',
-          priceSpecification: { '@type': 'UnitPriceSpecification', price: 2999, priceCurrency: 'PKR', billingDuration: 'P1M' },
-        },
-      ],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqs.map(([name, text]) => ({
-        '@type': 'Question',
-        name,
-        acceptedAnswer: { '@type': 'Answer', text },
-      })),
-    },
-  ],
-}
+// Inter for UI text, Bricolage Grotesque for headlines. Money uses tabular numbers via the .num class.
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
+const display = Bricolage_Grotesque({ subsets: ['latin'], variable: '--font-bricolage', display: 'swap', axes: ['opsz'] })
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-jakarta' })
+const FULL_TITLE = `${SITE_TITLE} | ${SITE_NAME}`
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_TITLE,
+  title: { default: FULL_TITLE, template: `%s | ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    'plot management software',
+    'real estate CRM Pakistan',
+    'property dealer software',
+    'installment tracking software',
+    'plot installment management system',
+    'property CRM Lahore',
+    'real estate software for housing societies',
+  ],
   alternates: { canonical: '/' },
-  openGraph: {
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-    type: 'website',
-    siteName: SITE_NAME,
-    url: '/',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: SITE_TITLE,
-    description: SITE_DESCRIPTION,
-  },
+  openGraph: { title: FULL_TITLE, description: SITE_DESCRIPTION, type: 'website', siteName: SITE_NAME, url: '/', locale: 'en_PK' },
+  twitter: { card: 'summary_large_image', title: FULL_TITLE, description: SITE_DESCRIPTION },
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
     apple: '/apple-icon.png',
   },
 }
 
+// Theme colors are the site background in each mode.
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: light)', color: '#faf8f3' },
+    { media: '(prefers-color-scheme: dark)', color: '#0b1f17' },
   ],
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+// Runs before first paint so the saved theme never flashes.
+const themeScript = `try{var t=localStorage.getItem('theme');if(t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark')}catch(e){}`
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} ${jakarta.variable} antialiased`}>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(siteJsonLd()) }} />
+      </head>
+      <body className={`${inter.variable} ${display.variable}`}>
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
