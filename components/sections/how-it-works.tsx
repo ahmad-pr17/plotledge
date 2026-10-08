@@ -40,9 +40,15 @@ export function HowItWorks() {
           const Icon = s.icon
           return (
             <Reveal as="li" key={s.n} delay={i * 0.12} className="relative flex gap-5 md:block md:text-center">
-              <span className="num relative z-10 grid size-12 shrink-0 place-items-center rounded-2xl bg-amber-400 font-display text-lg font-bold text-emerald-950 shadow-lg shadow-amber-500/20 md:mx-auto">
+              <motion.span
+                className="num relative z-10 grid size-12 shrink-0 place-items-center rounded-2xl bg-amber-400 font-display text-lg font-bold text-emerald-950 shadow-lg shadow-amber-500/20 md:mx-auto"
+                initial={reduce ? false : { scale: 0.6 }}
+                whileInView={{ scale: 1, boxShadow: ['0 0 0 0 rgb(251 191 36 / .6)', '0 0 0 18px rgb(251 191 36 / 0)'] }}
+                viewport={{ once: true, margin: '0px 0px -20% 0px' }}
+                transition={{ type: 'spring', stiffness: 300, damping: 14, delay: 0.2 + i * 0.45, boxShadow: { type: 'tween', duration: 1.1, delay: 0.2 + i * 0.45 } }}
+              >
                 {s.n}
-              </span>
+              </motion.span>
               <div className="md:mt-6">
                 <Icon className="mb-3 hidden size-5 text-emerald-300 md:mx-auto md:block" aria-hidden="true" />
                 <h3 className="t-h3 text-white">{s.title}</h3>

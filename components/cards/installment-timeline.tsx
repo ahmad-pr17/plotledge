@@ -46,9 +46,18 @@ export function InstallmentTimeline({ className }: { className?: string }) {
                   transition={{ duration: 0.5, delay: 0.1 + i * 0.12, ease: EASE }}
                 />
               )}
-              <span className={cn('relative z-10 grid size-8 shrink-0 place-items-center rounded-full', meta.chip)}>
-                <Icon className="size-4" aria-hidden="true" />
-              </span>
+              <motion.span
+                className={cn('relative z-10 grid size-8 shrink-0 place-items-center rounded-full', meta.chip)}
+                initial={reduce ? false : { scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ type: 'spring', stiffness: 420, damping: 16, delay: 0.1 + i * 0.12 }}
+              >
+                {!reduce && (step.state === 'due' || step.state === 'overdue') && (
+                  <span aria-hidden="true" className={cn('absolute inset-0 animate-ping rounded-full opacity-40', step.state === 'due' ? 'bg-pending' : 'bg-overdue')} />
+                )}
+                <Icon className="relative size-4" aria-hidden="true" />
+              </motion.span>
               <div className="flex min-w-0 flex-1 items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-sm font-medium leading-8">{step.label}</p>

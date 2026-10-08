@@ -1,6 +1,7 @@
 'use client'
 
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react'
+import { useEffect, useState } from 'react'
 import { BarChart3, CheckCircle2, Handshake, LayoutGrid, Receipt, Settings, TriangleAlert, Users } from 'lucide-react'
 import { CountUp } from '@/components/shared/count-up'
 import { Sparkline } from '@/components/shared/sparkline'
@@ -10,6 +11,11 @@ import { formatRs } from '@/lib/format'
 
 const rail = [LayoutGrid, Handshake, Receipt, Users, BarChart3, Settings]
 const recent = installments.filter((i) => ['i1', 'i2', 'i5'].includes(i.id))
+const events = [
+  { icon: CheckCircle2, tone: 'bg-paid-soft text-paid-ink', title: 'Payment received', sub: `${formatRs(receipt.amount)} for A-104` },
+  { icon: Receipt, tone: 'bg-primary/10 text-primary', title: 'Receipt issued', sub: receipt.id },
+  { icon: Handshake, tone: 'bg-pending-soft text-pending-ink', title: 'Plot B-207 booked', sub: 'Down payment recorded' },
+]
 const sparkColor = ['var(--chart-4)', 'var(--chart-4)', 'var(--chart-5)']
 
 function Float({ children, className, depth, mx, my, delay }: { children: React.ReactNode; className: string; depth: number; mx: ReturnType<typeof useSpring>; my: ReturnType<typeof useSpring>; delay: number }) {
@@ -30,6 +36,13 @@ function Float({ children, className, depth, mx, my, delay }: { children: React.
 
 export function HeroPreview() {
   const reduce = useReducedMotion()
+  const [ev, setEv] = useState(0)
+  useEffect(() => {
+    if (reduce) return
+    const t = setInterval(() => setEv((n) => (n + 1) % events.length), 3200)
+    return () => clearInterval(t)
+  }, [reduce])
+  const E = events[ev]
   const max = Math.max(...collectionsM)
   const rx = useMotionValue(0)
   const ry = useMotionValue(0)
@@ -57,7 +70,13 @@ export function HeroPreview() {
             <span className="size-2.5 rounded-full bg-white/20" />
           </div>
           <span className="text-xs font-medium text-white/70">Overview</span>
-          <span className="w-12" aria-hidden />
+          <span className="flex w-12 items-center justify-end gap-1.5 text-[10px] font-medium text-emerald-300" aria-hidden>
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+            </span>
+            Live
+          </span>
         </div>
         <div className="flex">
           <div className="hidden w-12 shrink-0 flex-col items-center gap-3 border-r border-white/10 py-4 sm:flex" aria-hidden>
@@ -121,12 +140,30 @@ export function HeroPreview() {
       </motion.div>
 
       <Float mx={mx} my={my} depth={reduce ? 0 : 10} delay={1.0} className="absolute -left-1 bottom-0 z-10 sm:-left-6">
-        <div className="card-solid flex items-center gap-2.5 px-3 py-2.5 shadow-xl">
-          <span className="grid size-8 place-items-center rounded-full bg-paid-soft text-paid-ink"><CheckCircle2 className="size-4" /></span>
-          <div className="text-xs leading-tight">
-            <p className="font-semibold text-foreground">Payment received</p>
-            <p className="num text-muted-foreground">{formatRs(receipt.amount)} for A-104</p>
-          </div>
+        <div className="card-solid w-52 overflow-hidden px-3 py-2.5 shadow-xl">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={ev}
+              className="flex items-center gap-2.5"
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <motion.span
+                className={`grid size-8 shrink-0 place-items-center rounded-full ${E.tone}`}
+                initial={reduce ? false : { scale: 0.4 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 12 }}
+              >
+                <E.icon className="size-4" />
+              </motion.span>
+              <div className="min-w-0 text-xs leading-tight">
+                <p className="font-semibold text-foreground">{E.title}</p>
+                <p className="num truncate text-muted-foreground">{E.sub}</p>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </Float>
       <Float mx={mx} my={my} depth={reduce ? 0 : -14} delay={1.3} className="absolute -right-1 top-24 z-10 hidden sm:-right-5 sm:block">

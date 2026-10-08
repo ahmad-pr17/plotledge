@@ -2,7 +2,7 @@
 
 import { motion, useInView, useReducedMotion } from 'motion/react'
 import { LayoutGrid } from 'lucide-react'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { plots, type PlotStatus } from '@/data/showcase'
 import { formatRs } from '@/lib/format'
 import { cn } from '@/lib/utils'
@@ -33,11 +33,26 @@ export function PlotMap({ className }: { className?: string }) {
   const seen = useInView(gridRef, { once: true, margin: '0px 0px -10% 0px' })
   const show = reduce || seen
 
+  const [live, setLive] = useState<Record<string, PlotStatus>>({})
+  const [pulse, setPulse] = useState<string | null>(null)
+  useEffect(() => {
+    if (reduce || !seen) return
+    const next: Record<PlotStatus, PlotStatus> = { available: 'booked', booked: 'sold', sold: 'sold' }
+    const t = setInterval(() => {
+      const open = plots.filter((p) => (live[p.id] ?? p.status) !== 'sold')
+      if (!open.length) return
+      const p = open[Math.floor(Math.random() * open.length)]
+      setLive((l) => ({ ...l, [p.id]: next[l[p.id] ?? p.status] }))
+      setPulse(p.id)
+    }, 2600)
+    return () => clearInterval(t)
+  }, [reduce, seen, live])
+
   const counts = useMemo(() => {
     const c: Record<PlotStatus, number> = { available: 0, booked: 0, sold: 0 }
-    plots.forEach((p) => { c[p.status] += 1 })
+    plots.forEach((p) => { c[live[p.id] ?? p.status] += 1 })
     return c
-  }, [])
+  }, [live])
   const blocks = useMemo(() => {
     const map = new Map<string, typeof plots>()
     plots.forEach((p) => {
@@ -74,7 +89,8 @@ export function PlotMap({ className }: { className?: string }) {
             <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Block {block}</p>
             <div className="grid grid-cols-5 gap-1.5 sm:grid-cols-10">
               {items.map((p, i) => {
-                const dim = filter !== null && filter !== p.status
+                const st = live[p.id] ?? p.status
+                const dim = filter !== null && filter !== st
                 return (
                   <motion.div
                     key={p.id}
@@ -83,11 +99,22 @@ export function PlotMap({ className }: { className?: string }) {
                     animate={{ opacity: show ? (dim ? 0.28 : 1) : 0, scale: show ? 1 : 0.85 }}
                     transition={{ duration: 0.35, delay: reduce ? 0 : (bi * 10 + i) * 0.008 }}
                   >
+                    {pulse === p.id && (
+                      <motion.span
+                        key={`${p.id}-${st}`}
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 rounded-lg border-2"
+                        style={{ borderColor: swatch[st] }}
+                        initial={{ opacity: 0.9, scale: 1 }}
+                        animate={{ opacity: 0, scale: 1.7 }}
+                        transition={{ duration: 1.1, ease: 'easeOut' }}
+                      />
+                    )}
                     <button
                       type="button"
-                      aria-label={`Plot ${p.id}, ${p.size}, ${formatRs(p.price)}, ${LABEL[p.status]}`}
-                      className="num grid h-11 w-full place-items-center rounded-lg border text-[11px] font-semibold transition-transform hover:scale-105 focus-visible:scale-105"
-                      style={cellStyle[p.status]}
+                      aria-label={`Plot ${p.id}, ${p.size}, ${formatRs(p.price)}, ${LABEL[st]}`}
+                      className="num grid h-11 w-full place-items-center rounded-lg border text-[11px] font-semibold transition-[transform,background-color,border-color] duration-500 hover:scale-105 focus-visible:scale-105"
+                      style={cellStyle[st]}
                     >
                       {p.id.slice(2)}
                     </button>
@@ -101,7 +128,7 @@ export function PlotMap({ className }: { className?: string }) {
                       <span className="block font-semibold">Plot {p.id}</span>
                       <span className="block text-emerald-100/80">{p.size}</span>
                       <span className="num block">{formatRs(p.price)}</span>
-                      <span className="block text-amber-300">{LABEL[p.status]}</span>
+                      <span className="block text-amber-300">{LABEL[st]}</span>
                     </span>
                   </motion.div>
                 )
