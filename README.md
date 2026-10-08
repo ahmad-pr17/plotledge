@@ -67,7 +67,7 @@ Create a `.env.local` file in the project root. Both variables are optional.
 
 | Variable | Default | Description |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | `https://plotledge.com` | Origin used for the canonical URL, sitemap, robots and structured data |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.plotledge.com` | Origin used for the canonical URL, sitemap, robots and structured data |
 | `NEXT_PUBLIC_CRM_URL` | `https://realestatemanager-chi.vercel.app/login` | Destination of the "Log in" and "Open the CRM" buttons |
 
 ## Available scripts
@@ -104,7 +104,7 @@ public/                  Static assets and favicons
 - When adding a page, add it to `app/sitemap.ts` and give it its own title, description and `alternates.canonical`.
 - Structured data must describe content that is visible on the page. Do not add ratings, reviews, addresses or other details the page does not show.
 - Keep one `h1` per page and do not skip heading levels.
-- After deploying, verify the domain in Google Search Console and submit `https://plotledge.com/sitemap.xml`.
+- After deploying, verify the domain in Google Search Console and submit `https://www.plotledge.com/sitemap.xml`.
 
 ## Regional pricing
 

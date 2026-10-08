@@ -1,5 +1,5 @@
 // Production origin used for canonical URLs, sitemap and structured data.
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://plotledge.com').replace(/\/$/, '')
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.plotledge.com').replace(/\/$/, '')
 
 export const SITE_NAME = 'Plot Ledge'
 export const SITE_TITLE = 'Plot Management Software for Property Dealers'
