@@ -8,7 +8,7 @@ export type LeadState = {
   errors?: Record<string, string>
 }
 
-const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923000000000'
+const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923196796717'
 
 export async function submitLead(_prev: LeadState, form: FormData): Promise<LeadState> {
   // Honeypot: real people never fill this hidden field. Pretend success for bots.

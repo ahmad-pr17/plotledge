@@ -9,10 +9,10 @@ export const SITE_DESCRIPTION =
 export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://realestatemanager-chi.vercel.app/login'
 
 // Set the real WhatsApp number (international format, digits only) in .env.local or in Vercel.
-export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923000000000'
+export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923196796717'
 // Set the real contact details in .env.local or in Vercel.
 export const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? 'hello@plotledge.com'
-export const CONTACT_PHONE_DISPLAY = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '+92 300 0000000'
+export const CONTACT_PHONE_DISPLAY = process.env.NEXT_PUBLIC_CONTACT_PHONE ?? '+92 319 6796717'
 export const CONTACT_CITY = 'Lahore, Pakistan'
 
 export const DEMO_URL = '/contact#demo'
