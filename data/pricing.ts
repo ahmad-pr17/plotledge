@@ -15,7 +15,7 @@ export const TRIAL = {
   highlights: ['15 days, no payment needed', '2 team members', 'Up to 25 plots', 'Deals, installments and receipts'],
 }
 
-export type PlanId = 'starter' | 'growth' | 'business' | 'enterprise'
+export type PlanId = 'trial' | 'starter' | 'growth' | 'business' | 'enterprise'
 
 export type Plan = {
   id: PlanId
@@ -27,6 +27,17 @@ export type Plan = {
   yearlyTotal: number | null
   popular?: boolean
   highlights: string[]
+}
+
+/** Shown first on the pricing section. Not part of `plans`, so it never reaches the price lists. */
+export const trialPlan: Plan = {
+  id: 'trial',
+  name: 'Trial',
+  blurb: `Try Plot Ledge for ${TRIAL.days} days before you choose a plan.`,
+  monthly: 0,
+  yearlyPerMonth: 0,
+  yearlyTotal: null,
+  highlights: [`${TRIAL.days} days, no payment needed`, `${TRIAL.users} team members`, `Up to ${TRIAL.plots} plots`, 'Deals, installments and receipts', 'Receipts with unique IDs'],
 }
 
 export const plans: Plan[] = [
@@ -72,7 +83,7 @@ export const plans: Plan[] = [
 /** Cell value: true is a check, false is a dash, a string is shown as text. */
 export type Cell = boolean | string
 
-export type ComparisonRow = { feature: string } & Record<PlanId, Cell>
+export type ComparisonRow = { feature: string } & Record<Exclude<PlanId, 'trial'>, Cell>
 
 export const comparisonRows: ComparisonRow[] = [
   { feature: 'Plots', starter: 'Up to 100', growth: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited' },
