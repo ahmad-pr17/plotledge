@@ -39,7 +39,7 @@ export default function TermsPage() {
             <li>Give team members only the role they need.</li>
           </ul>
           <h2>Your data</h2>
-          <p>The records you store belong to you. See the privacy policy for how we handle information collected through this website.</p>
+          <p>The records you store belong to you. See the <a className="font-semibold text-primary underline" href="/privacy">privacy policy</a> for how we handle information collected through this website, and the <a className="font-semibold text-primary underline" href="/refund-policy">refund and cancellation policy</a> for how trials and billing work.</p>
           <h2>Liability</h2>
           <p>We work to keep the service available and accurate, but we provide it as is. To the extent the law allows, we are not liable for indirect losses. Keep your own copies of important records, such as by exporting reports.</p>
           <h2>Contact</h2>

@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/guides`, lastModified: latest, changeFrequency: 'monthly', priority: 0.7 },
     ...guides.map((g) => ({ url: `${SITE_URL}/guides/${g.slug}`, lastModified: g.date, changeFrequency: 'yearly' as const, priority: 0.6 })),
     { url: `${SITE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${SITE_URL}/cookie-policy`, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${SITE_URL}/refund-policy`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/terms`, changeFrequency: 'yearly', priority: 0.2 },
   ]
 }

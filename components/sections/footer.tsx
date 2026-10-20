@@ -19,8 +19,6 @@ const columns: { heading: string; links: { label: string; href: string }[] }[] =
     links: [
       { label: 'Contact', href: '/contact' },
       { label: 'Guides', href: '/guides' },
-      { label: 'Privacy policy', href: '/privacy' },
-      { label: 'Terms of service', href: '/terms' },
     ],
   },
   {
@@ -28,6 +26,15 @@ const columns: { heading: string; links: { label: string; href: string }[] }[] =
     links: [
       { label: 'Book a free demo', href: '/contact#demo' },
       { label: 'Log in to the CRM', href: CRM_LOGIN_URL },
+    ],
+  },
+  {
+    heading: 'Legal',
+    links: [
+      { label: 'Privacy policy', href: '/privacy' },
+      { label: 'Cookie policy', href: '/cookie-policy' },
+      { label: 'Refund policy', href: '/refund-policy' },
+      { label: 'Terms of service', href: '/terms' },
     ],
   },
 ]
@@ -48,7 +55,7 @@ export function Footer() {
               <li className="flex min-h-11 items-center gap-2"><MapPin className="size-4 shrink-0" aria-hidden /> {CONTACT_CITY}</li>
             </ul>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {columns.map((c) => (
               <nav key={c.heading} aria-label={c.heading}>
                 <p className="font-display text-sm font-semibold text-white">{c.heading}</p>
