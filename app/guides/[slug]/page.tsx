@@ -6,7 +6,7 @@ import { GuideCard } from '@/components/cards/guide-card'
 import { PageShell } from '@/components/sections/page-shell'
 import { ButtonLink } from '@/components/shared/button-link'
 import { getGuide, guides } from '@/data/guides'
-import { jsonLdString } from '@/lib/jsonld'
+import { breadcrumbJsonLd, jsonLdString } from '@/lib/jsonld'
 import { DEMO_URL, SITE_NAME, SITE_URL, whatsappLink } from '@/lib/site'
 
 type Params = { params: Promise<{ slug: string }> }
@@ -45,11 +45,17 @@ export default async function GuidePage({ params }: Params) {
     author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
     publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
   }
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Guides', path: '/guides' },
+    { name: guide.title, path: `/guides/${guide.slug}` },
+  ])
   const dateLabel = new Date(guide.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
 
   return (
     <PageShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumbs) }} />
       <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
         <ol className="flex flex-wrap items-center gap-1">
           <li><Link href="/" className="inline-flex min-h-11 items-center hover:text-foreground">Home</Link></li>

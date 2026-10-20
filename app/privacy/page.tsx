@@ -2,11 +2,16 @@ import type { Metadata } from 'next'
 import { PageShell } from '@/components/sections/page-shell'
 import { CONTACT_EMAIL } from '@/lib/site'
 
+const TITLE = 'Privacy policy'
+const DESCRIPTION = 'How Plot Ledge handles information collected through this website and the contact form.'
+
 export const metadata: Metadata = {
-  title: 'Privacy policy',
-  description: 'How Plot Ledge handles information collected through this website and the contact form.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/privacy' },
   robots: { index: true, follow: true },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: 'website', url: '/privacy' },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
 const LAST_UPDATED = '1 October 2026'

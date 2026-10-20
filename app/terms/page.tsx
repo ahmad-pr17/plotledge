@@ -2,11 +2,16 @@ import type { Metadata } from 'next'
 import { PageShell } from '@/components/sections/page-shell'
 import { CONTACT_EMAIL } from '@/lib/site'
 
+const TITLE = 'Terms of use'
+const DESCRIPTION = 'The terms for using the Plot Ledge website and service, including plans and acceptable use.'
+
 export const metadata: Metadata = {
-  title: 'Terms of use',
-  description: 'The terms for using the Plot Ledge website and service, including plans and acceptable use.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/terms' },
   robots: { index: true, follow: true },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: 'website', url: '/terms' },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
 const LAST_UPDATED = '1 October 2026'

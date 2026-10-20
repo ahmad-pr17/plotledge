@@ -5,10 +5,15 @@ import { PageShell } from '@/components/sections/page-shell'
 import { ButtonLink } from '@/components/shared/button-link'
 import { CONTACT_CITY, CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, whatsappLink } from '@/lib/site'
 
+const TITLE = 'Contact and book a demo'
+const DESCRIPTION = 'Book a free demo of Plot Ledge, the plot management software for property dealers. Send a message or chat on WhatsApp.'
+
 export const metadata: Metadata = {
-  title: 'Contact and book a demo',
-  description: 'Book a free demo of Plot Ledge, the plot management software for property dealers. Send a message or chat on WhatsApp.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/contact' },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: 'website', url: '/contact' },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
 const steps = [
