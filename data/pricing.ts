@@ -7,6 +7,14 @@ export const BUSINESS_MONTHLY = 24999
 export const BUSINESS_YEARLY = 239990
 export const YEARLY_SAVING_PERCENT = 20
 
+/** Free trial offered before any paid plan. Limits are fixed so the trial stays small. */
+export const TRIAL = {
+  days: 15,
+  users: 2,
+  plots: 25,
+  highlights: ['15 days, no payment needed', '2 team members', 'Up to 25 plots', 'Deals, installments and receipts'],
+}
+
 export type PlanId = 'starter' | 'growth' | 'business' | 'enterprise'
 
 export type Plan = {

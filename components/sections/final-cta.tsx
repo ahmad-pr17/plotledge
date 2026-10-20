@@ -17,7 +17,7 @@ export function FinalCta() {
           <ButtonLink href={CRM_LOGIN_URL} variant="deep" size="lg">Open the CRM</ButtonLink>
         </div>
         <p className="mt-6 text-sm text-emerald-100/80">
-          Plans from Rs 9,999 a month.{' '}
+          15-day free trial, no payment needed.{' '}
           <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1.5 font-semibold text-white underline underline-offset-4">
             <MessageCircle className="size-4" aria-hidden /> Chat on WhatsApp
           </a>

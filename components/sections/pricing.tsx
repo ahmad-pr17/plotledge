@@ -1,6 +1,7 @@
 'use client'
 
-import { ChevronDown } from 'lucide-react'
+import { Check, ChevronDown } from 'lucide-react'
+import { ButtonLink } from '@/components/shared/button-link'
 import { useEffect, useState } from 'react'
 import { PricingCard } from '@/components/cards/pricing-card'
 import { PricingTable } from '@/components/sections/pricing-table'
@@ -9,7 +10,8 @@ import { Section } from '@/components/shared/container'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { detectCurrency } from '@/lib/currency'
 import { cn } from '@/lib/utils'
-import { plans, YEARLY_SAVING_PERCENT } from '@/data/pricing'
+import { DEMO_URL } from '@/lib/site'
+import { plans, TRIAL, YEARLY_SAVING_PERCENT } from '@/data/pricing'
 
 export function Pricing() {
   const [yearly, setYearly] = useState(true)
@@ -50,6 +52,23 @@ export function Pricing() {
           ))}
         </div>
         {currency !== 'PKR' && <p className="text-xs text-muted-foreground">Amounts in other currencies are approximate. Billing is in rupees.</p>}
+      </Reveal>
+
+      <Reveal className="mt-10">
+        <div className="mx-auto flex max-w-4xl flex-col items-start gap-5 rounded-2xl border border-border bg-card p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div>
+            <p className="font-display text-lg font-bold tracking-tight">Try it free for {TRIAL.days} days</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              A basic trial with {TRIAL.users} team members and up to {TRIAL.plots} plots. No payment needed, and no obligation to continue.
+            </p>
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-sm">
+              {TRIAL.highlights.map((h) => (
+                <li key={h} className="flex items-center gap-1.5"><Check className="size-4 text-paid" aria-hidden="true" />{h}</li>
+              ))}
+            </ul>
+          </div>
+          <ButtonLink href={DEMO_URL} variant="primary" className="w-full shrink-0 sm:w-auto">Start your trial</ButtonLink>
+        </div>
       </Reveal>
 
       <div className="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-4 lg:items-stretch lg:gap-6">

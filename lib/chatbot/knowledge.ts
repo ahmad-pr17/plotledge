@@ -1,6 +1,6 @@
 // The only facts the assistant may state about Plot Ledge. Edit this file to change what it knows.
 // Prices come from data/pricing.ts so the site and the assistant never disagree.
-import { plans } from '@/data/pricing'
+import { plans, TRIAL } from '@/data/pricing'
 import { faqs } from '@/data/faqs'
 import { securityPoints } from '@/data/facts'
 import { CONTACT_CITY } from '@/lib/site'
@@ -34,13 +34,14 @@ Everyone logs in separately.
 
 PLANS AND PRICES (rupees)
 ${plans.map(planLine).join('\n')}
+Free trial: ${TRIAL.days} days, ${TRIAL.users} team members, up to ${TRIAL.plots} plots, no payment needed. The team sets it up after a demo request. There is no free plan after the trial.
 Prices on the website are the current prices. If someone asks about discounts, taxes or custom terms, say the team will confirm on a demo call or WhatsApp.
 
 IMPORTING EXCEL DATA
 The team can help load current plots, buyers and payments from Excel when a customer starts. The customer sends the sheet and the team checks it first and says if anything needs tidying, such as two buyers in one row.
 
 DEMO PROCESS
-The demo is free. The team asks how the dealer tracks plots and installments today, shows Plot Ledge working with plots, deals, installments and receipts, and can set up a Starter account to try with the dealer's own data. A housing society or a business with several projects should say so, and the team will cover the Enterprise plan.
+The demo is free. The team asks how the dealer tracks plots and installments today, shows Plot Ledge working with plots, deals, installments and receipts, and can set up a 15-day trial to try with the dealer's own data. A housing society or a business with several projects should say so, and the team will cover the Enterprise plan.
 
 SECURITY BASICS
 ${securityPoints.map((s) => `- ${s}`).join('\n')}

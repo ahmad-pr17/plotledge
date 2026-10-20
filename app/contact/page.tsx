@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const steps = [
   'We ask how you track plots and installments today.',
   'You see how plots, deals, installments and receipts work together.',
-  'We can set up an account if you want to try it with your own data.',
+  'We can set up a 15-day trial if you want to try it with your own data.',
 ]
 
 export default function ContactPage() {

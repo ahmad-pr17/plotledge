@@ -12,7 +12,7 @@ import { HeroPreview } from './hero-preview'
 const lead = ['Every', 'plot.', 'Every', 'installment.', 'Every', 'rupee,']
 const tail = 'tracked.'
 
-const trust = ['Plans from Rs 9,999', 'Free demo', 'Setup help']
+const trust = ['15-day free trial', 'No payment needed', 'Setup help']
 
 function Word({ children, i, reduce, className }: { children: string; i: number; reduce: boolean | null; className?: string }) {
   // The text is always in the server HTML. Motion only moves it from a small offset.
