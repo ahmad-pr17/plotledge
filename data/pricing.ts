@@ -1,6 +1,6 @@
-export const GROWTH_MONTHLY = 2999
-export const GROWTH_YEARLY = 28788
-/** Yearly price shown per month: 28,788 / 12. */
+export const GROWTH_MONTHLY = 9999
+export const GROWTH_YEARLY = 95990
+/** Yearly price shown per month: 95,990 / 12 (20% below 12 x monthly). */
 export const GROWTH_YEARLY_PER_MONTH = GROWTH_YEARLY / 12
 export const YEARLY_SAVING_PERCENT = 20
 

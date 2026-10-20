@@ -39,10 +39,18 @@ export function PricingCard({ plan, yearly, currency }: Props) {
               <p className="num font-display text-4xl font-bold tracking-tight">
                 {perMonth === 0 ? 'Free' : formatPrice(Math.round(perMonth), 'PKR')}
                 {perMonth > 0 && <span className="text-base font-medium text-muted-foreground"> / month</span>}
+                {yearly && plan.monthly ? (
+                  <span className="ml-2 align-middle text-base font-medium text-muted-foreground line-through decoration-1">{formatPrice(plan.monthly, 'PKR')}</span>
+                ) : null}
               </p>
               {plan.yearlyTotal ? (
                 <p className="num mt-1 text-sm text-muted-foreground">
                   {yearly ? `Billed ${formatPrice(plan.yearlyTotal, 'PKR')} per year` : 'Billed monthly'}
+                  {yearly && plan.monthly ? (
+                    <span className="mt-1.5 inline-block rounded-full bg-paid/10 px-2.5 py-0.5 text-xs font-semibold text-paid sm:ml-2 sm:mt-0">
+                      You save {formatPrice(plan.monthly * 12 - plan.yearlyTotal, 'PKR')}
+                    </span>
+                  ) : null}
                   {currency !== 'PKR' && <span className="block text-xs">About {formatPrice(Math.round(perMonth ?? 0), currency).replace('~', '')} per month</span>}
                 </p>
               ) : (

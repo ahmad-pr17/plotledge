@@ -35,9 +35,9 @@ export function siteJsonLd() {
           {
             '@type': 'Offer',
             name: 'Growth',
-            price: 2999,
+            price: 9999,
             priceCurrency: 'PKR',
-            priceSpecification: { '@type': 'UnitPriceSpecification', price: 2999, priceCurrency: 'PKR', billingDuration: 'P1M' },
+            priceSpecification: { '@type': 'UnitPriceSpecification', price: 9999, priceCurrency: 'PKR', billingDuration: 'P1M' },
           },
         ],
       },
