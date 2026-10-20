@@ -69,6 +69,7 @@ Create a `.env.local` file in the project root. Both variables are optional.
 |---|---|---|
 | `NEXT_PUBLIC_SITE_URL` | `https://www.plotledge.com` | Origin used for the canonical URL, sitemap, robots and structured data |
 | `NEXT_PUBLIC_CRM_URL` | `https://realestatemanager-chi.vercel.app/login` | Destination of the "Log in" and "Open the CRM" buttons |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | unset | Google Analytics 4 Measurement ID. Only loaded in production; leave unset to disable GA |
 
 ## Available scripts
 
