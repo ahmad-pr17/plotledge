@@ -8,8 +8,7 @@ import { formatRs } from '@/lib/format'
 
 function planLine(p: (typeof plans)[number]): string {
   if (p.monthly === null) return `${p.name}: custom pricing for housing societies and larger groups. ${p.highlights.join('; ')}.`
-  if (p.monthly === 0) return `${p.name}: free. ${p.highlights.join('; ')}.`
-  return `${p.name} (most popular): ${formatRs(p.monthly)} per month, or ${formatRs(p.yearlyTotal ?? 0)} per year if paid yearly (about ${formatRs(Math.round(p.yearlyPerMonth ?? 0))} per month). ${p.highlights.join('; ')}.`
+  return `${p.name}${p.popular ? ' (most popular)' : ''}: ${formatRs(p.monthly)} per month, or ${formatRs(p.yearlyTotal ?? 0)} per year if paid yearly (about ${formatRs(Math.round(p.yearlyPerMonth ?? 0))} per month). ${p.highlights.join('; ')}.`
 }
 
 export const KNOWLEDGE = `

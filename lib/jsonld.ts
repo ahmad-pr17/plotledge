@@ -31,10 +31,9 @@ export function siteJsonLd() {
         url: `${SITE_URL}/`,
         publisher: { '@id': `${SITE_URL}/#organization` },
         offers: [
-          { '@type': 'Offer', name: 'Starter', price: 0, priceCurrency: 'PKR' },
           {
             '@type': 'Offer',
-            name: 'Growth',
+            name: 'Starter',
             price: 9999,
             priceCurrency: 'PKR',
             priceSpecification: { '@type': 'UnitPriceSpecification', price: 9999, priceCurrency: 'PKR', billingDuration: 'P1M' },

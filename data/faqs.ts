@@ -1,4 +1,4 @@
-import { GROWTH_MONTHLY, GROWTH_YEARLY } from '@/data/pricing'
+import { STARTER_MONTHLY, GROWTH_MONTHLY, BUSINESS_MONTHLY } from '@/data/pricing'
 import { formatRs } from '@/lib/format'
 
 export type Faq = { q: string; a: string }
@@ -31,7 +31,7 @@ export const faqs: Faq[] = [
   },
   {
     q: 'How much does it cost?',
-    a: `Starter is free for up to 25 plots and 1 team member. Growth is ${formatRs(GROWTH_MONTHLY)} a month, or ${formatRs(GROWTH_YEARLY)} a year if you pay yearly. Enterprise is priced for societies and larger groups, so talk to us.`,
+    a: `Plans start at ${formatRs(STARTER_MONTHLY)} a month for Starter. Growth is ${formatRs(GROWTH_MONTHLY)} and Business is ${formatRs(BUSINESS_MONTHLY)} a month, and paying yearly saves 20%. Enterprise is priced for societies and larger groups, so talk to us.`,
   },
   {
     q: 'Can a housing society use it?',

@@ -5,7 +5,7 @@ import { Check, MessageCircle } from 'lucide-react'
 import { ButtonLink } from '@/components/shared/button-link'
 import { SpotlightCard } from '@/components/shared/spotlight-card'
 import { formatPrice } from '@/lib/currency'
-import { CRM_LOGIN_URL, DEMO_URL, whatsappLink } from '@/lib/site'
+import { DEMO_URL, whatsappLink } from '@/lib/site'
 import { cn } from '@/lib/utils'
 import type { Plan } from '@/data/pricing'
 
@@ -37,8 +37,8 @@ export function PricingCard({ plan, yearly, currency }: Props) {
               transition={{ duration: 0.2 }}
             >
               <p className="num font-display text-4xl font-bold tracking-tight">
-                {perMonth === 0 ? 'Free' : formatPrice(Math.round(perMonth), 'PKR')}
-                {perMonth > 0 && <span className="text-base font-medium text-muted-foreground"> / month</span>}
+                {formatPrice(Math.round(perMonth), 'PKR')}
+                <span className="text-base font-medium text-muted-foreground"> / month</span>
                 {yearly && plan.monthly ? (
                   <span className="ml-2 align-middle text-base font-medium text-muted-foreground line-through decoration-1">{formatPrice(plan.monthly, 'PKR')}</span>
                 ) : null}
@@ -71,8 +71,7 @@ export function PricingCard({ plan, yearly, currency }: Props) {
       </ul>
 
       <div className="mt-8 flex flex-col gap-2">
-        {plan.id === 'starter' && <ButtonLink href={CRM_LOGIN_URL} variant="secondary" className="w-full">Start free</ButtonLink>}
-        {plan.id === 'growth' && <ButtonLink href={DEMO_URL} variant="primary" className="w-full">Book a free demo</ButtonLink>}
+        {plan.id !== 'enterprise' && <ButtonLink href={DEMO_URL} variant={plan.popular ? 'primary' : 'secondary'} className="w-full">Book a free demo</ButtonLink>}
         {plan.id === 'enterprise' && (
           <>
             <ButtonLink href={whatsappLink('Hi Plot Ledge, I would like to talk about the Enterprise plan for our society.')} variant="secondary" className="w-full">

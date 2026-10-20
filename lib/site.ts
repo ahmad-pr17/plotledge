@@ -4,7 +4,7 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.plotle
 export const SITE_NAME = 'Plot Ledge'
 export const SITE_TITLE = 'Plot Management Software for Property Dealers'
 export const SITE_DESCRIPTION =
-  'Plot management software for Pakistani dealers. Track installments, payments and receipts in one place. Start free or book a demo.'
+  'Plot management software for Pakistani dealers. Track installments, payments and receipts in one place. Book a demo to get started.'
 
 export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://realestatemanager-chi.vercel.app/login'
 

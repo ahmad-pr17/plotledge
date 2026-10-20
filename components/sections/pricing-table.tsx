@@ -12,13 +12,14 @@ export function PricingTable() {
   const cols = [
     { key: 'starter', label: 'Starter' },
     { key: 'growth', label: 'Growth' },
+    { key: 'business', label: 'Business' },
     { key: 'enterprise', label: 'Enterprise' },
   ] as const
   return (
     <div className="card-solid mt-6 overflow-hidden">
       <div className="table-scroll">
         <table className="w-full min-w-[620px] border-collapse text-left">
-          <caption className="sr-only">Feature comparison of the Starter, Growth and Enterprise plans</caption>
+          <caption className="sr-only">Feature comparison of the Starter, Growth, Business and Enterprise plans</caption>
           <thead>
             <tr className="border-b border-border">
               <th scope="col" className="sticky left-0 z-10 bg-card px-4 py-4 text-sm font-semibold sm:px-6">Feature</th>

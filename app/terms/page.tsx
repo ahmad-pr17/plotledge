@@ -26,7 +26,7 @@ export default function TermsPage() {
           <h2>The service</h2>
           <p>Plot Ledge is software for tracking plots, deals, installments, payments and related records. You are responsible for the accuracy of the data you enter and for keeping your login details private.</p>
           <h2>Plans and payment</h2>
-          <p>Starter is free within its limits. Paid plans are priced in rupees and shown on the pricing section. Prices and plan limits can change, and we will tell you before a change applies to your account.</p>
+          <p>Plans are priced in rupees and shown on the pricing section. Prices and plan limits can change, and we will tell you before a change applies to your account.</p>
           <h2>Acceptable use</h2>
           <ul>
             <li>Do not use the service for anything unlawful or to deceive buyers.</li>

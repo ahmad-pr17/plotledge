@@ -6,7 +6,7 @@ export const productFacts: { icon: LucideIcon; text: string }[] = [
   { icon: Receipt, text: 'Receipts with unique IDs' },
   { icon: KeyRound, text: 'Separate admin and agent logins' },
   { icon: Smartphone, text: 'Works on your phone' },
-  { icon: BadgeCheck, text: 'Free plan to start' },
+  { icon: BadgeCheck, text: 'Plans from Rs 9,999 a month' },
 ]
 
 // Short and honest. State only what is true of the product. Do not claim certifications.

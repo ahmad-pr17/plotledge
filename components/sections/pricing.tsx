@@ -22,8 +22,8 @@ export function Pricing() {
       <SectionHeading
         align="center"
         eyebrow="Pricing"
-        title={<span id="pricing-title">Simple pricing. Start free.</span>}
-        description="Clear prices in rupees. The Starter plan stays free, and you pay only when your team grows."
+        title={<span id="pricing-title">Simple pricing. Four plans.</span>}
+        description="Clear prices in rupees, starting at Rs 9,999 a month. Pay yearly and save 20%."
       />
 
       <Reveal className="mt-8 flex flex-col items-center gap-3">
@@ -52,7 +52,7 @@ export function Pricing() {
         {currency !== 'PKR' && <p className="text-xs text-muted-foreground">Amounts in other currencies are approximate. Billing is in rupees.</p>}
       </Reveal>
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6">
+      <div className="mt-12 grid gap-8 sm:grid-cols-2 xl:grid-cols-4 lg:items-stretch lg:gap-6">
         {plans.map((plan, i) => (
           <Reveal key={plan.id} delay={i * 0.08} className="h-full">
             <PricingCard plan={plan} yearly={yearly} currency={currency} />
