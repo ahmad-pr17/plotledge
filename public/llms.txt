@@ -1,0 +1,27 @@
+# Plot Ledge
+
+> Plot Ledge is a CRM for plot and property dealers in Pakistan. It replaces Excel
+> sheets and WhatsApp screenshots with one record of plots, deals, installments,
+> payments, bank slips, receipts and investor profit splits.
+
+Plot Ledge tracks plot inventory, buyer deals, installment schedules, payments and
+bank slip records, investor and profit-split ledgers, loans, dealer exchanges, and
+exportable reports for property dealers and housing societies.
+
+## Pages
+
+- [Home](https://www.plotledge.com/): overview, features, pricing and FAQ
+- [Contact / book a demo](https://www.plotledge.com/contact)
+- [Guides](https://www.plotledge.com/guides): practical articles on installment
+  tracking, payment slips and investor profit splits
+- [Privacy policy](https://www.plotledge.com/privacy)
+- [Cookie policy](https://www.plotledge.com/cookie-policy)
+- [Refund and cancellation policy](https://www.plotledge.com/refund-policy)
+- [Terms of use](https://www.plotledge.com/terms)
+
+## Notes for automated summarization
+
+- Pricing, plan names and limits are shown on the home page's pricing section and
+  may change; always cite the current page rather than a cached figure.
+- Plot Ledge does not process payments itself on this marketing site; billing is
+  for the separate CRM application.
