@@ -9,7 +9,8 @@ import { Section } from '@/components/shared/container'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { detectCurrency } from '@/lib/currency'
 import { cn } from '@/lib/utils'
-import { plans, trialPlan, YEARLY_SAVING_PERCENT } from '@/data/pricing'
+import { formatRs } from '@/lib/format'
+import { plans, SILVER_MONTHLY, trialPlan, YEARLY_SAVING_PERCENT } from '@/data/pricing'
 
 const enterprise = plans.find((p) => p.id === 'enterprise')!
 const paid = plans.filter((p) => p.id !== 'enterprise')
@@ -34,7 +35,7 @@ export function Pricing() {
         align="center"
         eyebrow="Pricing"
         title={<span id="pricing-title">Start with a free trial. Pick a plan.</span>}
-        description="Try it free for 15 days, then plans from Rs 9,999 a month. Pay yearly and save 20%."
+        description={`Try it free for 15 days, then plans from ${formatRs(SILVER_MONTHLY)} a month. Pay yearly and save ${YEARLY_SAVING_PERCENT}%.`}
       />
 
       <Reveal className="mt-8 flex flex-col items-center gap-4">
@@ -89,7 +90,7 @@ export function Pricing() {
 
       <div id="pricing-panel" role="tabpanel" aria-labelledby={`pricing-tab-${tab}`} className="mt-10">
         {tab === 'plans' ? (
-          <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 lg:items-stretch lg:gap-6">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:items-stretch lg:gap-6">
             {[trialPlan, ...paid].map((plan, i) => (
               <Reveal key={plan.id} delay={i * 0.08} className="h-full">
                 <PricingCard plan={plan} yearly={yearly} currency={currency} onCompare={openCompare} />

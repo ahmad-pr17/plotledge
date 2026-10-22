@@ -10,21 +10,20 @@ function CellView({ value }: { value: Cell }) {
 
 export function PricingTable() {
   const cols = [
-    { key: 'starter', label: 'Starter' },
-    { key: 'growth', label: 'Growth' },
-    { key: 'business', label: 'Business' },
+    { key: 'silver', label: 'Silver' },
+    { key: 'gold', label: 'Gold' },
     { key: 'enterprise', label: 'Enterprise' },
   ] as const
   return (
     <div className="card-solid mt-6 overflow-hidden">
       <div className="table-scroll">
         <table className="w-full min-w-[620px] border-collapse text-left">
-          <caption className="sr-only">Feature comparison of the Starter, Growth, Business and Enterprise plans</caption>
+          <caption className="sr-only">Feature comparison of the Silver, Gold and Enterprise plans</caption>
           <thead>
             <tr className="border-b border-border">
               <th scope="col" className="sticky left-0 z-10 bg-card px-4 py-4 text-sm font-semibold sm:px-6">Feature</th>
               {cols.map((c) => (
-                <th key={c.key} scope="col" className={cn('px-4 py-4 text-center font-display text-base font-bold', c.key === 'growth' && 'bg-amber-500/10')}>
+                <th key={c.key} scope="col" className={cn('px-4 py-4 text-center font-display text-base font-bold', c.key === 'gold' && 'bg-amber-500/10')}>
                   {c.label}
                 </th>
               ))}
@@ -35,7 +34,7 @@ export function PricingTable() {
               <tr key={row.feature} className="border-b border-border/70 last:border-0 hover:bg-muted/40">
                 <th scope="row" className="sticky left-0 z-10 bg-card px-4 py-3.5 text-sm font-medium sm:px-6">{row.feature}</th>
                 {cols.map((c) => (
-                  <td key={c.key} className={cn('px-4 py-3.5 text-center', c.key === 'growth' && 'bg-amber-500/10')}>
+                  <td key={c.key} className={cn('px-4 py-3.5 text-center', c.key === 'gold' && 'bg-amber-500/10')}>
                     <CellView value={row[c.key]} />
                   </td>
                 ))}

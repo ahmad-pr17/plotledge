@@ -1,4 +1,4 @@
-import { TRIAL, STARTER_MONTHLY, GROWTH_MONTHLY, BUSINESS_MONTHLY } from '@/data/pricing'
+import { TRIAL, SILVER_MONTHLY, GOLD_MONTHLY, YEARLY_SAVING_PERCENT } from '@/data/pricing'
 import { formatRs } from '@/lib/format'
 
 export type Faq = { q: string; a: string }
@@ -31,14 +31,14 @@ export const faqs: Faq[] = [
   },
   {
     q: 'How much does it cost?',
-    a: `Plans start at ${formatRs(STARTER_MONTHLY)} a month for Starter. Growth is ${formatRs(GROWTH_MONTHLY)} and Business is ${formatRs(BUSINESS_MONTHLY)} a month, and paying yearly saves 20%. Enterprise is priced for societies and larger groups, so talk to us.`,
+    a: `Plans start at ${formatRs(SILVER_MONTHLY)} a month for Silver. Gold is ${formatRs(GOLD_MONTHLY)} a month, and paying yearly saves ${YEARLY_SAVING_PERCENT}% (two months free). Enterprise is priced for multi-branch developers, societies and larger groups, so talk to us.`,
   },
   {
     q: 'Is there a free trial?',
-    a: `Yes. There is a ${TRIAL.days}-day trial with ${TRIAL.users} team members and up to ${TRIAL.plots} plots. No payment is needed. Book a demo and we will set it up, then you choose a paid plan if you want to continue.`,
+    a: `Yes. There is a ${TRIAL.days}-day free trial. No payment is needed. Book a demo and we will set it up, then you choose a paid plan if you want to continue.`,
   },
   {
     q: 'Can a housing society use it?',
-    a: 'Yes. The Enterprise plan is built for societies with several projects and larger teams. Chat with us on WhatsApp or book a demo and we will set it up around your projects.',
+    a: 'Yes. The Enterprise plan is built for societies and multi-branch developers with several projects and larger teams. Chat with us on WhatsApp or book a demo and we will set it up around your projects.',
   },
 ]

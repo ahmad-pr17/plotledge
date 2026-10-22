@@ -34,7 +34,7 @@ Everyone logs in separately.
 
 PLANS AND PRICES (rupees)
 ${plans.map(planLine).join('\n')}
-Free trial: ${TRIAL.days} days, ${TRIAL.users} team members, up to ${TRIAL.plots} plots, no payment needed. The team sets it up after a demo request. There is no free plan after the trial.
+Free trial: ${TRIAL.days} days, no payment needed. The team sets it up after a demo request. There is no free plan after the trial.
 Prices on the website are the current prices. If someone asks about discounts, taxes or custom terms, say the team will confirm on a demo call or WhatsApp.
 
 IMPORTING EXCEL DATA

@@ -1,4 +1,5 @@
 import { faqs } from '@/data/faqs'
+import { GOLD_MONTHLY, SILVER_MONTHLY } from '@/data/pricing'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
 
 // Every entry describes content visible on the page. No ratings, reviews or addresses are claimed.
@@ -31,13 +32,13 @@ export function siteJsonLd() {
         url: `${SITE_URL}/`,
         publisher: { '@id': `${SITE_URL}/#organization` },
         offers: [
-          {
+          ...[['Silver', SILVER_MONTHLY], ['Gold', GOLD_MONTHLY]].map(([name, price]) => ({
             '@type': 'Offer',
-            name: 'Starter',
-            price: 9999,
+            name,
+            price,
             priceCurrency: 'PKR',
-            priceSpecification: { '@type': 'UnitPriceSpecification', price: 9999, priceCurrency: 'PKR', billingDuration: 'P1M' },
-          },
+            priceSpecification: { '@type': 'UnitPriceSpecification', price, priceCurrency: 'PKR', billingDuration: 'P1M' },
+          })),
         ],
       },
     ],
