@@ -23,7 +23,7 @@ export function PricingCard({ plan, yearly, currency, onCompare }: Props) {
       variant={featured ? 'glass' : 'solid'}
       className={cn(
         'relative flex h-full flex-col p-6 sm:p-7',
-        featured && 'bg-brand text-white ring-1 ring-amber-500/40 lg:-my-3 lg:pb-9 lg:pt-12',
+        featured && 'bg-brand! text-white ring-1 ring-amber-500/40 lg:-my-3 lg:pb-9 lg:pt-12',
         !featured && 'lg:mt-3',
       )}
     >
