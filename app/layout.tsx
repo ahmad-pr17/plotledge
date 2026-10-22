@@ -32,8 +32,9 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: FULL_TITLE, description: SITE_DESCRIPTION },
   icons: {
     icon: [
-      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
-      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
+      // Google needs a favicon whose size is a multiple of 48px. /favicon.ico (app/favicon.ico) holds 16, 32 and 48.
+      { url: '/icon-48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon.svg', type: 'image/svg+xml' },
     ],
     apple: '/apple-icon.png',
