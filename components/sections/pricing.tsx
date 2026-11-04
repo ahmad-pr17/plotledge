@@ -7,7 +7,7 @@ import { PricingTable } from '@/components/sections/pricing-table'
 import { Reveal } from '@/components/shared/reveal'
 import { Section } from '@/components/shared/container'
 import { SectionHeading } from '@/components/shared/section-heading'
-import { detectCurrency } from '@/lib/currency'
+import { detectCurrency, type Rates } from '@/lib/currency'
 import { cn } from '@/lib/utils'
 import { formatRs } from '@/lib/format'
 import { plans, SILVER_MONTHLY, trialPlan, YEARLY_SAVING_PERCENT } from '@/data/pricing'
@@ -16,7 +16,7 @@ const enterprise = plans.find((p) => p.id === 'enterprise')!
 const paid = plans.filter((p) => p.id !== 'enterprise')
 const tabs = [{ id: 'plans', label: 'Plans' }, { id: 'enterprise', label: 'Enterprise' }] as const
 
-export function Pricing() {
+export function Pricing({ rates }: { rates: Rates }) {
   const [yearly, setYearly] = useState(true)
   const [tab, setTab] = useState<(typeof tabs)[number]['id']>('plans')
   const [compareOpen, setCompareOpen] = useState(false)
@@ -27,7 +27,7 @@ export function Pricing() {
   }
   // Render PKR first so server and client markup match, then switch to the visitor's region.
   const [currency, setCurrency] = useState('PKR')
-  useEffect(() => { setCurrency(detectCurrency()) }, [])
+  useEffect(() => { setCurrency(detectCurrency(rates)) }, [rates])
 
   return (
     <Section id="pricing" aria-labelledby="pricing-title">
@@ -93,13 +93,13 @@ export function Pricing() {
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:items-stretch lg:gap-6">
             {[trialPlan, ...paid].map((plan, i) => (
               <Reveal key={plan.id} delay={i * 0.08} className="h-full">
-                <PricingCard plan={plan} yearly={yearly} currency={currency} onCompare={openCompare} />
+                <PricingCard plan={plan} yearly={yearly} currency={currency} rates={rates} onCompare={openCompare} />
               </Reveal>
             ))}
           </div>
         ) : (
           <div className="mx-auto max-w-md">
-            <PricingCard plan={enterprise} yearly={yearly} currency={currency} />
+            <PricingCard plan={enterprise} yearly={yearly} currency={currency} rates={rates} />
           </div>
         )}
       </div>

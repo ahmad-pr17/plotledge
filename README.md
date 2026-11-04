@@ -109,9 +109,9 @@ public/                  Static assets and favicons
 
 ## Regional pricing
 
-Prices are defined in rupees in `data/pricing.ts`. Visitors outside Pakistan see an approximate amount in their local currency (USD, AED, SAR, GBP, EUR or INR), chosen from the browser's language region. Structured data and billing remain in rupees.
+Prices are defined in rupees in `data/pricing.ts`. Visitors outside Pakistan see an approximate amount in their local currency (any currency with a published rate), chosen from the browser's language region. Structured data and billing remain in rupees.
 
-> **Note:** the exchange rates in `lib/currency.ts` are placeholders. Review and update them before relying on them.
+Rates come from `open.er-api.com` through `lib/rates.ts` and refresh once a day. If the API is unreachable, the fixed fallback rates in `lib/currency.ts` are used.
 
 ## Deployment
 

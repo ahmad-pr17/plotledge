@@ -4,14 +4,14 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { CircleCheck, MessageCircle } from 'lucide-react'
 import { ButtonLink } from '@/components/shared/button-link'
 import { SpotlightCard } from '@/components/shared/spotlight-card'
-import { formatPrice } from '@/lib/currency'
+import { formatPrice, type Rates } from '@/lib/currency'
 import { DEMO_URL, whatsappLink } from '@/lib/site'
 import { cn } from '@/lib/utils'
 import { TRIAL, type Plan } from '@/data/pricing'
 
-type Props = { plan: Plan; yearly: boolean; currency: string; onCompare?: () => void }
+type Props = { plan: Plan; yearly: boolean; currency: string; rates: Rates; onCompare?: () => void }
 
-export function PricingCard({ plan, yearly, currency, onCompare }: Props) {
+export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props) {
   const reduce = useReducedMotion()
   const perMonth = yearly ? plan.yearlyPerMonth : plan.monthly
   const priceKey = `${plan.id}-${yearly ? 'y' : 'm'}`
@@ -65,7 +65,7 @@ export function PricingCard({ plan, yearly, currency, onCompare }: Props) {
           : 'Billed monthly')}
         {plan.id === 'enterprise' && 'Priced for your society or group'}
         {!trial && plan.yearlyTotal && currency !== 'PKR' && (
-          <span className="block text-xs">About {formatPrice(Math.round(perMonth ?? 0), currency).replace('~', '')} per month</span>
+          <span className="block text-xs">About {formatPrice(Math.round(perMonth ?? 0), currency, rates).replace('~', '')} per month</span>
         )}
       </p>
 

@@ -9,6 +9,7 @@ import { Navbar } from '@/components/sections/navbar'
 import { ProblemSolution } from '@/components/sections/problem-solution'
 import { TrustStrip } from '@/components/sections/trust-strip'
 import { faqJsonLd, jsonLdString } from '@/lib/jsonld'
+import { getRates } from '@/lib/rates'
 
 // Below-the-fold sections with charts and interactive widgets are split into their own chunks.
 // They still render on the server, so the content stays in the HTML for search engines.
@@ -21,7 +22,8 @@ const SecurityNote = dynamic(() => import('@/components/sections/security-note')
 const Pricing = dynamic(() => import('@/components/sections/pricing').then((m) => m.Pricing))
 const Faq = dynamic(() => import('@/components/sections/faq').then((m) => m.Faq))
 
-export default function Page() {
+export default async function Page() {
+  const rates = await getRates()
   return (
     <>
       <a
@@ -43,7 +45,7 @@ export default function Page() {
         <SavingsCalculator />
         <Testimonials />
         <SecurityNote />
-        <Pricing />
+        <Pricing rates={rates} />
         <Faq />
         <FinalCta />
       </main>
