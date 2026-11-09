@@ -56,7 +56,7 @@ export function RoleViews() {
                 onClick={() => setActive(r.id)}
                 onKeyDown={(e) => onKeyDown(e, i)}
                 className={cn(
-                  'relative min-h-11 flex-1 whitespace-nowrap rounded-full px-4 text-sm font-semibold transition-colors sm:flex-none sm:px-6',
+                  'relative min-h-11 min-w-0 flex-1 rounded-full px-2 py-1.5 text-sm font-semibold leading-tight transition-colors sm:flex-none sm:whitespace-nowrap sm:px-6',
                   selected ? 'text-primary-foreground' : 'text-muted-foreground hover:text-foreground',
                 )}
               >

@@ -40,7 +40,7 @@ export function Navbar() {
         <Logo />
         <nav aria-label={m.common.nav.ariaMain} className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((l) => (
-            <LocaleLink key={l.href} href={l.href} className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+            <LocaleLink key={l.href} href={l.href} className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg px-2 text-sm font-medium xl:px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
               {m.common.nav[l.key]}
             </LocaleLink>
           ))}

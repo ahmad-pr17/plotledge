@@ -20,7 +20,7 @@ export function Logo({ inverse = false, className }: { inverse?: boolean; classN
   return (
     <LocaleLink
       href="/"
-      className={cn('inline-flex min-h-11 items-center gap-2.5 font-display text-lg font-bold tracking-tight', inverse ? 'text-white' : 'text-foreground', className)}
+      className={cn('inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap font-display text-lg font-bold tracking-tight', inverse ? 'text-white' : 'text-foreground', className)}
       aria-label={m.common.logoLabel}
     >
       <LogoMark />

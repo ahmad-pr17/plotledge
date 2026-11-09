@@ -57,14 +57,14 @@ export function ReceiptCard({ className }: { className?: string }) {
 
         <div className="my-5 border-t border-dashed border-[var(--border-strong)]" />
 
-        <div className="flex items-end justify-between gap-3">
+        <div className="flex flex-wrap items-end justify-between gap-3 gap-y-4 overflow-x-clip">
           <div>
             <p className="text-xs tracking-normal text-muted-foreground">{m.amountReceived}</p>
             <p className="num mt-1 font-display text-3xl font-bold tracking-tight">{formatRsL(locale, receipt.amount)}</p>
           </div>
           <motion.div
             aria-label={m.stampAria}
-            className="select-none rounded-md border-2 border-paid px-3 py-1 font-display text-lg font-extrabold tracking-[.2em] text-paid-ink"
+            className="shrink-0 select-none rounded-md border-2 border-paid px-2.5 py-1 font-display text-sm font-extrabold tracking-[.06em] text-paid-ink sm:px-3 sm:text-lg sm:tracking-[.2em]"
             style={{ rotate: -12 }}
             initial={reduce ? false : { opacity: 0, scale: 1.7, rotate: -4 }}
             whileInView={{ opacity: 0.92, scale: 1, rotate: -12 }}

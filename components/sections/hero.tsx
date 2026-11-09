@@ -7,7 +7,7 @@ import { ButtonLink } from '@/components/shared/button-link'
 import { Magnetic } from '@/components/shared/magnetic'
 import { Container } from '@/components/shared/container'
 import { DEMO_URL, whatsappLink } from '@/lib/site'
-import { useMessages } from '@/i18n/client'
+import { useLocale, useMessages } from '@/i18n/client'
 import { HeroPreview } from './hero-preview'
 
 function Word({ children, i, reduce, className }: { children: string; i: number; reduce: boolean | null; className?: string }) {
@@ -29,6 +29,8 @@ export function Hero() {
   const m = all.hero
   const common = all.common
   const lead = m.title.words
+  // Chinese is written without spaces between words, so its headline pieces are joined directly.
+  const joiner = useLocale() === 'zh' ? '' : ' '
   const reduce = useReducedMotion()
   const ref = useRef<HTMLElement>(null)
   return (
@@ -56,7 +58,7 @@ export function Hero() {
           <h1 className="t-hero text-foreground">
             {lead.map((w, i) => (
               <span key={i}>
-                <Word i={i} reduce={reduce}>{w}</Word>{' '}
+                <Word i={i} reduce={reduce}>{w}</Word>{joiner}
               </span>
             ))}
             <Word i={lead.length} reduce={reduce} className="grad-text">{m.title.tail}</Word>

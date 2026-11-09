@@ -43,7 +43,7 @@ export async function LegalPage({ policy }: { policy: PolicyKey }) {
         </ul>
       </section>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-14">
+      <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-14">
         <nav aria-label={fmt(ui.contentsLabel, { title: p.title })} className="lg:sticky lg:top-24 lg:self-start">
           <details className="group rounded-xl border border-border bg-card lg:border-0 lg:bg-transparent" open>
             <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-4 text-sm font-semibold text-foreground lg:min-h-0 lg:cursor-default lg:px-0 lg:pb-3 [&::-webkit-details-marker]:hidden">

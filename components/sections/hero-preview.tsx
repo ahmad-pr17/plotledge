@@ -126,7 +126,8 @@ export function HeroPreview() {
                   ))}
                 </div>
                 <div className="mt-2 flex justify-between text-xs text-white/60">
-                  {m.months.map((mo) => <span key={mo}>{mo}</span>)}
+                  {/* Seven labels only fit in English and Chinese; elsewhere show every second month so they never touch. */}
+                  {(locale === 'en' || locale === 'zh' ? m.months : m.months.filter((_, i) => i % 2 === 0)).map((mo) => <span key={mo}>{mo}</span>)}
                 </div>
               </div>
               <div className="rounded-2xl bg-white/[.07] p-3">
