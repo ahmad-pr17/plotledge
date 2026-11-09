@@ -1,12 +1,12 @@
 import { ArrowRight, CalendarDays } from 'lucide-react'
 import { PageShell } from '@/components/sections/page-shell'
 import { Container } from '@/components/shared/container'
+import { HeroBackdrop } from '@/components/shared/hero-backdrop'
 import { LocaleLink } from '@/components/shared/locale-link'
 import { getLocale, getMessages } from '@/i18n/server'
 import { fmt, rich } from '@/i18n/text'
 import { CONTACT_EMAIL } from '@/lib/site'
 import { renderText } from './legal-content'
-import { LegalHeroBackdrop } from './legal-page'
 import { getPolicy, getPolicyName, HUB_GROUPS, POLICY_HREFS, POLICY_ICONS } from './policies'
 
 /** /legal: every legal and trust document in one place, grouped by what a visitor wants to know. */
@@ -20,7 +20,7 @@ export async function LegalHub() {
   return (
     <PageShell flush>
       <section className="relative overflow-hidden pb-10 pt-28 md:pb-14 md:pt-36">
-        <LegalHeroBackdrop />
+        <HeroBackdrop />
         <Container>
           <h1 className="t-h2 max-w-3xl text-foreground">{hub.title}</h1>
           <p className="t-lead measure mt-5 text-muted-foreground [&_a]:font-semibold [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2">{renderText(hub.intro)}</p>

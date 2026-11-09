@@ -5,6 +5,7 @@ import { ChatMount } from '@/components/chatbot/ChatMount'
 import { ConsentAnalytics } from '@/components/consent/consent-analytics'
 import { CookieBanner } from '@/components/consent/cookie-banner'
 import { MotionProvider } from '@/components/shared/motion-provider'
+import { SkipLink } from '@/components/shared/skip-link'
 import { LOCALE_META, LOCALES } from '@/i18n/config'
 import { I18nProvider } from '@/i18n/client'
 import { toClientMessages } from '@/i18n/messages'
@@ -69,15 +70,10 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   return (
     // suppressHydrationWarning: browser extensions (ColorZilla, password managers, translators...) add attributes to <html> and <body>
     // and scripts to <head> before React starts. React would log a mismatch for something the site did not cause.
-    <html lang={htmlLang} dir={dir} suppressHydrationWarning>
+    <html lang={htmlLang} dir={dir} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={fonts} suppressHydrationWarning>
         {/* Skip link: first thing a keyboard or screen reader user reaches, on every page. Every page has <main id="content">. */}
-        <a
-          href="#content"
-          className="skip-link"
-        >
-          {messages.common.skipToContent}
-        </a>
+        <SkipLink label={messages.common.skipToContent} />
         {/* Structured data lives in <body>, not <head>: extensions inject their own scripts into <head>, which shifts its children and
             makes React report a mismatch. Search engines read it from either place. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(siteJsonLd(locale, messages.meta.siteDescription)) }} />

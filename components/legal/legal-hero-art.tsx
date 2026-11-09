@@ -28,9 +28,9 @@ function status(bi: number, i: number, j: number): 'booked' | 'sold' | 'open' {
   return 'open'
 }
 
-export function LegalHeroArt({ className }: { className?: string }) {
+export function LegalHeroArt({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
-    <svg viewBox="0 0 640 420" className={className} fill="none" aria-hidden="true" focusable="false">
+    <svg viewBox="0 0 640 420" className={className} style={style} fill="none" aria-hidden="true" focusable="false">
       {/* Roads */}
       <g stroke="#0f5132" strokeOpacity=".09" strokeLinecap="round">
         <path d="M-20 150H660M-20 330H660" strokeWidth="14" />

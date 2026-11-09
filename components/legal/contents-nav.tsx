@@ -61,7 +61,19 @@ export function ContentsNav({ heading, label, items }: Props) {
                 <a
                   href={`#${i.id}`}
                   aria-current={on ? 'location' : undefined}
-                  onClick={() => { setActive(i.id); setOpen(false) }}
+                  onClick={(e) => {
+                    const el = document.getElementById(i.id)
+                    setActive(i.id)
+                    setOpen(false)
+                    if (!el) return
+                    // Scroll to the section and move focus there, but replace the address instead of adding to it: Back then leaves the page in one step.
+                    e.preventDefault()
+                    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                    el.scrollIntoView({ behavior: smooth ? 'smooth' : 'instant', block: 'start' })
+                    el.setAttribute('tabindex', '-1')
+                    el.focus({ preventScroll: true })
+                    history.replaceState(null, '', `#${i.id}`)
+                  }}
                   className={cn(
                     '-ms-px flex min-h-11 items-center border-s-2 py-1 ps-4 pe-2 text-sm leading-5 transition-colors',
                     on ? 'border-primary font-semibold text-foreground' : 'border-transparent text-muted-foreground hover:border-[var(--border-strong)] hover:text-foreground',

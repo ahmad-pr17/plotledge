@@ -1,12 +1,12 @@
 import { ArrowLeft, CalendarDays, CircleCheck } from 'lucide-react'
 import { PageShell } from '@/components/sections/page-shell'
 import { Container } from '@/components/shared/container'
+import { HeroBackdrop } from '@/components/shared/hero-backdrop'
 import { LocaleLink } from '@/components/shared/locale-link'
 import { getLocale, getMessages } from '@/i18n/server'
 import { fmt, rich } from '@/i18n/text'
 import { CONTACT_EMAIL } from '@/lib/site'
 import { ContentsNav } from './contents-nav'
-import { LegalHeroArt } from './legal-hero-art'
 import { LegalBlocks, renderText } from './legal-content'
 import { ALL_POLICIES, getPolicy, getPolicyName, POLICY_HREFS, POLICY_ICONS, type PolicyKey } from './policies'
 
@@ -15,21 +15,6 @@ export type { PolicyKey } from './policies'
 // Body copy styles live here so the policy text only contains words.
 const prose =
   'flex flex-col gap-4 leading-7 text-muted-foreground [&_a]:font-semibold [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 [&_strong]:font-semibold [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:ps-5 [&_h3]:mt-2 [&_h3]:font-display [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-foreground'
-
-/**
- * Background for the policy and hub heroes: the home page's contour waves and glows, plus an aerial site-plan illustration on the
- * side away from the text. The whole layer fades out toward the bottom so the hero blends into the page with no hard edge.
- */
-export function LegalHeroBackdrop() {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,#000_70%,transparent)]">
-      <div className="bg-waves-light absolute inset-0" />
-      <div className="glow-primary absolute -start-32 -top-10 size-[460px]" />
-      <div className="glow-accent absolute -end-24 top-24 size-[400px]" />
-      <LegalHeroArt className="absolute -end-10 top-16 w-[640px] max-w-none opacity-40 sm:opacity-60 lg:end-0 lg:top-10 lg:w-[720px] lg:opacity-80 [mask-image:linear-gradient(to_left,#000_30%,transparent_95%)] rtl:-scale-x-100" />
-    </div>
-  )
-}
 
 export async function LegalPage({ policy }: { policy: PolicyKey }) {
   const m = await getMessages()
@@ -44,7 +29,7 @@ export async function LegalPage({ policy }: { policy: PolicyKey }) {
     <PageShell flush>
       {/* Hero: breadcrumb back to the hub, the title with its icon, the intro, and the summary on a deep green card. */}
       <section className="relative overflow-hidden pb-12 pt-28 md:pb-16 md:pt-36">
-        <LegalHeroBackdrop />
+        <HeroBackdrop />
         <Container className="grid items-start gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] lg:gap-14">
           <div>
             <LocaleLink href="/legal" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[var(--border-strong)] bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:bg-secondary">
@@ -89,7 +74,7 @@ export async function LegalPage({ policy }: { policy: PolicyKey }) {
           <article className="max-w-3xl">
             <div className="flex flex-col gap-12">
               {p.sections.map((s) => (
-                <section key={s.id} id={s.id} aria-labelledby={`${s.id}-h`} className="scroll-mt-24">
+                <section key={s.id} id={s.id} aria-labelledby={`${s.id}-h`}>
                   <h2 id={`${s.id}-h`} className="font-display text-2xl font-bold tracking-tight text-foreground">{s.title}</h2>
                   <div className={`${prose} mt-4`}><LegalBlocks blocks={s.blocks} /></div>
                 </section>
