@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Mail, MapPin, MessageCircle } from 'lucide-react'
+import { CookieSettingsButton } from '@/components/consent/cookie-settings-button'
 import { Container } from '@/components/shared/container'
 import { Logo } from '@/components/shared/logo'
 import { CONTACT_CITY, CONTACT_EMAIL, CRM_LOGIN_URL, whatsappLink } from '@/lib/site'
@@ -81,6 +82,7 @@ export function Footer() {
           <span className="flex gap-4">
             <Link href="/privacy" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 hover:text-white">Privacy</Link>
             <Link href="/terms" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 hover:text-white">Terms</Link>
+            <CookieSettingsButton className="inline-flex min-h-11 items-center justify-center px-1 hover:text-white" />
           </span>
         </Container>
       </div>

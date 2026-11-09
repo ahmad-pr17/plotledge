@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
-import { PageShell } from '@/components/sections/page-shell'
+import Link from 'next/link'
+import { CookieSettingsButton } from '@/components/consent/cookie-settings-button'
+import { LegalPage, LegalTable, type LegalSection } from '@/components/legal/legal-page'
 import { CONTACT_EMAIL } from '@/lib/site'
 
 const TITLE = 'Privacy policy'
-const DESCRIPTION = 'How Plot Ledge handles information collected through this website and the contact form.'
+const DESCRIPTION = 'What Plot Ledge collects through this website, why, who it is shared with, how long it is kept, and how to use your rights.'
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -14,63 +16,175 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 }
 
-const LAST_UPDATED = '20 October 2026'
+const LAST_UPDATED = '9 November 2026'
+const mail = <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+
+const sections: LegalSection[] = [
+  {
+    id: 'who-we-are',
+    title: 'Who we are',
+    content: (
+      <>
+        <p>Plot Ledge is a CRM for plot and property dealers, run from Lahore, Pakistan. In this policy, &ldquo;we&rdquo; means Plot Ledge, and we decide how the information described here is used.</p>
+        <p>This policy covers this marketing website. The CRM you log in to is a separate service: the records you store there belong to you, and our <Link href="/terms">terms of use</Link> explain how we handle them.</p>
+      </>
+    ),
+  },
+  {
+    id: 'what-we-collect',
+    title: 'What we collect',
+    content: (
+      <>
+        <h3>What you give us</h3>
+        <ul>
+          <li>The contact or demo form: your name, phone number, the number of plots you manage, and optionally your city, company and a message.</li>
+          <li>The same details if you choose to send them through the chat assistant&rsquo;s contact form.</li>
+          <li>Messages you type to the Plot Ledge Assistant.</li>
+          <li>Anything you send us by email or WhatsApp, including the number or profile name WhatsApp shows us.</li>
+        </ul>
+        <h3>What we collect automatically</h3>
+        <ul>
+          <li><strong>Visit statistics from Vercel Analytics.</strong> Pages viewed, approximate region, device type and referring site. It uses no cookies and does not build a profile of you.</li>
+          <li><strong>Visit statistics from Google Analytics, only if you accept.</strong> Pages viewed, approximate location, device, browser and referring site, linked to a random ID stored in a cookie.</li>
+          <li><strong>Technical logs.</strong> Our host records your IP address, browser type and the time of each request to run and protect the site. We also count requests per IP address, briefly and in memory, to stop abuse of the forms and chat.</li>
+          <li><strong>Chat ratings.</strong> If you rate an answer with thumbs up or down, we log only the rating and the time, never the message.</li>
+        </ul>
+        <h3>What stays on your device</h3>
+        <ul>
+          <li>Your cookie choice, the chat conversation while the tab is open, and whether you closed the chat prompt. See the <Link href="/cookie-policy">cookie policy</Link> for the exact names.</li>
+          <li>The approximate local currency shown beside our prices. We work it out in your browser from your language setting and send nothing to do it.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: 'why-we-use-it',
+    title: 'Why we use it',
+    content: (
+      <>
+        <p>We only use your information for the reasons below. For visitors in the EEA, the UK or Switzerland, the right-hand column is the legal basis under the GDPR.</p>
+        <LegalTable
+          caption="Purposes and legal bases"
+          head={['What we do', 'Using', 'Legal basis']}
+          rows={[
+            ['Reply to your enquiry and arrange a demo', 'Form details, email, WhatsApp', 'Our legitimate interest in answering you; once you book a demo, taking steps toward a contract'],
+            ['Answer your questions in the chat', 'Chat messages', 'Our legitimate interest in giving you the help you asked for'],
+            ['Understand which pages are useful', 'Google Analytics data', 'Your consent'],
+            ['Count visits without cookies', 'Vercel Analytics data', 'Our legitimate interest in running a site that works well'],
+            ['Keep the site secure and stop abuse', 'IP address, request counts', 'Our legitimate interest in protecting the site and its visitors'],
+          ]}
+        />
+        <p>We do not sell your information, and we do not use it to make decisions that affect you without a person involved.</p>
+      </>
+    ),
+  },
+  {
+    id: 'chat-assistant',
+    title: 'The chat assistant',
+    content: (
+      <>
+        <p>Plot Ledge Assistant is an AI assistant. To write a reply, your message and the recent conversation are sent to our AI provider, Anthropic, which may process them outside Pakistan, including in the United States.</p>
+        <ul>
+          <li>Please do not type bank details, card numbers, passwords or CNIC numbers into the chat.</li>
+          <li>The conversation is kept in your browser&rsquo;s session storage and cleared when you close the tab. We do not keep a copy of it.</li>
+          <li>We keep only what you choose to send through the contact form inside the chat, and we use it only to contact you about Plot Ledge.</li>
+          <li>The assistant can be wrong. Confirm prices, plan limits and anything important with us directly.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: 'who-we-share-with',
+    title: 'Who we share it with',
+    content: (
+      <>
+        <p>These companies handle information for us. Each one only receives what it needs for the job in the table.</p>
+        <LegalTable
+          caption="Service providers"
+          head={['Provider', 'What it does for us', 'Where it may process data']}
+          rows={[
+            ['Vercel', 'Hosts this website and provides Vercel Analytics', 'United States and other regions'],
+            ['Google', 'Google Analytics, only if you accept analytics cookies', 'United States and other regions'],
+            ['Anthropic', 'Writes the chat assistant’s replies', 'United States and other regions'],
+            ['Resend, or an equivalent email or webhook service', 'Delivers your form details to us', 'United States and other regions'],
+            ['An exchange-rate service', 'Our server asks it for daily currency rates. It receives no visitor information', 'Not applicable'],
+          ]}
+        />
+        <p>If you message us on WhatsApp, WhatsApp&rsquo;s own privacy policy applies to that conversation. We may also share information when the law requires it. We do not sell your details to anyone.</p>
+      </>
+    ),
+  },
+  {
+    id: 'international-transfers',
+    title: 'Transfers outside your country',
+    content: (
+      <p>Some providers above process data outside Pakistan, including in the United States and the European Union. For visitors in the EEA, the UK or Switzerland, we rely on those providers&rsquo; standard contractual clauses or an equivalent safeguard recognised under the GDPR.</p>
+    ),
+  },
+  {
+    id: 'how-long',
+    title: 'How long we keep it',
+    content: (
+      <ul>
+        <li><strong>Contact requests:</strong> for as long as we need them to follow up with you. We delete them when you ask, or when they are no longer needed for that.</li>
+        <li><strong>Chat conversations:</strong> not kept by us. They disappear from your browser when you close the tab.</li>
+        <li><strong>Your cookie choice:</strong> 12 months, then we ask again.</li>
+        <li><strong>Analytics and server logs:</strong> kept by Google and Vercel under their own schedules, and not linked back to you by us.</li>
+      </ul>
+    ),
+  },
+  {
+    id: 'your-rights',
+    title: 'Your rights and choices',
+    content: (
+      <>
+        <p>Wherever you are, you can ask us what we hold about you, ask us to correct it, or ask us to delete it. Write to {mail}. We may need to confirm it is you before we act on a request.</p>
+        <ul>
+          <li><strong>Analytics cookies:</strong> accept or reject them in the banner, and change your mind at any time with <CookieSettingsButton className="font-semibold text-primary underline underline-offset-2">cookie settings</CookieSettingsButton>.</li>
+          <li><strong>If you are in Pakistan:</strong> we handle your data in line with the data protection principles in the Prevention of Electronic Crimes Act, 2016 (PECA) and Pakistan&rsquo;s draft Personal Data Protection framework. That means using it only for the purpose you gave it to us and keeping it reasonably secure.</li>
+          <li><strong>If you are in the EEA, the UK or Switzerland:</strong> under the GDPR you can also restrict or object to our use of your data, receive it in a portable format, withdraw consent at any time without affecting what happened before, and complain to your local data protection authority. We will answer within one month.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: 'security',
+    title: 'Keeping it safe',
+    content: (
+      <p>This site is served over HTTPS, and we send form details only to the email inbox or system we use to follow up with you. No website can promise perfect security, so please keep sensitive financial details out of forms and chat.</p>
+    ),
+  },
+  {
+    id: 'children',
+    title: 'Children',
+    content: (
+      <p>Plot Ledge is for property businesses and is not aimed at anyone under 18. If you think a child has sent us their details, write to {mail} and we will delete them.</p>
+    ),
+  },
+  {
+    id: 'changes',
+    title: 'Changes to this policy',
+    content: (
+      <p>When we change this page, we will update the date at the top. If the change affects how we use information you have already given us, we will say so here and, where the law requires, ask for your consent again.</p>
+    ),
+  },
+]
 
 export default function PrivacyPage() {
   return (
-    <PageShell>
-      <article className="measure-wide">
-        <h1 className="t-h2">Privacy policy</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Last updated {LAST_UPDATED}</p>
-
-        <div className="mt-8 flex flex-col gap-4 leading-7 text-muted-foreground [&_h2]:mt-8 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-foreground [&_ul]:list-disc [&_ul]:pl-5">
-          <p>This page explains what Plot Ledge collects through this marketing website and why, and the rights you have over that information under Pakistani law and, for visitors from the European Economic Area (EEA), the UK or Switzerland, under the General Data Protection Regulation (GDPR). The CRM application that you log in to may have its own terms for the records you store there.</p>
-
-          <h2>What we collect</h2>
-          <ul>
-            <li>Details you send in the contact or demo form: name, phone number, company, and the number of plots you manage.</li>
-            <li>Messages you send us by email or WhatsApp.</li>
-            <li>Messages you type into the Plot Ledge Assistant chat, and the details you choose to send through its contact form.</li>
-            <li>A theme preference (light or dark) saved in your browser's local storage. This never leaves your device.</li>
-            <li>Basic visit statistics from Google Analytics and Vercel Analytics, such as pages viewed, approximate region, device type and referring site.</li>
-          </ul>
-
-          <h2>Cookies and similar technology</h2>
-          <p>We use Google Analytics, which sets cookies to measure how visitors use this site, and Vercel Analytics, which does not use cookies. See our <a className="font-semibold text-primary underline" href="/cookie-policy">cookie policy</a> for details and how to opt out.</p>
-
-          <h2>The chat assistant</h2>
-          <p>Plot Ledge Assistant is an AI assistant. Your chat messages are sent to our AI provider (Anthropic) to produce a reply; this provider may process data outside Pakistan, including in the United States. Please do not share bank details, card numbers, passwords or CNIC numbers in the chat. The conversation is kept in your browser's session storage only, and is cleared when you close the tab. We store only what you send through the contact form, and we use it only to contact you about Plot Ledge.</p>
-
-          <h2>Why we collect it, and our legal basis</h2>
-          <p>We use form details to reply to your request and arrange a demo, which we rely on as a legitimate interest in responding to enquiries and, once you book a demo, as necessary to take steps toward a contract. We use visit statistics, which rely on your consent where required by law, to understand which pages are useful and to fix problems.</p>
-
-          <h2>Who we share it with</h2>
-          <p>We do not sell your details. They pass through the services that run this site: our hosting provider (Vercel), analytics providers (Google Analytics, Vercel Analytics), our AI provider (Anthropic), and the form or email service used to deliver your message to us (Resend or an equivalent webhook).</p>
-
-          <h2>International transfers</h2>
-          <p>Some of the services above may process data outside Pakistan, including in the United States and the European Union. Where this applies to visitors in the EEA, UK or Switzerland, we rely on those providers' standard contractual clauses or an equivalent safeguard recognised under GDPR.</p>
-
-          <h2>How long we keep it</h2>
-          <p>We keep contact requests for as long as we need them to follow up with you, and delete them when you ask or when they are no longer needed for that purpose.</p>
-
-          <h2>Your rights</h2>
-          <p>Wherever you are, you can ask to see, correct or delete the details you sent us by writing to <a className="font-semibold text-primary underline" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
-          <ul>
-            <li><strong>If you are in Pakistan:</strong> we handle your data consistent with the data protection principles set out in the Prevention of Electronic Crimes Act, 2016 (PECA) and Pakistan's draft Personal Data Protection framework, including using your data only for the purpose you gave it to us and keeping it reasonably secure.</li>
-            <li><strong>If you are in the EEA, UK or Switzerland:</strong> under the GDPR you additionally have the right to access, rectify, erase or restrict your data, to data portability, to object to processing, to withdraw consent at any time without affecting past processing, and to lodge a complaint with your local data protection supervisory authority.</li>
-          </ul>
-
-          <h2>Changes</h2>
-          <p>If we change this page, we will update the date at the top.</p>
-
-          <h2>Related policies</h2>
-          <ul>
-            <li><a className="font-semibold text-primary underline" href="/cookie-policy">Cookie policy</a></li>
-            <li><a className="font-semibold text-primary underline" href="/refund-policy">Refund and cancellation policy</a></li>
-            <li><a className="font-semibold text-primary underline" href="/terms">Terms of use</a></li>
-          </ul>
-        </div>
-      </article>
-    </PageShell>
+    <LegalPage
+      current="/privacy"
+      title={TITLE}
+      intro="What this website collects, why we collect it, and what you can do about it, in plain language."
+      updated={LAST_UPDATED}
+      summary={[
+        'We collect what you type into our forms and chat, plus visit statistics.',
+        'Google Analytics cookies load only if you accept them. Vercel Analytics uses no cookies.',
+        'Chat replies are written by an AI provider (Anthropic). Please keep bank details, passwords and CNIC numbers out of the chat.',
+        'We never sell your details.',
+        `You can ask to see, correct or delete your details at any time: ${CONTACT_EMAIL}.`,
+      ]}
+      sections={sections}
+    />
   )
 }

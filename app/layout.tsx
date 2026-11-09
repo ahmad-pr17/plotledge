@@ -1,8 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
-import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque, Inter } from 'next/font/google'
 import { ChatMount } from '@/components/chatbot/ChatMount'
+import { ConsentAnalytics } from '@/components/consent/consent-analytics'
+import { CookieBanner } from '@/components/consent/cookie-banner'
 import { jsonLdString, siteJsonLd } from '@/lib/jsonld'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site'
 import './globals.css'
@@ -58,8 +59,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ChatMount />
         {process.env.NODE_ENV === 'production' && <Analytics />}
         {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+          <ConsentAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}
+        <CookieBanner />
       </body>
     </html>
   )
