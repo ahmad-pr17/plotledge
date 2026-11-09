@@ -6,9 +6,8 @@ import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ButtonLink } from '@/components/shared/button-link'
 import { Logo } from '@/components/shared/logo'
-import { ThemeToggle } from '@/components/shared/theme-toggle'
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { CRM_LOGIN_URL, DEMO_URL, NAV_LINKS } from '@/lib/site'
+import { CRM_LOGIN_URL, CRM_SIGNUP_URL, DEMO_URL, NAV_LINKS } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 export function Navbar() {
@@ -43,13 +42,12 @@ export function Navbar() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
-          <ThemeToggle />
           <ButtonLink href={CRM_LOGIN_URL} variant="ghost">Log in</ButtonLink>
-          <ButtonLink href={DEMO_URL}>Book a free demo</ButtonLink>
+          <ButtonLink href={DEMO_URL} variant="secondary" className="hidden xl:inline-flex">Book a demo</ButtonLink>
+          <ButtonLink href={CRM_SIGNUP_URL}>Sign up free</ButtonLink>
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
-          <ThemeToggle />
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
               render={<button type="button" aria-label="Open menu" className="inline-grid size-11 place-items-center rounded-xl text-foreground transition-colors hover:bg-muted [&_svg]:size-5" />}
@@ -74,8 +72,9 @@ export function Navbar() {
                   </Link>
                 ))}
                 <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5">
-                  <ButtonLink href={DEMO_URL} size="lg" onClick={() => setOpen(false)}>Book a free demo</ButtonLink>
-                  <ButtonLink href={CRM_LOGIN_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>Log in</ButtonLink>
+                  <ButtonLink href={CRM_SIGNUP_URL} size="lg" onClick={() => setOpen(false)}>Sign up free</ButtonLink>
+                  <ButtonLink href={DEMO_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>Book a free demo</ButtonLink>
+                  <ButtonLink href={CRM_LOGIN_URL} variant="ghost" size="lg" onClick={() => setOpen(false)}>Log in</ButtonLink>
                 </div>
               </nav>
             </SheetContent>

@@ -8,7 +8,7 @@ import { testimonials } from '@/data/testimonials'
 export function Testimonials() {
   if (testimonials.length === 0) return null
   return (
-    <Section id="testimonials" tone="alt">
+    <Section id="testimonials">
       <SectionHeading eyebrow="What dealers say" title="Less chasing, more closing." />
       <ul className="mt-12 grid gap-4 md:grid-cols-2">
         {testimonials.map((item, i) => (

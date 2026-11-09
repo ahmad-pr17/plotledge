@@ -40,9 +40,9 @@ export function Hero() {
         ref.current.style.setProperty('--hx', `${e.clientX - r.left}px`)
         ref.current.style.setProperty('--hy', `${e.clientY - r.top}px`)
       }}
-      className="relative overflow-hidden pb-20 pt-12 sm:pb-28 sm:pt-20 lg:pb-32 lg:pt-24">
+      className="relative overflow-hidden pb-12 pt-10 sm:pb-16 sm:pt-16 lg:pb-20 lg:pt-20">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="bg-grid absolute inset-0 opacity-70" />
+        <div className="bg-waves-light absolute inset-0" />
         <div className="glow-primary absolute -left-32 -top-10 size-[560px]" />
         <div className="glow-accent absolute -right-24 top-24 size-[480px]" />
         <div className="absolute inset-0 hidden opacity-70 md:block" style={{ background: 'radial-gradient(420px circle at var(--hx, 30%) var(--hy, 20%), var(--primary-glow), transparent 70%)' }} />

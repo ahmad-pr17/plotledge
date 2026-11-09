@@ -6,7 +6,7 @@ import { securityPoints } from '@/data/facts'
 /** A short, honest note. Every line must be true of the product. See data/facts.ts. */
 export function SecurityNote() {
   return (
-    <section aria-labelledby="security-title" className="pb-4 pt-16 sm:pt-20">
+    <section aria-labelledby="security-title" className="pb-2 pt-8 sm:pt-12">
       <Container>
         <Reveal>
           <div className="card-solid grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_1.6fr] lg:items-center lg:gap-12">

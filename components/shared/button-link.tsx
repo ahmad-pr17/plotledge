@@ -8,8 +8,8 @@ const base =
   'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 text-sm font-semibold transition-[transform,box-shadow,background-color,border-color,color] duration-200 active:translate-y-px [&_svg]:size-4 [&_svg]:shrink-0'
 
 const variants: Record<ButtonVariant, string> = {
-  primary: 'btn-shine bg-amber-500 text-emerald-950 shadow-[0_1px_0_rgb(255_255_255/.4)_inset,0_8px_20px_-10px_rgb(245_158_11/.7)] hover:bg-amber-400',
-  secondary: 'border border-[var(--border-strong)] bg-card text-foreground hover:border-primary/40 hover:bg-secondary',
+  primary: 'btn-shine bg-gradient-to-b from-amber-400 to-amber-500 text-emerald-950 shadow-[0_1px_0_rgb(255_255_255/.5)_inset,0_8px_20px_-10px_rgb(217_119_6/.8)] hover:-translate-y-0.5 hover:shadow-[0_1px_0_rgb(255_255_255/.5)_inset,0_14px_28px_-10px_rgb(217_119_6/.85)]',
+  secondary: 'border border-[var(--border-strong)] bg-card text-foreground hover:-translate-y-0.5 hover:border-primary/50 hover:bg-secondary',
   ghost: 'text-foreground hover:bg-muted',
   deep: 'border border-white/20 bg-white/10 text-white hover:bg-white/20',
   link: 'px-2 text-primary underline-offset-4 hover:underline',

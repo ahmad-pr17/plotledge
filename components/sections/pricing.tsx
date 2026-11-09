@@ -30,7 +30,7 @@ export function Pricing({ rates }: { rates: Rates }) {
   useEffect(() => { setCurrency(detectCurrency(rates)) }, [rates])
 
   return (
-    <Section id="pricing" aria-labelledby="pricing-title">
+    <Section id="pricing" tone="alt" aria-labelledby="pricing-title">
       <SectionHeading
         align="center"
         eyebrow="Pricing"
