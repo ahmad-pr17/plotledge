@@ -66,11 +66,13 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const fonts = [inter, display, arabic, naskh, urdu, chinese].map((f) => f.variable).join(' ')
 
   return (
-    <html lang={htmlLang} dir={dir}>
-      <head>
+    // suppressHydrationWarning: browser extensions (ColorZilla, password managers, translators...) add attributes to <html> and <body>
+    // and scripts to <head> before React starts. React would log a mismatch for something the site did not cause.
+    <html lang={htmlLang} dir={dir} suppressHydrationWarning>
+      <body className={fonts} suppressHydrationWarning>
+        {/* Structured data lives in <body>, not <head>: extensions inject their own scripts into <head>, which shifts its children and
+            makes React report a mismatch. Search engines read it from either place. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(siteJsonLd(locale, messages.meta.siteDescription)) }} />
-      </head>
-      <body className={fonts}>
         <I18nProvider locale={locale} messages={toClientMessages(messages)}>
           {children}
           <ChatMount />
