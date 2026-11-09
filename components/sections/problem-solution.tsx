@@ -55,7 +55,7 @@ export function ProblemSolution() {
             <div className="mt-5 overflow-hidden rounded-xl border border-border bg-card">
               <table className="w-full text-left text-sm">
                 <caption className="sr-only">Installments with their status</caption>
-                <thead className="bg-muted text-xs uppercase tracking-wider text-muted-foreground">
+                <thead className="bg-muted text-xs tracking-normal text-muted-foreground">
                   <tr><th scope="col" className="px-3 py-2">Plot</th><th scope="col" className="px-3 py-2">Amount</th><th scope="col" className="px-3 py-2">Status</th></tr>
                 </thead>
                 <tbody>

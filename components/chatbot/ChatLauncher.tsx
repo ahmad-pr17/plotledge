@@ -77,7 +77,7 @@ export default function ChatLauncher() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-[8.25rem] right-4 z-40 flex max-w-[260px] items-center gap-1 rounded-2xl rounded-br-md border border-border bg-card py-1 pl-4 pr-1 text-sm shadow-lg md:bottom-24 md:right-6"
+            className="chat-teaser fixed right-4 z-40 flex max-w-[260px] items-center gap-1 rounded-2xl rounded-br-md border border-border bg-card py-1 pl-4 pr-1 text-sm shadow-lg md:bottom-24 md:right-6"
           >
             <button type="button" onClick={openChat} className="min-h-11 flex-1 py-2 text-left font-medium text-foreground">
               Questions about Plot Ledge? Ask me.
@@ -97,7 +97,7 @@ export default function ChatLauncher() {
         onClick={() => (open ? closeChat() : openChat())}
         onPointerEnter={() => void loadWindow()}
         onFocus={() => void loadWindow()}
-        className="chat-launcher fixed bottom-[4.75rem] right-4 z-40 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_12px_30px_-10px_rgb(var(--shadow-color)/.6)] transition-transform duration-200 hover:scale-105 active:scale-95 md:bottom-6 md:right-6"
+        className="chat-launcher fixed right-4 z-40 grid size-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-[0_12px_30px_-10px_rgb(var(--shadow-color)/.6)] transition-transform duration-200 hover:scale-105 active:scale-95 md:bottom-6 md:right-6"
       >
         <span aria-hidden className="chat-pulse pointer-events-none absolute inset-0 rounded-full bg-primary" />
         <MessageCircle className="relative size-6" aria-hidden />

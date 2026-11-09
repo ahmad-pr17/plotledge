@@ -59,7 +59,7 @@ function ReceiptVisual() {
     <div className="rounded-xl border border-border bg-card p-3 text-xs" aria-hidden="true">
       <div className="num flex items-center justify-between gap-2 font-semibold">
         <span className="truncate">{receipt.id}</span>
-        <span className="rounded bg-paid-soft px-1.5 py-0.5 text-[10px] text-paid-ink">PAID</span>
+        <span className="rounded bg-paid-soft px-1.5 py-0.5 text-xs text-paid-ink">Paid</span>
       </div>
       <div className="mt-2 space-y-1.5">
         {[70, 52, 40].map((w, i) => (
