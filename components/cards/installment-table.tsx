@@ -58,7 +58,7 @@ export function InstallmentTable({ className }: { className?: string }) {
           <div className="table-scroll hidden flex-1 md:block">
             <table className="w-full text-left text-sm">
               <caption className="sr-only">Latest installments with buyer, due date, amount and status</caption>
-              <thead className="text-xs uppercase tracking-wider text-muted-foreground">
+              <thead className="text-xs tracking-normal text-muted-foreground">
                 <tr>
                   <th scope="col" className="px-6 py-3 font-semibold">Plot and buyer</th>
                   <th scope="col" className="px-6 py-3 font-semibold">Due date</th>

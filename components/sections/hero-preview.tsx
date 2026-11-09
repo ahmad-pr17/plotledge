@@ -70,7 +70,7 @@ export function HeroPreview() {
             <span className="size-2.5 rounded-full bg-white/20" />
           </div>
           <span className="text-xs font-medium text-white/70">Overview</span>
-          <span className="flex w-12 items-center justify-end gap-1.5 text-[10px] font-medium text-emerald-300" aria-hidden>
+          <span className="flex w-12 items-center justify-end gap-1.5 text-xs font-medium text-emerald-300" aria-hidden>
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
@@ -90,7 +90,7 @@ export function HeroPreview() {
             <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {kpis.slice(0, 3).map((k, i) => (
                 <div key={k.id} className="min-w-0 rounded-2xl bg-white/[.07] p-2.5 sm:p-3">
-                  <p className="truncate text-[10px] font-medium uppercase tracking-wider text-white/70">{k.label}</p>
+                  <p className="truncate text-xs font-medium tracking-normal text-white/70">{k.label}</p>
                   <p className="mt-1 truncate text-sm font-semibold sm:text-base">
                     <CountUp value={k.value} decimals={k.decimals} prefix={k.prefix} suffix={k.suffix?.replace(' million', ' M')} />
                   </p>
@@ -116,7 +116,7 @@ export function HeroPreview() {
                     />
                   ))}
                 </div>
-                <div className="mt-2 flex justify-between text-[10px] text-white/60">
+                <div className="mt-2 flex justify-between text-xs text-white/60">
                   {months.map((m) => <span key={m}>{m}</span>)}
                 </div>
               </div>
@@ -124,12 +124,12 @@ export function HeroPreview() {
                 <p className="text-xs font-medium text-white/80">Recent payments</p>
                 <ul className="mt-3 flex flex-col gap-2.5">
                   {recent.map((r) => (
-                    <li key={r.id} className="flex items-center justify-between gap-2 text-[11px]">
+                    <li key={r.id} className="flex items-center justify-between gap-2 text-xs">
                       <div className="min-w-0">
                         <p className="truncate font-medium">Plot {r.plot}</p>
                         <p className="num text-white/60">{formatRs(r.amount)}</p>
                       </div>
-                      <StatusBadge status={r.status} className="shrink-0 !px-2 !py-0.5 text-[10px]" />
+                      <StatusBadge status={r.status} className="shrink-0 !px-2 !py-0.5 text-xs" />
                     </li>
                   ))}
                 </ul>
@@ -168,14 +168,14 @@ export function HeroPreview() {
       </Float>
       <Float mx={mx} my={my} depth={reduce ? 0 : -14} delay={1.3} className="absolute -right-1 top-24 z-10 hidden sm:-right-5 sm:block">
         <div className="card-solid px-3 py-2.5 shadow-xl">
-          <p className="flex items-center gap-1.5 text-[11px] font-semibold text-foreground"><Receipt className="size-3.5 text-primary" /> Receipt issued</p>
-          <p className="num mt-0.5 text-[11px] text-muted-foreground">{receipt.id}</p>
+          <p className="flex items-center gap-1.5 text-xs font-semibold text-foreground"><Receipt className="size-3.5 text-primary" /> Receipt issued</p>
+          <p className="num mt-0.5 text-xs text-muted-foreground">{receipt.id}</p>
         </div>
       </Float>
       <Float mx={mx} my={my} depth={reduce ? 0 : 8} delay={1.6} className="absolute -bottom-1 right-6 z-10 hidden sm:block">
         <div className="card-solid flex items-center gap-2 px-3 py-2 shadow-xl">
           <span className="grid size-7 place-items-center rounded-full bg-overdue-soft text-overdue-ink"><TriangleAlert className="size-3.5" /></span>
-          <p className="text-[11px] font-semibold text-foreground">2 installments overdue</p>
+          <p className="text-xs font-semibold text-foreground">2 installments overdue</p>
         </div>
       </Float>
     </div>

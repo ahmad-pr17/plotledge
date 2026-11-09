@@ -79,8 +79,8 @@ export function Footer() {
         <Container className="flex flex-col gap-1 py-5 text-xs sm:flex-row sm:items-center sm:justify-between">
           <span>&copy; {new Date().getFullYear()} Plot Ledge. All rights reserved.</span>
           <span className="flex gap-4">
-            <Link href="/privacy" className="inline-flex min-h-11 items-center hover:text-white">Privacy</Link>
-            <Link href="/terms" className="inline-flex min-h-11 items-center hover:text-white">Terms</Link>
+            <Link href="/privacy" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 hover:text-white">Privacy</Link>
+            <Link href="/terms" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 hover:text-white">Terms</Link>
           </span>
         </Container>
       </div>

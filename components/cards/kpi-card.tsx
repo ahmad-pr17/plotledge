@@ -10,9 +10,9 @@ export function KpiCard({ kpi }: { kpi: Kpi }) {
   const good = up === kpi.upIsGood
   const Arrow = up ? ArrowUpRight : ArrowDownRight
   return (
-    <SpotlightCard className="p-5" lift>
+    <SpotlightCard className="p-4 sm:p-5" lift>
       <p className="text-sm font-medium text-muted-foreground">{kpi.label}</p>
-      <p className="mt-2 font-display text-3xl font-bold tracking-tight text-foreground">
+      <p className="mt-2 font-display text-2xl font-bold sm:text-3xl tracking-tight text-foreground">
         <CountUp value={kpi.value} decimals={kpi.decimals} prefix={kpi.prefix} suffix={kpi.suffix} />
       </p>
       <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -23,7 +23,7 @@ export function KpiCard({ kpi }: { kpi: Kpi }) {
         </span>
         <span className="text-xs text-muted-foreground">{kpi.deltaLabel}</span>
       </div>
-      <Sparkline data={kpi.spark} color={good ? 'var(--chart-1)' : 'var(--overdue)'} className="mt-4" label={`${kpi.label} trend, January to July`} />
+      <Sparkline data={kpi.spark} color={good ? 'var(--chart-1)' : 'var(--overdue)'} className="mt-3 sm:mt-4" label={`${kpi.label} trend, January to July`} />
     </SpotlightCard>
   )
 }

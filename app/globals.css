@@ -147,7 +147,7 @@
 .measure-wide { max-width: 70ch; }
 .num { font-variant-numeric: tabular-nums lining-nums; font-feature-settings: 'tnum', 'lnum'; }
 
-.eyebrow { color: var(--eyebrow); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; display: inline-flex; align-items: center; gap: .6rem; }
+.eyebrow { color: var(--eyebrow); font-size: .75rem; font-weight: 700; letter-spacing: .01em; display: inline-flex; align-items: center; gap: .6rem; }
 .eyebrow::before { content: ''; width: 1.6rem; height: 3px; border-radius: 9999px; background: linear-gradient(90deg, var(--accent), #fcd34d); transform-origin: left; animation: dash-grow .9s cubic-bezier(.22,1,.36,1) both; }
 .on-deep .eyebrow::before { background: linear-gradient(90deg, #fbbf24, #fde68a); }
 .on-deep .eyebrow { color: #fcd34d; }
@@ -309,3 +309,16 @@ footer.on-deep.bg-deep {
 
 /* Light cards sitting on a deep band stay nearly opaque so their text keeps its contrast. */
 .on-deep .card-glass { background: rgba(255, 253, 248, .96); }
+
+/* Chat button: in the corner on phones, lifted above the sticky bar only while that bar is showing. */
+.chat-launcher { bottom: 1rem; transition: bottom .3s ease, transform .2s ease; }
+.chat-teaser { bottom: 5rem; transition: bottom .3s ease; }
+html[data-cta-bar] .chat-launcher { bottom: 4.75rem; }
+html[data-cta-bar] .chat-teaser { bottom: 8.25rem; }
+@media (min-width: 768px) { .chat-launcher { bottom: 1.5rem; } .chat-teaser { bottom: 6rem; } html[data-cta-bar] .chat-launcher { bottom: 1.5rem; } html[data-cta-bar] .chat-teaser { bottom: 6rem; } }
+/* On phones the chat button stays hidden on the first screen so it never covers the hero; it appears with the sticky bar. */
+@media (max-width: 767.98px) {
+  html:not([data-scrolled]):not([data-chat-open]) .chat-launcher, html:not([data-scrolled]) .chat-teaser { opacity: 0; visibility: hidden; pointer-events: none; }
+  .chat-launcher, .chat-teaser { transition: bottom .3s ease, transform .2s ease, opacity .3s ease, visibility .3s; }
+}
+@media (prefers-reduced-motion: reduce) { .chat-launcher, .chat-teaser { transition: none; } }

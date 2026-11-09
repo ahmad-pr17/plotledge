@@ -55,7 +55,7 @@ export function ReceiptCard({ className }: { className?: string }) {
 
         <div className="flex items-end justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">Amount received</p>
+            <p className="text-xs tracking-normal text-muted-foreground">Amount received</p>
             <p className="num mt-1 font-display text-3xl font-bold tracking-tight">{formatRs(receipt.amount)}</p>
           </div>
           <motion.div

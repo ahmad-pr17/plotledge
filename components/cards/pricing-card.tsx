@@ -32,7 +32,7 @@ export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props)
         </span>
       )}
 
-      <p className={cn('text-xs font-semibold uppercase tracking-wider', featured ? 'text-emerald-100/80' : 'text-muted-foreground')}>
+      <p className={cn('text-xs font-semibold tracking-normal', featured ? 'text-emerald-100/80' : 'text-muted-foreground')}>
         {trial ? 'Start here' : 'Plan'}
       </p>
       <div className="mt-1 flex flex-wrap items-end justify-between gap-x-3 gap-y-1" aria-live="polite">
