@@ -1,10 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useLocale, useMessages } from '@/i18n/client'
 import { trackChat } from '@/lib/chatbot/analytics'
 import { matchOfflineFaq } from '@/lib/chatbot/offline-faq'
 import { parseReply, type ActionKey } from '@/lib/chatbot/parse-reply'
-import { containsSensitive, SENSITIVE_REPLY } from '@/lib/chatbot/sensitive'
+import { containsSensitive } from '@/lib/chatbot/sensitive'
 
 export type ChatMessage = {
   id: string
@@ -23,10 +24,6 @@ export const MAX_INPUT = 500
 const MAX_CONTEXT = 10
 const STORAGE_KEY = 'plotledge-chat-v1'
 const REQUEST_TIMEOUT_MS = 30_000
-
-export const RATE_LIMIT_TEXT = 'You have reached the message limit for now. Please try again in a few minutes, or chat with the team on WhatsApp.'
-export const FAILURE_TEXT = 'I am having trouble right now. You can chat with the team on WhatsApp or book a demo.'
-export const REDACTED_TEXT = 'Message removed because it looked like private data.'
 
 const uid = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`
 
@@ -49,6 +46,8 @@ function save(messages: ChatMessage[]) {
 }
 
 export function useChat() {
+  const locale = useLocale()
+  const { chat } = useMessages()
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [streaming, setStreaming] = useState(false)
   const [ready, setReady] = useState(false)
@@ -83,8 +82,8 @@ export function useChat() {
       if (containsSensitive(content)) {
         setMessages((cur) => [
           ...cur,
-          { ...userMsg, content: REDACTED_TEXT, local: true },
-          { id: uid(), role: 'assistant', content: SENSITIVE_REPLY, ts: now, local: true },
+          { ...userMsg, content: chat.errors.redacted, local: true },
+          { id: uid(), role: 'assistant', content: chat.sensitiveReply, ts: now, local: true },
         ])
         return
       }
@@ -110,12 +109,12 @@ export function useChat() {
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: context }),
+          body: JSON.stringify({ messages: context, locale }),
           signal: controller.signal,
         })
 
         if (res.status === 429) {
-          fail(RATE_LIMIT_TEXT, ['whatsapp'])
+          fail(chat.errors.rateLimit, ['whatsapp'])
           return
         }
         if (!res.ok || !res.body) throw new Error(`status ${res.status}`)
@@ -138,7 +137,7 @@ export function useChat() {
             if (m.id === botId) {
               return { ...m, content: parsed.text, leadForm: parsed.leadForm ? 'open' : undefined, actions: parsed.actions.length ? parsed.actions : undefined, local: redacted || undefined }
             }
-            return redacted && m.id === userMsg.id ? { ...m, content: REDACTED_TEXT, local: true } : m
+            return redacted && m.id === userMsg.id ? { ...m, content: chat.errors.redacted, local: true } : m
           }),
         )
       } catch {
@@ -147,9 +146,9 @@ export function useChat() {
           const parsed = parseReply(raw)
           patch(botId, { content: parsed.text, actions: ['whatsapp', 'demo'] })
         } else {
-          const backup = matchOfflineFaq(content)
+          const backup = matchOfflineFaq(content, chat.offline, locale)
           if (backup) fail(backup, ['demo', 'whatsapp'])
-          else fail(FAILURE_TEXT, ['whatsapp', 'demo'])
+          else fail(chat.errors.failure, ['whatsapp', 'demo'])
         }
       } finally {
         clearTimeout(timer)
@@ -157,7 +156,7 @@ export function useChat() {
         abortRef.current = null
       }
     },
-    [patch, streaming],
+    [patch, streaming, chat, locale],
   )
 
   const rate = useCallback(

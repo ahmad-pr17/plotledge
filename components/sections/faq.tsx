@@ -6,14 +6,16 @@ import { Reveal } from '@/components/shared/reveal'
 import { Section } from '@/components/shared/container'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { cn } from '@/lib/utils'
-import { faqs } from '@/data/faqs'
+import { useMessages } from '@/i18n/client'
 
 export function Faq() {
+  const m = useMessages().faq
+  const faqs = m.items
   const [open, setOpen] = useState<number | null>(0)
 
   return (
     <Section id="faq" containerClassName="max-w-3xl" aria-labelledby="faq-title">
-      <SectionHeading align="center" eyebrow="Questions" title={<span id="faq-title">Questions dealers ask before they switch</span>} />
+      <SectionHeading align="center" eyebrow={m.eyebrow} title={<span id="faq-title">{m.title}</span>} />
       <Reveal className="mt-10">
         <div className="card-solid divide-y divide-border overflow-hidden">
           {faqs.map((item, i) => {
@@ -27,7 +29,7 @@ export function Faq() {
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="flex min-h-11 w-full items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold transition-colors hover:bg-muted/50 sm:px-6"
+                    className="flex min-h-11 w-full items-center justify-between gap-4 px-5 py-4 text-start text-base font-semibold transition-colors hover:bg-muted/50 sm:px-6"
                   >
                     <span>{item.q}</span>
                     <ChevronDown className={cn('size-5 shrink-0 text-muted-foreground transition-transform duration-300', isOpen && 'rotate-180')} aria-hidden="true" />

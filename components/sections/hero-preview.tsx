@@ -5,17 +5,17 @@ import { useEffect, useState } from 'react'
 import { BarChart3, CheckCircle2, Handshake, LayoutGrid, Receipt, Settings, TriangleAlert, Users } from 'lucide-react'
 import { CountUp } from '@/components/shared/count-up'
 import { Sparkline } from '@/components/shared/sparkline'
-import { StatusBadge } from '@/components/shared/status-badge'
-import { collectionsM, installments, kpis, months, receipt } from '@/data/showcase'
-import { formatRs } from '@/lib/format'
+import { collectionsM, installments, kpis, receipt } from '@/data/showcase'
+import { useLocale, useMessages } from '@/i18n/client'
+import { fmt } from '@/i18n/text'
+import { CURRENCY_PREFIX } from '@/lib/format'
+import { cn } from '@/lib/utils'
 
 const rail = [LayoutGrid, Handshake, Receipt, Users, BarChart3, Settings]
 const recent = installments.filter((i) => ['i1', 'i2', 'i5'].includes(i.id))
-const events = [
-  { icon: CheckCircle2, tone: 'bg-paid-soft text-paid-ink', title: 'Payment received', sub: `${formatRs(receipt.amount)} for A-104` },
-  { icon: Receipt, tone: 'bg-primary/10 text-primary', title: 'Receipt issued', sub: receipt.id },
-  { icon: Handshake, tone: 'bg-pending-soft text-pending-ink', title: 'Plot B-207 booked', sub: 'Down payment recorded' },
-]
+const badgeStyle = { Paid: 'bg-paid-soft text-paid-ink', Pending: 'bg-pending-soft text-pending-ink', Overdue: 'bg-overdue-soft text-overdue-ink' } as const
+const badgeDot = { Paid: 'bg-paid', Pending: 'bg-pending', Overdue: 'bg-overdue' } as const
+const EVENT_COUNT = 3
 const sparkColor = ['var(--chart-4)', 'var(--chart-4)', 'var(--chart-5)']
 
 function Float({ children, className, depth, mx, my, delay }: { children: React.ReactNode; className: string; depth: number; mx: ReturnType<typeof useSpring>; my: ReturnType<typeof useSpring>; delay: number }) {
@@ -35,11 +35,20 @@ function Float({ children, className, depth, mx, my, delay }: { children: React.
 }
 
 export function HeroPreview() {
+  const m = useMessages().hero.preview
+  const locale = useLocale()
+  const number = new Intl.NumberFormat(`${locale}-u-nu-latn`)
+  const rs = (amount: number) => `${CURRENCY_PREFIX} ${number.format(Math.round(amount))}`
+  const events = [
+    { icon: CheckCircle2, tone: 'bg-paid-soft text-paid-ink', title: m.events.paymentReceived.title, sub: fmt(m.events.paymentReceived.sub, { amount: rs(receipt.amount), plot: 'A-104' }) },
+    { icon: Receipt, tone: 'bg-primary/10 text-primary', title: m.events.receiptIssued.title, sub: receipt.id },
+    { icon: Handshake, tone: 'bg-pending-soft text-pending-ink', title: fmt(m.events.plotBooked.title, { plot: 'B-207' }), sub: m.events.plotBooked.sub },
+  ]
   const reduce = useReducedMotion()
   const [ev, setEv] = useState(0)
   useEffect(() => {
     if (reduce) return
-    const t = setInterval(() => setEv((n) => (n + 1) % events.length), 3200)
+    const t = setInterval(() => setEv((n) => (n + 1) % EVENT_COUNT), 3200)
     return () => clearInterval(t)
   }, [reduce])
   const E = events[ev]
@@ -62,24 +71,24 @@ export function HeroPreview() {
       }}
       onPointerLeave={() => { rx.set(0); ry.set(0) }}
     >
-      <motion.div style={reduce ? undefined : { rotateX: tiltX, rotateY: tiltY }} className="on-deep relative overflow-hidden rounded-3xl border border-white/10 bg-deep-card text-white shadow-[0_40px_80px_-32px_rgb(2_44_34/.7)]">
+      <motion.div dir="ltr" style={reduce ? undefined : { rotateX: tiltX, rotateY: tiltY }} className="on-deep relative overflow-hidden rounded-3xl border border-white/10 bg-deep-card text-white shadow-[0_40px_80px_-32px_rgb(2_44_34/.7)]">
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
           <div className="flex gap-1.5" aria-hidden>
             <span className="size-2.5 rounded-full bg-white/20" />
             <span className="size-2.5 rounded-full bg-white/20" />
             <span className="size-2.5 rounded-full bg-white/20" />
           </div>
-          <span className="text-xs font-medium text-white/70">Overview</span>
+          <span className="text-xs font-medium text-white/70">{m.title}</span>
           <span className="flex w-12 items-center justify-end gap-1.5 text-xs font-medium text-emerald-300" aria-hidden>
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
             </span>
-            Live
+            {m.live}
           </span>
         </div>
         <div className="flex">
-          <div className="hidden w-12 shrink-0 flex-col items-center gap-3 border-r border-white/10 py-4 sm:flex" aria-hidden>
+          <div className="hidden w-12 shrink-0 flex-col items-center gap-3 border-e border-white/10 py-4 sm:flex" aria-hidden>
             {rail.map((Icon, i) => (
               <span key={i} className={`grid size-8 place-items-center rounded-lg ${i === 0 ? 'bg-amber-400 text-emerald-950' : 'text-white/50'}`}>
                 <Icon className="size-4" />
@@ -90,9 +99,9 @@ export function HeroPreview() {
             <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {kpis.slice(0, 3).map((k, i) => (
                 <div key={k.id} className="min-w-0 rounded-2xl bg-white/[.07] p-2.5 sm:p-3">
-                  <p className="truncate text-xs font-medium tracking-normal text-white/70">{k.label}</p>
+                  <p className="truncate text-xs font-medium tracking-normal text-white/70">{m.kpis[k.id as keyof typeof m.kpis]}</p>
                   <p className="mt-1 truncate text-sm font-semibold sm:text-base">
-                    <CountUp value={k.value} decimals={k.decimals} prefix={k.prefix} suffix={k.suffix?.replace(' million', ' M')} />
+                    <CountUp value={k.value} decimals={k.decimals} prefix={k.prefix} suffix={k.unit === 'million' ? m.millionShort : '%'} />
                   </p>
                   <Sparkline data={k.spark} color={sparkColor[i]} className="mt-1 h-6" />
                 </div>
@@ -101,10 +110,10 @@ export function HeroPreview() {
             <div className="mt-3 grid gap-3 sm:grid-cols-[1.1fr_.9fr]">
               <div className="rounded-2xl bg-white/[.07] p-3">
                 <div className="mb-3 flex items-center justify-between text-xs">
-                  <span className="font-medium text-white/80">Collections</span>
-                  <span className="text-emerald-300">January to July</span>
+                  <span className="font-medium text-white/80">{m.collections}</span>
+                  <span className="text-emerald-300">{m.collectionsRange}</span>
                 </div>
-                <div className="flex h-24 items-end gap-1.5 sm:h-28" role="img" aria-label="Collections rising from January to July">
+                <div className="flex h-24 items-end gap-1.5 sm:h-28" role="img" aria-label={m.collectionsChartLabel}>
                   {collectionsM.map((v, i) => (
                     <motion.div
                       key={i}
@@ -117,19 +126,23 @@ export function HeroPreview() {
                   ))}
                 </div>
                 <div className="mt-2 flex justify-between text-xs text-white/60">
-                  {months.map((m) => <span key={m}>{m}</span>)}
+                  {/* Seven labels only fit in English and Chinese; elsewhere show every second month so they never touch. */}
+                  {(locale === 'en' || locale === 'zh' ? m.months : m.months.filter((_, i) => i % 2 === 0)).map((mo) => <span key={mo}>{mo}</span>)}
                 </div>
               </div>
               <div className="rounded-2xl bg-white/[.07] p-3">
-                <p className="text-xs font-medium text-white/80">Recent payments</p>
+                <p className="text-xs font-medium text-white/80">{m.recentPayments}</p>
                 <ul className="mt-3 flex flex-col gap-2.5">
                   {recent.map((r) => (
                     <li key={r.id} className="flex items-center justify-between gap-2 text-xs">
                       <div className="min-w-0">
-                        <p className="truncate font-medium">Plot {r.plot}</p>
-                        <p className="num text-white/60">{formatRs(r.amount)}</p>
+                        <p className="truncate font-medium">{fmt(m.plotLabel, { plot: r.plot })}</p>
+                        <p className="num text-white/60">{rs(r.amount)}</p>
                       </div>
-                      <StatusBadge status={r.status} className="shrink-0 !px-2 !py-0.5 text-xs" />
+                      <span className={cn('inline-flex shrink-0 items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-semibold', badgeStyle[r.status])}>
+                        <span aria-hidden className={cn('size-1.5 rounded-full', badgeDot[r.status])} />
+                        {m.status[r.status]}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -139,7 +152,7 @@ export function HeroPreview() {
         </div>
       </motion.div>
 
-      <Float mx={mx} my={my} depth={reduce ? 0 : 10} delay={1.0} className="absolute -left-1 bottom-0 z-10 sm:-left-6">
+      <Float mx={mx} my={my} depth={reduce ? 0 : 10} delay={1.0} className="absolute -start-1 bottom-0 z-10 sm:-start-6">
         <div className="card-solid w-52 overflow-hidden px-3 py-2.5 shadow-xl">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -166,16 +179,16 @@ export function HeroPreview() {
           </AnimatePresence>
         </div>
       </Float>
-      <Float mx={mx} my={my} depth={reduce ? 0 : -14} delay={1.3} className="absolute -right-1 top-24 z-10 hidden sm:-right-5 sm:block">
+      <Float mx={mx} my={my} depth={reduce ? 0 : -14} delay={1.3} className="absolute -end-1 top-24 z-10 hidden sm:-end-5 sm:block">
         <div className="card-solid px-3 py-2.5 shadow-xl">
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-foreground"><Receipt className="size-3.5 text-primary" /> Receipt issued</p>
+          <p className="flex items-center gap-1.5 text-xs font-semibold text-foreground"><Receipt className="size-3.5 text-primary" /> {m.receiptIssued}</p>
           <p className="num mt-0.5 text-xs text-muted-foreground">{receipt.id}</p>
         </div>
       </Float>
-      <Float mx={mx} my={my} depth={reduce ? 0 : 8} delay={1.6} className="absolute -bottom-1 right-6 z-10 hidden sm:block">
+      <Float mx={mx} my={my} depth={reduce ? 0 : 8} delay={1.6} className="absolute -bottom-1 end-6 z-10 hidden sm:block">
         <div className="card-solid flex items-center gap-2 px-3 py-2 shadow-xl">
           <span className="grid size-7 place-items-center rounded-full bg-overdue-soft text-overdue-ink"><TriangleAlert className="size-3.5" /></span>
-          <p className="text-xs font-semibold text-foreground">2 installments overdue</p>
+          <p className="text-xs font-semibold text-foreground">{fmt(m.overdueNotice, { count: 2 })}</p>
         </div>
       </Float>
     </div>

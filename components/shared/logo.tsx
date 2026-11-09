@@ -1,4 +1,7 @@
-import Link from 'next/link'
+'use client'
+
+import { LocaleLink } from '@/components/shared/locale-link'
+import { useMessages } from '@/i18n/client'
 import { cn } from '@/lib/utils'
 
 export function LogoMark({ className }: { className?: string }) {
@@ -13,14 +16,15 @@ export function LogoMark({ className }: { className?: string }) {
 }
 
 export function Logo({ inverse = false, className }: { inverse?: boolean; className?: string }) {
+  const m = useMessages()
   return (
-    <Link
+    <LocaleLink
       href="/"
-      className={cn('inline-flex min-h-11 items-center gap-2.5 font-display text-lg font-bold tracking-tight', inverse ? 'text-white' : 'text-foreground', className)}
-      aria-label="Plot Ledge home"
+      className={cn('inline-flex min-h-11 items-center gap-2.5 whitespace-nowrap font-display text-lg font-bold tracking-tight', inverse ? 'text-white' : 'text-foreground', className)}
+      aria-label={m.common.logoLabel}
     >
       <LogoMark />
       <span>Plot Ledge</span>
-    </Link>
+    </LocaleLink>
   )
 }

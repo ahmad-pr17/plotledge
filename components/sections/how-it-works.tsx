@@ -5,29 +5,32 @@ import { Handshake, LayoutGrid, Receipt } from 'lucide-react'
 import { Section } from '@/components/shared/container'
 import { Reveal } from '@/components/shared/reveal'
 import { SectionHeading } from '@/components/shared/section-heading'
+import { useMessages } from '@/i18n/client'
 
-const steps = [
-  { n: '01', icon: LayoutGrid, title: 'Add your plots', desc: 'Enter each plot number, size and price, then mark it available, booked or sold.' },
-  { n: '02', icon: Handshake, title: 'Record the deal', desc: 'Pick the buyer, set the sale price and down payment, and choose the installment plan.' },
-  { n: '03', icon: Receipt, title: 'Log every payment', desc: 'Record each installment as it comes in, attach the slip, and issue a receipt.' },
+const stepMeta = [
+  { n: '01', icon: LayoutGrid },
+  { n: '02', icon: Handshake },
+  { n: '03', icon: Receipt },
 ]
 
 export function HowItWorks() {
+  const m = useMessages().how
+  const steps = stepMeta.map((s, i) => ({ ...s, ...m.steps[i] }))
   const reduce = useReducedMotion()
   const line = { initial: { scaleX: reduce ? 1 : 0 }, whileInView: { scaleX: 1 }, viewport: { once: true, margin: '0px 0px -20% 0px' }, transition: { duration: 1.4, ease: 'easeOut' as const } }
   return (
     <Section id="how" tone="deep">
       <SectionHeading
         tone="deep"
-        eyebrow="How it works"
-        title="Three steps, from the first plot to the last installment."
-        description="Set it up once. After that, every payment is one entry."
+        eyebrow={m.eyebrow}
+        title={m.title}
+        description={m.description}
       />
       <ol className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
-        <div aria-hidden="true" className="absolute left-[16.6%] right-[16.6%] top-6 hidden h-px bg-white/15 md:block">
-          <motion.div className="h-full origin-left bg-amber-400" {...line} />
+        <div aria-hidden="true" className="absolute start-[16.6%] end-[16.6%] top-6 hidden h-px bg-white/15 md:block">
+          <motion.div className="h-full origin-left rtl:origin-right bg-amber-400" {...line} />
         </div>
-        <div aria-hidden="true" className="absolute bottom-6 left-6 top-6 w-px -translate-x-1/2 bg-white/15 md:hidden">
+        <div aria-hidden="true" className="absolute bottom-6 start-6 top-6 w-px -translate-x-1/2 bg-white/15 md:hidden">
           <motion.div
             className="h-full origin-top bg-amber-400"
             initial={{ scaleY: reduce ? 1 : 0 }}

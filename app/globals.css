@@ -123,7 +123,7 @@
 
 @layer base {
   * { @apply border-border outline-ring/50; }
-  html { scroll-behavior: smooth; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; scroll-padding-top: 5rem; scroll-padding-bottom: 9rem; -webkit-text-size-adjust: 100%; } /* keeps a focused element clear of the sticky header and of the cookie banner / phone action bar */
   body {
     @apply bg-background text-foreground antialiased;
     overflow-x: clip;
@@ -133,7 +133,7 @@
   }
   h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; }
   p { text-wrap: pretty; }
-  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
   .on-deep :focus-visible { outline-color: #fbbf24; }
   img, svg { max-width: 100%; }
 }
@@ -147,7 +147,7 @@
 .measure-wide { max-width: 70ch; }
 .num { font-variant-numeric: tabular-nums lining-nums; font-feature-settings: 'tnum', 'lnum'; }
 
-.eyebrow { color: var(--eyebrow); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; display: inline-flex; align-items: center; gap: .6rem; }
+.eyebrow { color: var(--eyebrow); font-size: .75rem; font-weight: 700; letter-spacing: .01em; display: inline-flex; align-items: center; gap: .6rem; }
 .eyebrow::before { content: ''; width: 1.6rem; height: 3px; border-radius: 9999px; background: linear-gradient(90deg, var(--accent), #fcd34d); transform-origin: left; animation: dash-grow .9s cubic-bezier(.22,1,.36,1) both; }
 .on-deep .eyebrow::before { background: linear-gradient(90deg, #fbbf24, #fde68a); }
 .on-deep .eyebrow { color: #fcd34d; }
@@ -309,3 +309,117 @@ footer.on-deep.bg-deep {
 
 /* Light cards sitting on a deep band stay nearly opaque so their text keeps its contrast. */
 .on-deep .card-glass { background: rgba(255, 253, 248, .96); }
+
+/* Chat button: in the corner on phones, lifted above the sticky bar only while that bar is showing. */
+.chat-launcher { bottom: 1rem; transition: bottom .3s ease, transform .2s ease; }
+.chat-teaser { bottom: 5rem; transition: bottom .3s ease; }
+html[data-cta-bar] .chat-launcher { bottom: 4.75rem; }
+html[data-cta-bar] .chat-teaser { bottom: 8.25rem; }
+@media (min-width: 768px) { .chat-launcher { bottom: 1.5rem; } .chat-teaser { bottom: 6rem; } html[data-cta-bar] .chat-launcher { bottom: 1.5rem; } html[data-cta-bar] .chat-teaser { bottom: 6rem; } }
+/* On phones the chat button stays hidden on the first screen so it never covers the hero; it appears with the sticky bar. */
+@media (max-width: 767.98px) {
+  html:not([data-scrolled]):not([data-chat-open]) .chat-launcher, html:not([data-scrolled]) .chat-teaser { opacity: 0; visibility: hidden; pointer-events: none; }
+  .chat-launcher, .chat-teaser { transition: bottom .3s ease, transform .2s ease, opacity .3s ease, visibility .3s; }
+}
+@media (prefers-reduced-motion: reduce) { .chat-launcher, .chat-teaser { transition: none; } }
+
+/* ---------- Languages and scripts ----------
+   Fonts per script (loaded in app/[lang]/layout.tsx), tracking and line height that suit each writing system,
+   and the few direction-specific rules that logical properties cannot express. See docs/i18n.md. */
+:lang(ar) {
+  --font-sans: var(--font-arabic), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-arabic), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+:lang(ur) {
+  --font-sans: var(--font-urdu), var(--font-naskh), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-urdu), var(--font-naskh), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+}
+:lang(zh-Hans) {
+  --font-sans: var(--font-chinese), var(--font-inter), ui-sans-serif, system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-display: var(--font-chinese), var(--font-inter), ui-sans-serif, system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+/* Bricolage has no Cyrillic: headlines fall back to Inter, which does. */
+:lang(ru) { --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif; }
+
+/* Tight tracking breaks the joining of Arabic and Urdu letters, and squeezes Chinese. Turn it off for those scripts. */
+:lang(ar) *, :lang(ur) *, :lang(zh-Hans) * { letter-spacing: 0 !important; }
+:lang(ar) body { line-height: 1.75; }
+:lang(ur) body { line-height: 2.05; }          /* Nastaliq needs generous height for its tall, sloping letters */
+:lang(zh-Hans) body { line-height: 1.75; }
+:lang(ar) .t-hero, :lang(ar) .t-h2, :lang(ar) .t-h3 { line-height: 1.35; }
+:lang(ur) .t-hero, :lang(ur) .t-h2, :lang(ur) .t-h3 { line-height: 1.75; }
+:lang(zh-Hans) .t-hero, :lang(zh-Hans) .t-h2, :lang(zh-Hans) .t-h3 { line-height: 1.3; }
+:lang(ar) .grad-text, :lang(ur) .grad-text { padding-block: .12em; } /* gradient text clips tall marks without this */
+
+/* Things that animate or grow from one side must start from the other side in right-to-left languages. */
+[dir='rtl'] .eyebrow::before { transform-origin: right; }
+@keyframes marquee-rtl { to { transform: translateX(50%); } }
+[dir='rtl'] .marquee-track, [dir='rtl'] .animate-marquee { animation-name: marquee-rtl; }
+[dir='rtl'] .btn-shine::after { transform: translateX(120%) skewX(18deg); }
+@media (hover: hover) { [dir='rtl'] .btn-shine:hover::after { transform: translateX(-120%) skewX(18deg); } }
+
+/* ---------- Plot Ledge loader (same animation as the CRM) ----------
+   The grid draws itself, then its plots fill in. Colours follow the site tokens. Used by components/shared/plot-ledge-loader.tsx. */
+.pll {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.1rem;
+  min-height: 55vh;
+  padding: 2rem 1rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+.pll--full {
+  position: fixed; inset: 0; z-index: 9999; background: var(--background);
+  min-height: 100vh; min-height: 100dvh;          /* dynamic viewport: stays centred when phone browser bars show or hide */
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+}
+.pll--compact { min-height: 0; padding: 1.5rem 1rem; gap: .7rem; }
+.pll--compact .pll-mark { width: 44px; height: 44px; }
+/* Sizes follow the screen: small on a phone, larger on a big monitor. */
+.pll-mark { width: clamp(64px, 16vmin, 112px); height: clamp(64px, 16vmin, 112px); color: var(--primary); overflow: visible; }
+.pll-mark .pll-line {
+  fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; animation: pll-draw .5s ease-in-out infinite alternate;
+}
+.pll-mark .pll-line.b { animation-delay: .04s; }
+.pll-mark .pll-line.c { animation-delay: .08s; }
+.pll-mark .pll-cell {
+  fill: var(--accent); opacity: 0; transform-box: fill-box; transform-origin: center; animation: pll-pop .5s ease-in-out infinite alternate;
+}
+.pll-mark .pll-cell.c1 { animation-delay: .15s; }
+.pll-mark .pll-cell.c2 { animation-delay: .2s; }
+.pll-mark .pll-cell.c3 { animation-delay: .25s; }
+.pll-mark .pll-cell.c4 { animation-delay: .3s; }
+.pll-label { margin: 0; font-size: clamp(.9rem, 2.2vmin, 1.1rem); font-weight: 600; max-width: 90vw; }
+.pll-dots { display: inline-flex; gap: 3px; margin-inline-start: 4px; vertical-align: middle; }
+.pll-dots i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: .3; animation: pll-dot .4s ease-in-out infinite alternate; }
+.pll-dots i:nth-child(2) { animation-delay: .1s; }
+.pll-dots i:nth-child(3) { animation-delay: .2s; }
+.pll-bar { width: clamp(96px, 26vmin, 160px); height: 3px; border-radius: 3px; overflow: hidden; background: rgba(127, 127, 127, .18); }
+.pll-bar::after { content: ''; display: block; width: 40%; height: 100%; border-radius: 3px; background: var(--primary); animation: pll-slide .5s ease-in-out infinite alternate; }
+[dir='rtl'] .pll-bar::after { animation-name: pll-slide-rtl; }
+.pll--compact .pll-bar { display: none; }
+@keyframes pll-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pll-pop { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: scale(1); } }
+@keyframes pll-dot { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
+@keyframes pll-slide { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+@keyframes pll-slide-rtl { from { transform: translateX(100%); } to { transform: translateX(-250%); } }
+@media (prefers-reduced-motion: reduce) {
+  .pll-mark .pll-line { animation: none; stroke-dashoffset: 0; }
+  .pll-mark .pll-cell { animation: none; opacity: 1; }
+  .pll-dots i, .pll-bar::after { animation: none; }
+  .pll-dots i { opacity: .6; }
+  .pll-bar::after { width: 100%; opacity: .5; }
+}
+
+/* Skip link: hidden above the page until it receives keyboard focus, then slides in at the top. (Tailwind's sr-only/not-sr-only pair cannot be used
+   here because the hand-written .sr-only rule above is unlayered and always wins.) */
+.skip-link {
+  position: fixed; inset-inline-start: 1rem; top: -6rem; z-index: 100;
+  border-radius: .5rem; background: #f59e0b; color: #022c22; padding: .75rem 1rem; font-size: .875rem; font-weight: 600;
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / .4); transition: top .15s ease;
+}
+.skip-link:focus, .skip-link:focus-visible { top: 1rem; }
+@media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }

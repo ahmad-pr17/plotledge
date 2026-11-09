@@ -1,16 +1,20 @@
 'use client'
 
 import { motion, useScroll, useSpring } from 'motion/react'
-import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ButtonLink } from '@/components/shared/button-link'
+import { LanguageSwitcher } from '@/components/shared/language-switcher'
+import { LocaleLink } from '@/components/shared/locale-link'
 import { Logo } from '@/components/shared/logo'
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { useDir, useMessages } from '@/i18n/client'
 import { CRM_LOGIN_URL, CRM_SIGNUP_URL, DEMO_URL, NAV_LINKS } from '@/lib/site'
 import { cn } from '@/lib/utils'
 
 export function Navbar() {
+  const m = useMessages()
+  const dir = useDir()
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const { scrollYProgress } = useScroll()
@@ -34,54 +38,56 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Logo />
-        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
+        <nav aria-label={m.common.nav.ariaMain} className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
-              {l.label}
-            </Link>
+            <LocaleLink key={l.href} href={l.href} className="inline-flex min-h-11 items-center whitespace-nowrap rounded-lg px-2 text-sm font-medium xl:px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              {m.common.nav[l.key]}
+            </LocaleLink>
           ))}
         </nav>
         <div className="hidden items-center gap-2 lg:flex">
-          <ButtonLink href={CRM_LOGIN_URL} variant="ghost">Log in</ButtonLink>
-          <ButtonLink href={DEMO_URL} variant="secondary" className="hidden xl:inline-flex">Book a demo</ButtonLink>
-          <ButtonLink href={CRM_SIGNUP_URL}>Sign up free</ButtonLink>
+          <ButtonLink href={CRM_LOGIN_URL} variant="ghost">{m.common.header.login}</ButtonLink>
+          <ButtonLink href={DEMO_URL} variant="secondary" className="hidden xl:inline-flex">{m.common.header.demo}</ButtonLink>
+          <ButtonLink href={CRM_SIGNUP_URL}>{m.common.header.signup}</ButtonLink>
+          <LanguageSwitcher />
         </div>
 
         <div className="flex items-center gap-1 lg:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
-              render={<button type="button" aria-label="Open menu" className="inline-grid size-11 place-items-center rounded-xl text-foreground transition-colors hover:bg-muted [&_svg]:size-5" />}
+              render={<button type="button" aria-label={m.common.nav.openMenu} className="inline-grid size-11 place-items-center rounded-xl text-foreground transition-colors hover:bg-muted [&_svg]:size-5" />}
             >
               <Menu />
             </SheetTrigger>
-            <SheetContent className="p-0" showCloseButton={false}>
+            <SheetContent side={dir === 'rtl' ? 'left' : 'right'} className="p-0" showCloseButton={false}>
               <SheetHeader className="flex-row items-center justify-between border-b border-border px-5 py-3">
                 <SheetTitle render={<div />}>
                   <Logo />
                 </SheetTitle>
                 <SheetClose
-                  render={<button type="button" aria-label="Close menu" className="inline-grid size-11 place-items-center rounded-xl text-foreground transition-colors hover:bg-muted [&_svg]:size-5" />}
+                  render={<button type="button" aria-label={m.common.nav.closeMenu} className="inline-grid size-11 place-items-center rounded-xl text-foreground transition-colors hover:bg-muted [&_svg]:size-5" />}
                 >
                   <X />
                 </SheetClose>
               </SheetHeader>
-              <nav aria-label="Mobile" className="flex flex-col px-5 py-4">
+              <nav aria-label={m.common.nav.ariaMobile} className="flex flex-col px-5 py-4">
                 {NAV_LINKS.map((l) => (
-                  <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="flex min-h-12 items-center rounded-lg text-lg font-medium text-foreground transition-colors hover:text-primary">
-                    {l.label}
-                  </Link>
+                  <LocaleLink key={l.href} href={l.href} onClick={() => setOpen(false)} className="flex min-h-12 items-center rounded-lg text-lg font-medium text-foreground transition-colors hover:text-primary">
+                    {m.common.nav[l.key]}
+                  </LocaleLink>
                 ))}
                 <div className="mt-5 flex flex-col gap-3 border-t border-border pt-5">
-                  <ButtonLink href={CRM_SIGNUP_URL} size="lg" onClick={() => setOpen(false)}>Sign up free</ButtonLink>
-                  <ButtonLink href={DEMO_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>Book a free demo</ButtonLink>
-                  <ButtonLink href={CRM_LOGIN_URL} variant="ghost" size="lg" onClick={() => setOpen(false)}>Log in</ButtonLink>
+                  <ButtonLink href={CRM_SIGNUP_URL} size="lg" onClick={() => setOpen(false)}>{m.common.header.signup}</ButtonLink>
+                  <ButtonLink href={DEMO_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>{m.common.header.demoFree}</ButtonLink>
+                  <ButtonLink href={CRM_LOGIN_URL} variant="ghost" size="lg" onClick={() => setOpen(false)}>{m.common.header.login}</ButtonLink>
+                  <LanguageSwitcher variant="inline" className="self-start" />
                 </div>
               </nav>
             </SheetContent>
           </Sheet>
         </div>
       </div>
-      <motion.div aria-hidden className="absolute inset-x-0 -bottom-px h-0.5 origin-left bg-gradient-to-r from-emerald-500 to-amber-400" style={{ scaleX: progress }} />
+      <motion.div aria-hidden className="absolute inset-x-0 -bottom-px h-0.5 origin-left rtl:origin-right bg-gradient-to-r rtl:bg-gradient-to-l from-emerald-500 to-amber-400" style={{ scaleX: progress }} />
     </header>
   )
 }

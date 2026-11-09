@@ -1,7 +1,12 @@
+'use client'
+
+import { useMessages } from '@/i18n/client'
+
 /** Three calm dots. The pulse is opacity only, and it stops for people who prefer reduced motion. */
 export function TypingIndicator() {
+  const { chat } = useMessages()
   return (
-    <div className="flex items-center gap-1.5 px-1 py-1.5" role="status" aria-label="Plot Ledge Assistant is typing">
+    <div className="flex items-center gap-1.5 px-1 py-1.5" role="status" aria-label={chat.window.typing}>
       {[0, 1, 2].map((i) => (
         <span
           key={i}

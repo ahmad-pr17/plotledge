@@ -2,6 +2,8 @@
 
 import { animate, useInView, useReducedMotion } from 'motion/react'
 import { useEffect, useRef } from 'react'
+import { useLocale } from '@/i18n/client'
+import { numberLocale } from '@/lib/format'
 
 type Props = {
   value: number
@@ -23,11 +25,11 @@ export function CountUp({ value, decimals = 0, prefix = '', suffix = '', duratio
   const inView = useInView(ref, { once: true, margin: '0px 0px -8% 0px' })
   const reduce = useReducedMotion()
   const started = useRef(false)
+  const locale = useLocale()
 
   const fmt = (n: number) => {
-    const body = indian
-      ? n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
-      : n.toFixed(decimals)
+    // Decimal and grouping separators follow the page language; digits stay 0-9. Grouping only when `indian` is set.
+    const body = new Intl.NumberFormat(numberLocale(locale), { minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: !!indian }).format(n)
     return `${prefix}${body}${suffix}`
   }
 

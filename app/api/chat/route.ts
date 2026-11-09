@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import { clientIp, LIMITS, rateLimit } from '@/lib/chatbot/rate-limit'
-import { containsSensitive, SENSITIVE_REPLY } from '@/lib/chatbot/sensitive'
-import { SYSTEM_PROMPT } from '@/lib/chatbot/system-prompt'
+import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config'
+import { loadMessages } from '@/i18n/messages'
+import { containsSensitive } from '@/lib/chatbot/sensitive'
+import { systemPromptFor } from '@/lib/chatbot/system-prompt'
 
 export const runtime = 'nodejs'
 export const maxDuration = 30
@@ -100,12 +102,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'bad_request' }, { status: 400 })
   }
 
+  const rawLocale = (body as { locale?: unknown })?.locale
+  const locale: Locale = typeof rawLocale === 'string' && isLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE
+
   const messages = validate(body)
   if (!messages) return NextResponse.json({ error: 'bad_request' }, { status: 400 })
 
   // Private data never leaves this server. The browser also removes the message from the visitor's history.
   if (containsSensitive(messages[messages.length - 1].content)) {
-    return textResponse(SENSITIVE_REPLY, { 'X-Chat-Redacted': '1' })
+    return textResponse((await loadMessages(locale)).chat.sensitiveReply, { 'X-Chat-Redacted': '1' })
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY
@@ -119,7 +124,7 @@ export async function POST(req: Request) {
         model: process.env.CHAT_MODEL || DEFAULT_MODEL,
         max_tokens: MAX_OUTPUT_TOKENS,
         stream: true,
-        system: SYSTEM_PROMPT,
+        system: systemPromptFor(locale),
         messages,
       }),
       signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),

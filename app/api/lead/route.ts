@@ -7,25 +7,25 @@ export const runtime = 'nodejs'
 export async function POST(req: Request) {
   const limited = rateLimit(`lead:${clientIp(req)}`, LIMITS.lead)
   if (!limited.ok) {
-    return NextResponse.json({ error: 'Too many requests. Please try again in a few minutes.' }, { status: 429, headers: { 'Retry-After': String(limited.retryAfterSec) } })
+    return NextResponse.json({ code: 'rate_limited' }, { status: 429, headers: { 'Retry-After': String(limited.retryAfterSec) } })
   }
 
   let body: Record<string, unknown>
   try {
     const raw = await req.text()
-    if (raw.length > 5_000) return NextResponse.json({ error: 'Request too large.' }, { status: 413 })
+    if (raw.length > 5_000) return NextResponse.json({ code: 'too_large' }, { status: 413 })
     body = JSON.parse(raw)
   } catch {
-    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
+    return NextResponse.json({ code: 'bad_request' }, { status: 400 })
   }
 
   // Honeypot: real people never fill this hidden field. Pretend success for bots.
   if (typeof body.website === 'string' && body.website.trim()) return NextResponse.json({ ok: true })
 
   const result = cleanLead(body, 'chat-assistant')
-  if ('errors' in result) return NextResponse.json({ error: 'Please check the highlighted fields.', errors: result.errors }, { status: 422 })
+  if ('errors' in result) return NextResponse.json({ code: 'invalid', errors: result.errors }, { status: 422 })
 
   const sent = await deliverLead(result.data)
-  if (!sent) return NextResponse.json({ error: 'We could not send this right now.' }, { status: 503 })
-  return NextResponse.json({ ok: true })
+  if (!sent) return NextResponse.json({ code: 'failed' }, { status: 503 })
+  return NextResponse.json({ ok: true, code: 'ok' })
 }
