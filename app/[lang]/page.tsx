@@ -8,6 +8,7 @@ import { HowItWorks } from '@/components/sections/how-it-works'
 import { Navbar } from '@/components/sections/navbar'
 import { ProblemSolution } from '@/components/sections/problem-solution'
 import { TrustStrip } from '@/components/sections/trust-strip'
+import { faqs } from '@/data/faqs'
 import { faqJsonLd, jsonLdString } from '@/lib/jsonld'
 import { getRates } from '@/lib/rates'
 
@@ -51,7 +52,7 @@ export default async function Page() {
       </main>
       <Footer />
       <FloatingActions />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd()) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd(faqs)) }} />
     </>
   )
 }
