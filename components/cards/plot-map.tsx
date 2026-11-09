@@ -3,13 +3,13 @@
 import { motion, useInView, useReducedMotion } from 'motion/react'
 import { LayoutGrid } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { plots, type PlotStatus } from '@/data/showcase'
-import { formatRs } from '@/lib/format'
+import { formatRsL, plots, sizeLabel, type PlotStatus } from '@/data/showcase'
+import { useLocale, useMessages } from '@/i18n/client'
+import { fmt, rich } from '@/i18n/text'
 import { cn } from '@/lib/utils'
 import { CardShell } from './card-shell'
 
 const STATUSES: PlotStatus[] = ['available', 'booked', 'sold']
-const LABEL: Record<PlotStatus, string> = { available: 'Available', booked: 'Booked', sold: 'Sold' }
 
 const cellStyle: Record<PlotStatus, React.CSSProperties> = {
   available: { background: 'var(--paid-soft)', borderColor: 'var(--paid)', color: 'var(--paid-ink)' },
@@ -21,13 +21,18 @@ const swatch: Record<PlotStatus, string> = { available: 'var(--paid)', booked: '
 function tipAlign(i: number): string {
   const c5 = i % 5
   const c10 = i % 10
-  const mobile = c5 === 0 ? 'max-sm:left-0' : c5 === 4 ? 'max-sm:right-0' : 'max-sm:left-1/2 max-sm:-translate-x-1/2'
-  const wide = c10 < 2 ? 'sm:left-0' : c10 > 7 ? 'sm:right-0' : 'sm:left-1/2 sm:-translate-x-1/2'
+  const mobile = c5 === 0 ? 'max-sm:start-0' : c5 === 4 ? 'max-sm:end-0' : 'max-sm:start-1/2 max-sm:-translate-x-1/2 max-sm:rtl:translate-x-1/2'
+  const wide = c10 < 2 ? 'sm:start-0' : c10 > 7 ? 'sm:end-0' : 'sm:start-1/2 sm:-translate-x-1/2 sm:rtl:translate-x-1/2'
   return `${mobile} ${wide}`
 }
 
 export function PlotMap({ className }: { className?: string }) {
   const reduce = useReducedMotion()
+  const msg = useMessages().showcase
+  const m = msg.plotMap
+  const locale = useLocale()
+  const LABEL = msg.plotStatus
+  const rs = (n: number) => formatRsL(locale, n)
   const [filter, setFilter] = useState<PlotStatus | null>(null)
   const gridRef = useRef<HTMLDivElement>(null)
   const seen = useInView(gridRef, { once: true, margin: '0px 0px -10% 0px' })
@@ -63,8 +68,8 @@ export function PlotMap({ className }: { className?: string }) {
   }, [])
 
   return (
-    <CardShell title="Plot availability" icon={LayoutGrid} className={className}>
-      <div role="group" aria-label="Filter plots by status" className="mb-4 flex flex-wrap gap-2">
+    <CardShell title={m.title} icon={LayoutGrid} className={className}>
+      <div role="group" aria-label={m.filterLabel} className="mb-4 flex flex-wrap gap-2">
         {STATUSES.map((s) => (
           <button
             key={s}
@@ -86,7 +91,7 @@ export function PlotMap({ className }: { className?: string }) {
       <div ref={gridRef} className="flex flex-col gap-4">
         {blocks.map(([block, items], bi) => (
           <div key={block}>
-            <p className="mb-1.5 text-xs font-semibold tracking-normal text-muted-foreground">Block {block}</p>
+            <p className="mb-1.5 text-xs font-semibold tracking-normal text-muted-foreground">{fmt(m.block, { block })}</p>
             <div className="grid grid-cols-5 gap-1.5 sm:grid-cols-10">
               {items.map((p, i) => {
                 const st = live[p.id] ?? p.status
@@ -112,7 +117,7 @@ export function PlotMap({ className }: { className?: string }) {
                     )}
                     <button
                       type="button"
-                      aria-label={`Plot ${p.id}, ${p.size}, ${formatRs(p.price)}, ${LABEL[st]}`}
+                      aria-label={fmt(m.plotAria, { id: p.id, size: sizeLabel(msg.sizes, p.size), price: rs(p.price), status: LABEL[st] })}
                       className="num grid h-11 w-full place-items-center rounded-lg border text-xs font-semibold transition-[transform,background-color,border-color] duration-500 hover:scale-105 focus-visible:scale-105"
                       style={cellStyle[st]}
                     >
@@ -121,13 +126,13 @@ export function PlotMap({ className }: { className?: string }) {
                     <span
                       aria-hidden="true"
                       className={cn(
-                        'pointer-events-none absolute bottom-full z-20 mb-2 w-max rounded-lg bg-deep px-3 py-2 text-left text-xs text-white opacity-0 shadow-lg transition-opacity duration-150 group-focus-within:opacity-100 group-hover:opacity-100',
+                        'pointer-events-none absolute bottom-full z-20 mb-2 w-max rounded-lg bg-deep px-3 py-2 text-start text-xs text-white opacity-0 shadow-lg transition-opacity duration-150 group-focus-within:opacity-100 group-hover:opacity-100',
                         tipAlign(i),
                       )}
                     >
-                      <span className="block font-semibold">Plot {p.id}</span>
-                      <span className="block text-emerald-100/80">{p.size}</span>
-                      <span className="num block">{formatRs(p.price)}</span>
+                      <span className="block font-semibold">{fmt(m.plotLabel, { id: p.id })}</span>
+                      <span className="block text-emerald-100/80">{sizeLabel(msg.sizes, p.size)}</span>
+                      <span className="num block">{rs(p.price)}</span>
                       <span className="block text-amber-300">{LABEL[st]}</span>
                     </span>
                   </motion.div>
@@ -141,11 +146,11 @@ export function PlotMap({ className }: { className?: string }) {
       <p className="mt-4 text-sm text-muted-foreground" aria-live="polite">
         {filter ? (
           <>
-            Showing <span className="num font-medium text-foreground">{counts[filter]}</span> {LABEL[filter].toLowerCase()} plots.
+            {rich(m.showing, { n: (c) => <span className="num font-medium text-foreground">{c}</span> }, { count: counts[filter], status: LABEL[filter].toLocaleLowerCase(locale) })}
           </>
         ) : (
           <>
-            <span className="num font-medium text-foreground">{plots.length}</span> plots in this project. Hover or focus a plot for details.
+            {rich(m.total, { n: (c) => <span className="num font-medium text-foreground">{c}</span> }, { count: plots.length })}
           </>
         )}
       </p>

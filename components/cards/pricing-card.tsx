@@ -5,6 +5,8 @@ import { CircleCheck, MessageCircle } from 'lucide-react'
 import { ButtonLink } from '@/components/shared/button-link'
 import { SpotlightCard } from '@/components/shared/spotlight-card'
 import { formatPrice, type Rates } from '@/lib/currency'
+import { useLocale, useMessages } from '@/i18n/client'
+import { fmt } from '@/i18n/text'
 import { DEMO_URL, whatsappLink } from '@/lib/site'
 import { cn } from '@/lib/utils'
 import { TRIAL, type Plan } from '@/data/pricing'
@@ -13,6 +15,10 @@ type Props = { plan: Plan; yearly: boolean; currency: string; rates: Rates; onCo
 
 export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props) {
   const reduce = useReducedMotion()
+  const m = useMessages().pricing
+  const c = m.card
+  const locale = useLocale()
+  const price = (n: number) => formatPrice(n, 'PKR', rates, locale)
   const perMonth = yearly ? plan.yearlyPerMonth : plan.monthly
   const priceKey = `${plan.id}-${yearly ? 'y' : 'm'}`
   const featured = plan.popular
@@ -27,18 +33,18 @@ export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props)
       )}
     >
       {featured && (
-        <span className="absolute! left-1/2 top-0 w-max -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-white px-4 py-1 text-sm font-semibold text-emerald-950 shadow-sm ring-1 ring-amber-500/40">
-          Best offer
+        <span className="absolute! inset-x-0 mx-auto top-0 w-max -translate-y-1/2 whitespace-nowrap rounded-full bg-white px-4 py-1 text-sm font-semibold text-emerald-950 shadow-sm ring-1 ring-amber-500/40">
+          {c.bestOffer}
         </span>
       )}
 
       <p className={cn('text-xs font-semibold tracking-normal', featured ? 'text-emerald-100/80' : 'text-muted-foreground')}>
-        {trial ? 'Start here' : 'Plan'}
+        {trial ? c.startHere : c.plan}
       </p>
       <div className="mt-1 flex flex-wrap items-end justify-between gap-x-3 gap-y-1" aria-live="polite">
         <h3 className="t-h3">{plan.name}</h3>
         {perMonth === null ? (
-          <p className="font-display text-2xl font-bold tracking-tight">Custom</p>
+          <p className="font-display text-2xl font-bold tracking-tight">{c.custom}</p>
         ) : (
           <AnimatePresence mode="wait" initial={false}>
             <motion.p
@@ -49,9 +55,9 @@ export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props)
               transition={{ duration: 0.2 }}
               className="num font-display text-2xl font-bold tracking-tight"
             >
-              {trial ? 'Free' : formatPrice(Math.round(perMonth), 'PKR')}
+              {trial ? c.free : price(Math.round(perMonth))}
               <span className={cn('text-sm font-medium', featured ? 'text-emerald-100/80' : 'text-muted-foreground')}>
-                {trial ? ` / ${TRIAL.days} days` : ' / month'}
+                {' '}{trial ? fmt(c.perDays, { days: TRIAL.days }) : c.perMonth}
               </span>
             </motion.p>
           </AnimatePresence>
@@ -59,21 +65,21 @@ export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props)
       </div>
 
       <p className={cn('num mt-2 min-h-10 text-sm leading-5', featured ? 'text-emerald-100/80' : 'text-muted-foreground')}>
-        {trial && 'No payment needed'}
+        {trial && c.noPayment}
         {!trial && plan.yearlyTotal && (yearly
-          ? <>Billed {formatPrice(plan.yearlyTotal, 'PKR')} per year. You save {formatPrice((plan.monthly ?? 0) * 12 - plan.yearlyTotal, 'PKR')}.</>
-          : 'Billed monthly')}
-        {plan.id === 'enterprise' && 'Priced for your society or group'}
+          ? <>{fmt(c.billedYearly, { total: price(plan.yearlyTotal), saving: price((plan.monthly ?? 0) * 12 - plan.yearlyTotal) })}</>
+          : c.billedMonthly)}
+        {plan.id === 'enterprise' && c.enterpriseNote}
         {!trial && plan.yearlyTotal && currency !== 'PKR' && (
-          <span className="block text-xs">About {formatPrice(Math.round(perMonth ?? 0), currency, rates).replace('~', '')} per month</span>
+          <span className="block text-xs">{fmt(c.approx, { amount: formatPrice(Math.round(perMonth ?? 0), currency, rates, locale).replace('~', '') })}</span>
         )}
       </p>
 
       <ul className="mt-5 flex flex-1 flex-col gap-3 text-sm">
-        {plan.highlights.map((item) => (
+        {m.plans[plan.id].highlights.map((item) => (
           <li key={item} className="flex gap-2.5">
             <CircleCheck className={cn('mt-0.5 size-4 shrink-0', featured ? 'text-amber-300' : 'text-paid')} aria-hidden="true" />
-            <span>{item}</span>
+            <span>{fmt(item, { days: TRIAL.days })}</span>
           </li>
         ))}
       </ul>
@@ -81,15 +87,15 @@ export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props)
       <div className="mt-8 flex flex-wrap gap-2">
         {plan.id === 'enterprise' ? (
           <>
-            <ButtonLink href={whatsappLink('Hi Plot Ledge, I would like to talk about the Enterprise plan for our society.')} variant="primary" className="flex-1">
+            <ButtonLink href={whatsappLink(c.enterpriseWhatsappMessage)} variant="primary" className="flex-1">
               <MessageCircle aria-hidden="true" /> WhatsApp
             </ButtonLink>
-            <ButtonLink href={DEMO_URL} variant="secondary" className="flex-1">Send a message</ButtonLink>
+            <ButtonLink href={DEMO_URL} variant="secondary" className="flex-1">{c.sendMessage}</ButtonLink>
           </>
         ) : (
           <>
             <ButtonLink href={DEMO_URL} variant={featured || trial ? 'primary' : 'secondary'} className="flex-1">
-              {trial ? 'Start free trial' : 'Book a demo'}
+              {trial ? c.startTrial : c.bookDemo}
             </ButtonLink>
             {onCompare && (
               <button
@@ -100,7 +106,7 @@ export function PricingCard({ plan, yearly, currency, rates, onCompare }: Props)
                   featured ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-muted text-foreground hover:bg-secondary',
                 )}
               >
-                Compare plans
+                {c.comparePlans}
               </button>
             )}
           </>

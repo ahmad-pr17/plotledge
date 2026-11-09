@@ -1,3 +1,138 @@
-// English text for the 'showcase' namespace. See docs/i18n.md.
-const showcase = {}
+// English text for the 'showcase' namespace (product screens with sample data). See docs/i18n.md.
+const showcase = {
+  /** Date layout: {day} {month} {year}. Month is the short month name from Intl. */
+  dateFormat: '{day} {month} {year}',
+  /** Month span in chart descriptions: January to July. */
+  range: '{from} to {to}',
+  /** Joins items in screen-reader chart descriptions. */
+  listSeparator: ', ',
+  listSeparatorLong: '; ',
+  /** A value already in millions: 3.12 -> '3.12 million'. */
+  millionAmount: '{n} million',
+  status: { paid: 'Paid', pending: 'Pending', overdue: 'Overdue' },
+  plotStatus: { available: 'Available', booked: 'Booked', sold: 'Sold' },
+  /** Plot sizes: Marla and Kanal are Pakistani land units. */
+  sizes: { marla: '{n} Marla', kanal: '{n} Kanal' },
+  /** Sample customer names. */
+  people: {
+    ayesha: 'Ayesha Khan',
+    hamza: 'Hamza Qureshi',
+    mehwish: 'Mehwish Ahmed',
+    bilal: 'Bilal Raza',
+    usman: 'Usman Tariq',
+    rabia: 'Rabia Siddiqui',
+    kamran: 'Kamran Javed',
+    nimra: 'Nimra Aslam',
+  },
+  dashboard: {
+    eyebrow: 'Your dashboard',
+    title: 'Know where every rupee stands.',
+    description: 'How much came in, how much is still due, and who is late. The answer is on the first screen.',
+  },
+  deal: {
+    eyebrow: 'Inside a deal',
+    title: 'One buyer, one page, nothing missing.',
+    description: 'Open a plot to see the price, the down payment, every installment and every receipt. No scrolling through chats.',
+    summary: {
+      title: 'Deal summary, plot {plot}',
+      buyerSize: '{buyer}, {size}',
+      salePrice: 'Sale price',
+      downPayment: 'Down payment',
+      installmentPlan: 'Installment plan',
+      installmentPlanValue: '{count} x {amount}',
+      paidVsRemaining: 'Paid vs remaining',
+      percentPaid: '{pct}% paid',
+      paid: 'Paid',
+      remaining: 'Remaining',
+      profit: 'Profit on this deal',
+    },
+  },
+  kpis: {
+    items: { sales: 'Total sales', received: 'Received', outstanding: 'Outstanding', rate: 'Collection rate' },
+    /** Word after the number in KPI values. Keep the leading space if the language uses one. */
+    millionSuffix: ' million',
+    deltaLabel: 'vs last quarter',
+    up: 'Up',
+    down: 'Down',
+    trendLabel: '{label} trend, {range}',
+  },
+  charts: {
+    /** Y axis tick: 4 -> '4M'. */
+    axisMillion: '{n}M',
+    collections: {
+      title: 'Collections trend',
+      subtitle: 'Money received per month',
+      summary: 'Money received per month, {range}: {items}. Total {total}.',
+      item: '{month} {amount}',
+      pointLabel: '{month}: {amount} received',
+    },
+    receivedOutstanding: {
+      title: 'Received vs outstanding',
+      subtitle: 'Every month, in millions of rupees',
+      summary: 'Received versus outstanding per month in millions of rupees: {items}.',
+      item: '{month} received {received}, outstanding {outstanding}',
+      pointLabel: '{month}: received {received}, outstanding {outstanding}',
+      received: 'Received',
+      outstanding: 'Outstanding',
+      tipReceived: 'Received {value}',
+      tipOutstanding: 'Outstanding {value}',
+    },
+    statusDonut: {
+      title: 'Payment status',
+      subtitle: 'All installments',
+      summary: '{total} installments: {items}.',
+      item: '{count} {status}',
+      center: 'installments',
+    },
+  },
+  table: {
+    title: 'Latest installments',
+    filterLabel: 'Filter installments by status',
+    all: 'All',
+    /** Summary line. <n> marks the bold numbers. {what} is 'installments' or the lowercase status. */
+    summary: '<n>{count}</n> {what}, <n>{total}</n> in total',
+    allInstallments: 'installments',
+    empty: 'Nothing in this view',
+    caption: 'Latest installments with buyer, due date, amount and status',
+    plotAndBuyer: 'Plot and buyer',
+    dueDate: 'Due date',
+    amount: 'Amount',
+    statusHeading: 'Status',
+    due: 'Due {date}',
+  },
+  plotMap: {
+    title: 'Plot availability',
+    filterLabel: 'Filter plots by status',
+    block: 'Block {block}',
+    plotLabel: 'Plot {id}',
+    plotAria: 'Plot {id}, {size}, {price}, {status}',
+    showing: 'Showing <n>{count}</n> {status} plots.',
+    total: '<n>{count}</n> plots in this project. Hover or focus a plot for details.',
+  },
+  timeline: {
+    title: 'Installment timeline',
+    progress: '<n>{paid}</n> of <n>{total}</n> installments paid',
+    downPayment: 'Down payment',
+    installmentN: 'Installment {n}',
+    states: { paid: 'Paid', due: 'Due next', overdue: 'Overdue', upcoming: 'Upcoming' },
+  },
+  receipt: {
+    ariaLabel: 'Receipt {id}',
+    title: 'Payment receipt',
+    receivedFrom: 'Received from',
+    plot: 'Plot',
+    plotValue: '{id}, {size}',
+    forLabel: 'For',
+    forValue: 'Installment {n} of {total}',
+    method: 'Method',
+    methodValue: 'Bank transfer',
+    slipReference: 'Slip reference',
+    date: 'Date',
+    amountReceived: 'Amount received',
+    stampAria: 'Paid',
+    stamp: 'PAID',
+    receivedBy: 'Received by {who}.',
+    accountsDesk: 'Accounts desk',
+  },
+}
 export default showcase

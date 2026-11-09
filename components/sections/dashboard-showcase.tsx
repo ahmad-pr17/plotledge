@@ -8,14 +8,16 @@ import { Section } from '@/components/shared/container'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { SpotlightCard } from '@/components/shared/spotlight-card'
 import { kpis } from '@/data/showcase'
+import { getMessages } from '@/i18n/server'
 
-export function DashboardShowcase() {
+export async function DashboardShowcase() {
+  const m = (await getMessages()).showcase.dashboard
   return (
     <Section id="dashboard">
       <SectionHeading
-        eyebrow="Your dashboard"
-        title="Know where every rupee stands."
-        description="How much came in, how much is still due, and who is late. The answer is on the first screen."
+        eyebrow={m.eyebrow}
+        title={m.title}
+        description={m.description}
       />
 
       <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">

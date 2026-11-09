@@ -2,8 +2,10 @@
 
 import { motion } from 'motion/react'
 import { useId, useState } from 'react'
-import { collectionsM, months } from '@/data/showcase'
-import { formatMillion } from '@/lib/format'
+import { CURRENCY_PREFIX } from '@/lib/format'
+import { collectionsM, formatNum, monthLabels } from '@/data/showcase'
+import { useDir, useLocale, useMessages } from '@/i18n/client'
+import { fmt } from '@/i18n/text'
 import { ChartFrame, useDrawIn } from './chart-frame'
 
 const W = 560
@@ -12,6 +14,14 @@ const PAD = { l: 40, r: 16, t: 20, b: 30 }
 
 export function CollectionsTrend() {
   const { ref, show, reduce } = useDrawIn<HTMLDivElement>()
+  const msg = useMessages().showcase
+  const locale = useLocale()
+  const dir = useDir()
+  const months = monthLabels(locale)
+  const millions = (n: number) => fmt(msg.millionAmount, { n: formatNum(locale, n, 0, 2) })
+  const m = msg.charts.collections
+  const longMonths = monthLabels(locale, 'long')
+  const rs = (n: number) => `${CURRENCY_PREFIX} ${millions(n)}`
   const [active, setActive] = useState<number | null>(null)
   const gid = useId()
   const max = 8
@@ -21,12 +31,16 @@ export function CollectionsTrend() {
   const line = pts.map(([px, py], i) => `${i === 0 ? 'M' : 'L'}${px.toFixed(1)} ${py.toFixed(1)}`).join(' ')
   const area = `${line} L${x(collectionsM.length - 1)} ${H - PAD.b} L${x(0)} ${H - PAD.b} Z`
   const total = collectionsM.reduce((a, b) => a + b, 0)
-  const summary = `Money received per month, January to July: ${months.map((m, i) => `${m} ${formatMillion(collectionsM[i])}`).join(', ')}. Total Rs ${formatMillion(total)}.`
+  const summary = fmt(m.summary, {
+    range: fmt(msg.range, { from: longMonths[0], to: longMonths[longMonths.length - 1] }),
+    items: months.map((mo, i) => fmt(m.item, { month: mo, amount: millions(collectionsM[i]) })).join(msg.listSeparator),
+    total: rs(total),
+  })
   const a = active === null ? null : { px: pts[active][0], py: pts[active][1], i: active }
 
   return (
-    <ChartFrame title="Collections trend" subtitle="Money received per month" summary={summary}>
-      <div ref={ref} className="relative">
+    <ChartFrame title={m.title} subtitle={m.subtitle} summary={summary}>
+      <div ref={ref} dir="ltr" className="relative">
         <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label={summary}>
           <defs>
             <linearGradient id={gid} x1="0" x2="0" y1="0" y2="1">
@@ -37,11 +51,11 @@ export function CollectionsTrend() {
           {[0, 2, 4, 6, 8].map((t) => (
             <g key={t}>
               <line x1={PAD.l} x2={W - PAD.r} y1={y(t)} y2={y(t)} stroke="var(--border)" strokeDasharray="3 4" />
-              <text x={PAD.l - 8} y={y(t) + 4} textAnchor="end" className="num fill-muted-foreground" fontSize="14">{t === 0 ? '0' : `${t}M`}</text>
+              <text x={PAD.l - 8} y={y(t) + 4} textAnchor="end" className="num fill-muted-foreground" fontSize="14">{t === 0 ? '0' : fmt(msg.charts.axisMillion, { n: t })}</text>
             </g>
           ))}
-          {months.map((m, i) => (
-            <text key={m} x={x(i)} y={H - 8} textAnchor="middle" className="fill-muted-foreground" fontSize="14">{m}</text>
+          {months.map((mo, i) => (
+            <text key={i} x={x(i)} y={H - 8} textAnchor="middle" className="fill-muted-foreground" fontSize="14">{mo}</text>
           ))}
           <motion.path d={area} fill={`url(#${gid})`} initial={{ opacity: reduce ? 1 : 0 }} animate={{ opacity: show ? 1 : 0 }} transition={{ duration: 0.9, delay: 0.5 }} />
           <motion.path
@@ -57,7 +71,7 @@ export function CollectionsTrend() {
           />
           {a && <line x1={a.px} x2={a.px} y1={PAD.t} y2={H - PAD.b} stroke="var(--chart-1)" strokeOpacity=".4" />}
           {pts.map(([px, py], i) => (
-            <g key={months[i]}>
+            <g key={i}>
               <circle cx={px} cy={py} r={active === i ? 6 : 4} fill="var(--card)" stroke="var(--chart-1)" strokeWidth={2.5} style={{ opacity: show ? 1 : 0, transition: 'opacity .4s ease 1s' }} />
               <circle
                 cx={px}
@@ -66,7 +80,7 @@ export function CollectionsTrend() {
                 fill="transparent"
                 tabIndex={0}
                 role="img"
-                aria-label={`${months[i]}: Rs ${formatMillion(collectionsM[i])} received`}
+                aria-label={fmt(m.pointLabel, { month: months[i], amount: rs(collectionsM[i]) })}
                 className="cursor-pointer outline-none focus-visible:stroke-[var(--focus)] focus-visible:[stroke-width:2]"
                 onPointerEnter={() => setActive(i)}
                 onPointerLeave={() => setActive(null)}
@@ -78,11 +92,12 @@ export function CollectionsTrend() {
         </svg>
         {a && (
           <div
+            dir={dir}
             className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-lg"
             style={{ left: `${(a.px / W) * 100}%`, top: `${(a.py / H) * 100 - 4}%` }}
           >
             <p className="text-muted-foreground">{months[a.i]}</p>
-            <p className="num font-semibold text-foreground">Rs {formatMillion(collectionsM[a.i])}</p>
+            <p className="num font-semibold text-foreground">{rs(collectionsM[a.i])}</p>
           </div>
         )}
       </div>

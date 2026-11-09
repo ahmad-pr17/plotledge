@@ -8,8 +8,8 @@ import { HowItWorks } from '@/components/sections/how-it-works'
 import { Navbar } from '@/components/sections/navbar'
 import { ProblemSolution } from '@/components/sections/problem-solution'
 import { TrustStrip } from '@/components/sections/trust-strip'
-import { faqs } from '@/data/faqs'
 import { faqJsonLd, jsonLdString } from '@/lib/jsonld'
+import { getMessages } from '@/i18n/server'
 import { getRates } from '@/lib/rates'
 
 // Below-the-fold sections with charts and interactive widgets are split into their own chunks.
@@ -25,13 +25,14 @@ const Faq = dynamic(() => import('@/components/sections/faq').then((m) => m.Faq)
 
 export default async function Page() {
   const rates = await getRates()
+  const m = await getMessages()
   return (
     <>
       <a
         href="#content"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-amber-500 focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-emerald-950"
+        className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-amber-500 focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-emerald-950"
       >
-        Skip to content
+        {m.common.skipToContent}
       </a>
       <Navbar />
       <main id="content">
@@ -52,7 +53,7 @@ export default async function Page() {
       </main>
       <Footer />
       <FloatingActions />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd(faqs)) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(faqJsonLd(m.faq.items)) }} />
     </>
   )
 }

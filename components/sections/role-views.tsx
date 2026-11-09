@@ -7,17 +7,22 @@ import { Reveal } from '@/components/shared/reveal'
 import { Section } from '@/components/shared/container'
 import { SectionHeading } from '@/components/shared/section-heading'
 import { roles, type RoleId } from '@/data/roles'
+import { useDir, useMessages } from '@/i18n/client'
 import { cn } from '@/lib/utils'
 
 export function RoleViews() {
   const [active, setActive] = useState<RoleId>('owner')
   const reduce = useReducedMotion()
+  const m = useMessages().roles
+  const rtl = useDir() === 'rtl'
   const refs = useRef<Record<string, HTMLButtonElement | null>>({})
 
   const onKeyDown = (e: React.KeyboardEvent, index: number) => {
     let next = -1
-    if (e.key === 'ArrowRight') next = (index + 1) % roles.length
-    else if (e.key === 'ArrowLeft') next = (index - 1 + roles.length) % roles.length
+    const forward = rtl ? 'ArrowLeft' : 'ArrowRight'
+    const back = rtl ? 'ArrowRight' : 'ArrowLeft'
+    if (e.key === forward) next = (index + 1) % roles.length
+    else if (e.key === back) next = (index - 1 + roles.length) % roles.length
     else if (e.key === 'Home') next = 0
     else if (e.key === 'End') next = roles.length - 1
     if (next < 0) return
@@ -30,12 +35,12 @@ export function RoleViews() {
   return (
     <Section id="roles">
       <SectionHeading
-        eyebrow="Your team"
-        title="Same records, different jobs."
-        description="The Owner, the Accountant and the Sales Agent each get their own login and see what they need."
+        eyebrow={m.eyebrow}
+        title={m.title}
+        description={m.description}
       />
       <Reveal className="mt-10">
-        <div role="tablist" aria-label="Team roles" className="flex w-full gap-1 overflow-x-auto rounded-full border border-border bg-card p-1 sm:w-fit">
+        <div role="tablist" aria-label={m.tablistLabel} className="flex w-full gap-1 overflow-x-auto rounded-full border border-border bg-card p-1 sm:w-fit">
           {roles.map((r, i) => {
             const selected = r.id === active
             return (
@@ -62,7 +67,7 @@ export function RoleViews() {
                     transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 34 }}
                   />
                 )}
-                <span className="relative">{r.name}</span>
+                <span className="relative">{m.items[r.id].name}</span>
               </button>
             )
           })}

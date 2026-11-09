@@ -23,15 +23,16 @@ export const CONTACT_CITY = 'Lahore, Pakistan'
 
 export const DEMO_URL = '/contact#demo'
 
-export function whatsappLink(message = 'Hi Plot Ledge, I would like a demo for my plot business.') {
+/** Pass the translated message: whatsappLink(m.common.whatsappMessage). */
+export function whatsappLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
 }
 
 export const NAV_LINKS = [
-  { label: 'Features', href: '/#features' },
-  { label: 'How it works', href: '/#how' },
-  { label: 'Pricing', href: '/#pricing' },
-  { label: 'FAQ', href: '/#faq' },
+  { key: 'features', href: '/#features' },
+  { key: 'how', href: '/#how' },
+  { key: 'pricing', href: '/#pricing' },
+  { key: 'faq', href: '/#faq' },
 ] as const
 
 /** Chat events and the sticky mobile bar read the same open/closed flag from the <html> element. */
