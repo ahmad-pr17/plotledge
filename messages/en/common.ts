@@ -1,6 +1,8 @@
 // Text shared across the site: navigation, footer, buttons, accessibility labels, cookie banner. See docs/i18n.md.
 const common = {
   language: 'Language',
+  /** Label of the animated loader (route changes, the chat window opening). */
+  loading: 'Loading',
   /** Pre-filled WhatsApp message. Use: whatsappLink(m.common.whatsappMessage). */
   whatsappMessage: 'Hi Plot Ledge, I would like a demo for my plot business.',
   close: 'Close',

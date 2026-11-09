@@ -2,6 +2,8 @@ import type { Messages } from '@/i18n/messages'
 
 const common: Messages['common'] = {
   language: 'Langue',
+  /** Label of the animated loader (route changes, the chat window opening). */
+  loading: 'Chargement',
   whatsappMessage: 'Bonjour Plot Ledge, je souhaiterais une démo pour mon activité de vente de parcelles.',
   close: 'Fermer',
   skipToContent: 'Aller au contenu',

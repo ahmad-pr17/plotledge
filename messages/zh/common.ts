@@ -3,6 +3,8 @@ import type { Messages } from '@/i18n/messages'
 // 全站共用文字：导航、页脚、按钮、无障碍标签、Cookie 横幅。
 const common: Messages['common'] = {
   language: '语言',
+  /** Label of the animated loader (route changes, the chat window opening). */
+  loading: '加载中',
   whatsappMessage: '您好，Plot Ledge，我想为我的地块业务预约一次演示。',
   close: '关闭',
   skipToContent: '跳到正文',

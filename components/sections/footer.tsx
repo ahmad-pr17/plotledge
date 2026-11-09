@@ -88,7 +88,7 @@ export async function Footer() {
             <LocaleLink href="/privacy" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 hover:text-white">{f.privacyShort}</LocaleLink>
             <LocaleLink href="/terms" className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 hover:text-white">{f.termsShort}</LocaleLink>
             <CookieSettingsButton className="inline-flex min-h-11 items-center justify-center px-1 hover:text-white" />
-            <LanguageSwitcher tone="deep" />
+            <LanguageSwitcher tone="deep" variant="inline" />
           </span>
         </Container>
       </div>

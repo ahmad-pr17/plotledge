@@ -2,6 +2,8 @@ import type { Messages } from '@/i18n/messages'
 
 const common: Messages['common'] = {
   language: 'زبان',
+  /** Label of the animated loader (route changes, the chat window opening). */
+  loading: 'لوڈ ہو رہا ہے',
   /** Pre-filled WhatsApp message. Use: whatsappLink(m.common.whatsappMessage). */
   whatsappMessage: 'السلام علیکم Plot Ledge، میں اپنے پلاٹ کے کاروبار کے لیے ڈیمو لینا چاہتا ہوں۔',
   close: 'بند کریں',

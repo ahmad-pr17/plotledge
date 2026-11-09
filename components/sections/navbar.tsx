@@ -80,7 +80,7 @@ export function Navbar() {
                   <ButtonLink href={CRM_SIGNUP_URL} size="lg" onClick={() => setOpen(false)}>{m.common.header.signup}</ButtonLink>
                   <ButtonLink href={DEMO_URL} variant="secondary" size="lg" onClick={() => setOpen(false)}>{m.common.header.demoFree}</ButtonLink>
                   <ButtonLink href={CRM_LOGIN_URL} variant="ghost" size="lg" onClick={() => setOpen(false)}>{m.common.header.login}</ButtonLink>
-                  <LanguageSwitcher className="self-start" />
+                  <LanguageSwitcher variant="inline" className="self-start" />
                 </div>
               </nav>
             </SheetContent>

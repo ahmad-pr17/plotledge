@@ -4,13 +4,23 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import dynamic from 'next/dynamic'
 import { MessageCircle, X } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { PlotLedgeLoader } from '@/components/shared/plot-ledge-loader'
 import { useMessages } from '@/i18n/client'
 import { trackChat } from '@/lib/chatbot/analytics'
 import { CHAT_OPEN_ATTR } from '@/lib/site'
 
 // The chat window code loads only when it is first needed.
 const loadWindow = () => import('@/components/chatbot/ChatWindow')
-const ChatWindow = dynamic(loadWindow, { ssr: false })
+// While the chat window's code downloads on first open, show the Plot Ledge loader in its place.
+function ChatLoading() {
+  const m = useMessages()
+  return (
+    <div className="fixed bottom-24 end-4 z-50 w-56 rounded-2xl border border-[var(--border-strong)] bg-card shadow-lg md:end-6">
+      <PlotLedgeLoader compact label={m.common.loading} />
+    </div>
+  )
+}
+const ChatWindow = dynamic(loadWindow, { ssr: false, loading: () => <ChatLoading /> })
 
 const TEASER_KEY = 'plotledge-teaser-dismissed'
 const TEASER_DELAY_MS = 8000
