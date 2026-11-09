@@ -33,4 +33,4 @@ export const LOCALE_META: Record<Locale, LocaleMeta> = {
 export const isLocale = (value: string | undefined): value is Locale => !!value && (LOCALES as readonly string[]).includes(value)
 
 /** Namespaces that only server components read. They are never sent to the browser. Everything else is. */
-export const SERVER_ONLY_NAMESPACES = ['legal', 'guides', 'meta'] as const
+export const SERVER_ONLY_NAMESPACES = ['legal', 'guides', 'meta', 'policies'] as const

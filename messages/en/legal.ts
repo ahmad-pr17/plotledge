@@ -1,11 +1,11 @@
 // English text for the 'legal' namespace (server-only). See docs/i18n.md.
 //
-// Each policy is DATA: { title, description, intro, updated, draftNote?, summary, sections }. Translate the words, keep the
+// Each policy is DATA: { title, description, intro, updated, summary, sections }. Translate the words, keep the
 // structure, the section ids and the tag names.
 //
 // Inline markup inside any text:
 //   <b>bold</b>
-//   <privacy> <cookies> <terms> <refund>  links to our own policy pages
+//   <privacy> <cookies> <terms> <refund> <aup> <security> <dpa> <accessibility> <disclosure> <legalhub>  links to our own legal pages
 //   <mail>{email}</mail>                  mailto link to our contact address ({email} is filled in by the page)
 //   <cookiesettings>..</cookiesettings>   opens the cookie banner so the choice can be changed
 //   <gaoptout> <googleprivacy>            external links to Google pages
@@ -28,8 +28,6 @@ export type Policy = {
   intro: string
   /** ISO date, formatted by the page with Intl in the visitor's language. */
   updated: string
-  /** Shown above the title while the text still needs a lawyer's review. */
-  draftNote?: string
   summary: string[]
   sections: Section[]
 }
@@ -369,7 +367,6 @@ const terms: Policy = {
   description: 'The terms for using the Plot Ledge website and service: your account, plans, acceptable use, your data and our responsibilities.',
   intro: 'The rules for using Plot Ledge, written to be read.',
   updated: '2026-11-09',
-  draftNote: 'Draft for review. Have a lawyer check this before launch.',
   summary: [
     'Plot Ledge is software for tracking plots, deals, installments and payments.',
     'The records you store are yours, and you are responsible for keeping them accurate.',
@@ -521,7 +518,6 @@ const refund: Policy = {
   description: 'How the free trial, billing, cancellation and refunds work for Plot Ledge plans, and how to ask for one.',
   intro: 'How trials, billing and cancellation work, and when we refund.',
   updated: '2026-11-09',
-  draftNote: 'Draft for review. Have a lawyer check this before launch, and confirm it matches your actual billing provider’s terms.',
   summary: [
     'You get a 15-day free trial with no payment needed, and you can cancel during it without being charged.',
     'Paid plans are billed in rupees, in advance, monthly or yearly.',
@@ -632,6 +628,8 @@ const legal = {
     questionsTitle: 'Questions about this page?',
     contactSentence: 'Write to <mail>{email}</mail> and a person will reply.',
     contactAria: 'Contact and related policies',
+    /** Breadcrumb link back to the page that lists every legal document. */
+    allDocuments: 'All legal documents',
     policyNames: {
       privacy: 'Privacy policy',
       cookies: 'Cookie policy',

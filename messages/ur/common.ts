@@ -45,7 +45,7 @@ const common: Messages['common'] = {
     product: { heading: 'پروڈکٹ', features: 'خصوصیات', how: 'یہ کیسے کام کرتا ہے', pricing: 'قیمتیں', faq: 'عمومی سوالات' },
     company: { heading: 'کمپنی', contact: 'رابطہ', guides: 'گائیڈز' },
     start: { heading: 'شروع کریں', demo: 'مفت ڈیمو بک کریں', login: 'CRM میں لاگ ان کریں' },
-    legal: { heading: 'قانونی', privacy: 'رازداری کی پالیسی', cookies: 'کوکی پالیسی', refund: 'ری فنڈ پالیسی', terms: 'سروس کی شرائط' },
+    legal: { heading: 'قانونی', privacy: 'رازداری کی پالیسی', cookies: 'کوکی پالیسی', refund: 'ری فنڈ پالیسی', terms: 'سروس کی شرائط', security: 'سیکیورٹی', all: 'تمام قانونی دستاویزات' },
   },
   cookieBanner: {
     title: 'کوکیز اور اینالیٹکس',

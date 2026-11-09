@@ -340,7 +340,6 @@ const terms: Policy = {
   description: '使用 Plot Ledge 网站和服务的条款：您的账号、套餐、可接受的使用方式、您的数据以及我们的责任。',
   intro: '使用 Plot Ledge 的规则，写得便于阅读。',
   updated: '2026-11-09',
-  draftNote: '草稿，待审阅。上线前请律师核查。',
   summary: [
     'Plot Ledge 是用于管理地块、交易、分期付款和付款的软件。',
     '您存储的记录归您所有，您有责任保证其准确。',
@@ -492,7 +491,6 @@ const refund: Policy = {
   description: 'Plot Ledge 套餐的免费试用、计费、取消和退款如何运作，以及如何提出申请。',
   intro: '试用、计费和取消如何运作，以及我们何时退款。',
   updated: '2026-11-09',
-  draftNote: '草稿，待审阅。上线前请律师核查，并确认其与您实际计费服务商的条款一致。',
   summary: [
     '您可享受 15 天免费试用，无需付款，试用期间取消不会被收费。',
     '付费套餐以卢比预先计费，可按月或按年。',
@@ -603,6 +601,8 @@ const legal: Messages['legal'] = {
     questionsTitle: '对本页有疑问？',
     contactSentence: '请写信至 <mail>{email}</mail>，会有专人回复。',
     contactAria: '联系方式与相关政策',
+    /** Breadcrumb link back to the page that lists every legal document. */
+    allDocuments: '全部法律文件',
     policyNames: {
       privacy: '隐私政策',
       cookies: 'Cookie 政策',

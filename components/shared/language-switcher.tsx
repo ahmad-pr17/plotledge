@@ -3,7 +3,8 @@
 import { Check, ChevronDown, Globe } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useTransition } from 'react'
+import { PendingLoader } from '@/components/shared/pending-loader'
 import { useLocale, useMessages } from '@/i18n/client'
 import { LOCALE_META, LOCALES, type Locale } from '@/i18n/config'
 import { localePath, splitLocale } from '@/i18n/path'
@@ -25,14 +26,15 @@ function useLocaleLinks() {
   const locale = useLocale()
   const pathname = usePathname()
   const router = useRouter()
+  const [pending, startTransition] = useTransition()
   const { path } = splitLocale(pathname)
   const hrefFor = (l: Locale) => localePath(l, path)
   const onClick = (l: Locale) => (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return // let the browser open it in a new tab
     e.preventDefault()
-    router.push(`${hrefFor(l)}${window.location.search}${window.location.hash}`)
+    startTransition(() => router.push(`${hrefFor(l)}${window.location.search}${window.location.hash}`))
   }
-  return { locale, hrefFor, onClick }
+  return { locale, hrefFor, onClick, pending }
 }
 
 export function LanguageSwitcher({ className, tone = 'light', variant = 'menu' }: Props) {
@@ -41,9 +43,10 @@ export function LanguageSwitcher({ className, tone = 'light', variant = 'menu' }
 
 function InlineSwitcher({ className, tone }: { className?: string; tone: 'light' | 'deep' }) {
   const m = useMessages()
-  const { locale, hrefFor, onClick } = useLocaleLinks()
+  const { locale, hrefFor, onClick, pending } = useLocaleLinks()
   return (
     <nav aria-label={m.common.language} className={className}>
+      <PendingLoader pending={pending} />
       <ul className="flex flex-wrap items-center">
         {LOCALES.map((l, i) => {
           const current = l === locale
@@ -76,23 +79,31 @@ function InlineSwitcher({ className, tone }: { className?: string; tone: 'light'
 
 function MenuSwitcher({ className, tone }: { className?: string; tone: 'light' | 'deep' }) {
   const m = useMessages()
-  const { locale, hrefFor, onClick } = useLocaleLinks()
+  const { locale, hrefFor, onClick, pending } = useLocaleLinks()
   const [open, setOpen] = useState(false)
   const root = useRef<HTMLDivElement>(null)
+  const button = useRef<HTMLButtonElement>(null)
 
   // Close on outside click and on Escape.
   useEffect(() => {
     if (!open) return
     const outside = (e: PointerEvent) => { if (root.current && !root.current.contains(e.target as Node)) setOpen(false) }
-    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    // Escape closes the menu and puts focus back on its button, so keyboard users do not lose their place.
+    const key = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(false); button.current?.focus() } }
     document.addEventListener('pointerdown', outside)
     document.addEventListener('keydown', key)
     return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', key) }
   }, [open])
 
   return (
-    <div ref={root} className={cn('relative', className)}>
+    <div
+      ref={root}
+      className={cn('relative', className)}
+      onBlur={(e) => { if (open && !root.current?.contains(e.relatedTarget as Node | null)) setOpen(false) }}
+    >
+      <PendingLoader pending={pending} />
       <button
+        ref={button}
         type="button"
         aria-expanded={open}
         aria-haspopup="true"

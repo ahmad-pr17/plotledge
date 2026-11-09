@@ -44,7 +44,7 @@ const common: Messages['common'] = {
     product: { heading: 'Продукт', features: 'Возможности', how: 'Как это работает', pricing: 'Тарифы', faq: 'Вопросы' },
     company: { heading: 'Компания', contact: 'Контакты', guides: 'Руководства' },
     start: { heading: 'Начать', demo: 'Бесплатная демонстрация', login: 'Войти в CRM' },
-    legal: { heading: 'Правовая информация', privacy: 'Политика конфиденциальности', cookies: 'Политика cookie', refund: 'Политика возврата', terms: 'Условия использования' },
+    legal: { heading: 'Правовая информация', privacy: 'Политика конфиденциальности', cookies: 'Политика cookie', refund: 'Политика возврата', terms: 'Условия использования', security: 'Безопасность', all: 'Все юридические документы' },
   },
   cookieBanner: {
     title: 'Cookie и аналитика',

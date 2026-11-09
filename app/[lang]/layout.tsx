@@ -4,6 +4,7 @@ import { Bricolage_Grotesque, Inter, Noto_Naskh_Arabic, Noto_Nastaliq_Urdu, Noto
 import { ChatMount } from '@/components/chatbot/ChatMount'
 import { ConsentAnalytics } from '@/components/consent/consent-analytics'
 import { CookieBanner } from '@/components/consent/cookie-banner'
+import { MotionProvider } from '@/components/shared/motion-provider'
 import { LOCALE_META, LOCALES } from '@/i18n/config'
 import { I18nProvider } from '@/i18n/client'
 import { toClientMessages } from '@/i18n/messages'
@@ -70,10 +71,18 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     // and scripts to <head> before React starts. React would log a mismatch for something the site did not cause.
     <html lang={htmlLang} dir={dir} suppressHydrationWarning>
       <body className={fonts} suppressHydrationWarning>
+        {/* Skip link: first thing a keyboard or screen reader user reaches, on every page. Every page has <main id="content">. */}
+        <a
+          href="#content"
+          className="skip-link"
+        >
+          {messages.common.skipToContent}
+        </a>
         {/* Structured data lives in <body>, not <head>: extensions inject their own scripts into <head>, which shifts its children and
             makes React report a mismatch. Search engines read it from either place. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(siteJsonLd(locale, messages.meta.siteDescription)) }} />
         <I18nProvider locale={locale} messages={toClientMessages(messages)}>
+          <MotionProvider>
           {children}
           <ChatMount />
           {process.env.NODE_ENV === 'production' && <Analytics />}
@@ -81,6 +90,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <ConsentAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
           )}
           <CookieBanner />
+          </MotionProvider>
         </I18nProvider>
       </body>
     </html>

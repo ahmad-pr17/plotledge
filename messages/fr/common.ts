@@ -44,7 +44,7 @@ const common: Messages['common'] = {
     product: { heading: 'Produit', features: 'Fonctionnalités', how: 'Comment ça marche', pricing: 'Tarifs', faq: 'FAQ' },
     company: { heading: 'Entreprise', contact: 'Contact', guides: 'Guides' },
     start: { heading: 'Commencer', demo: 'Réserver une démo gratuite', login: 'Se connecter au CRM' },
-    legal: { heading: 'Mentions légales', privacy: 'Politique de confidentialité', cookies: 'Politique relative aux cookies', refund: 'Politique de remboursement', terms: 'Conditions d’utilisation' },
+    legal: { heading: 'Mentions légales', privacy: 'Politique de confidentialité', cookies: 'Politique relative aux cookies', refund: 'Politique de remboursement', terms: 'Conditions d’utilisation', security: 'Sécurité', all: 'Tous les documents juridiques' },
   },
   cookieBanner: {
     title: 'Cookies et statistiques',

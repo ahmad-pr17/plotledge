@@ -45,7 +45,7 @@ const common: Messages['common'] = {
     product: { heading: '产品', features: '功能', how: '使用流程', pricing: '价格', faq: '常见问题' },
     company: { heading: '公司', contact: '联系我们', guides: '指南' },
     start: { heading: '开始使用', demo: '预约免费演示', login: '登录 CRM' },
-    legal: { heading: '法律信息', privacy: '隐私政策', cookies: 'Cookie 政策', refund: '退款政策', terms: '服务条款' },
+    legal: { heading: '法律信息', privacy: '隐私政策', cookies: 'Cookie 政策', refund: '退款政策', terms: '服务条款', security: '安全', all: '全部法律文件' },
   },
   cookieBanner: {
     title: 'Cookie 与数据分析',

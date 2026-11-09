@@ -337,7 +337,6 @@ const terms: Messages['legal']['terms'] = {
   description: 'Le condizioni per l’uso del sito e del servizio Plot Ledge: account, piani, uso consentito, dati dell’utente e nostre responsabilità.',
   intro: 'Le regole per usare Plot Ledge, scritte per essere lette.',
   updated: '2026-11-09',
-  draftNote: 'Bozza da rivedere. Far controllare il testo da un legale prima del lancio.',
   summary: [
     'Plot Ledge è un software per tenere traccia di lotti, trattative, rate e pagamenti.',
     'I dati che si conservano sono dell’utente, che è responsabile di mantenerli corretti.',
@@ -489,7 +488,6 @@ const refund: Messages['legal']['refund'] = {
   description: 'Come funzionano la prova gratuita, la fatturazione, la disdetta e i rimborsi per i piani Plot Ledge e come richiederli.',
   intro: 'Come funzionano prove, fatturazione e disdetta e quando rimborsiamo.',
   updated: '2026-11-09',
-  draftNote: 'Bozza da rivedere. Far controllare il testo da un legale prima del lancio e verificare che corrisponda ai termini del fornitore di fatturazione effettivamente utilizzato.',
   summary: [
     'Si ha diritto a 15 giorni di prova gratuita senza alcun pagamento e si può disdire durante la prova senza alcun addebito.',
     'I piani a pagamento sono fatturati in rupie, in anticipo, su base mensile o annuale.',
@@ -600,6 +598,8 @@ const legal: Messages['legal'] = {
     questionsTitle: 'Domande su questa pagina?',
     contactSentence: 'Scriva a <mail>{email}</mail> e risponderà una persona.',
     contactAria: 'Contatti e politiche correlate',
+    /** Breadcrumb link back to the page that lists every legal document. */
+    allDocuments: 'Tutti i documenti legali',
     policyNames: {
       privacy: 'Informativa sulla privacy',
       cookies: 'Cookie policy',

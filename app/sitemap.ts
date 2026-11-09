@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/cookie-policy', changeFrequency: 'yearly', priority: 0.2 },
     { path: '/refund-policy', changeFrequency: 'yearly', priority: 0.2 },
     { path: '/terms', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/legal', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/security', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/data-processing', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/acceptable-use', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/accessibility', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/responsible-disclosure', changeFrequency: 'yearly', priority: 0.2 },
   ]
 
   return pages.flatMap((page) => {

@@ -44,7 +44,7 @@ const common = {
     product: { heading: 'Product', features: 'Features', how: 'How it works', pricing: 'Pricing', faq: 'FAQ' },
     company: { heading: 'Company', contact: 'Contact', guides: 'Guides' },
     start: { heading: 'Get started', demo: 'Book a free demo', login: 'Log in to the CRM' },
-    legal: { heading: 'Legal', privacy: 'Privacy policy', cookies: 'Cookie policy', refund: 'Refund policy', terms: 'Terms of service' },
+    legal: { heading: 'Legal', privacy: 'Privacy policy', cookies: 'Cookie policy', refund: 'Refund policy', terms: 'Terms of service', security: 'Security', all: 'All legal documents' },
   },
   cookieBanner: {
     title: 'Cookies and analytics',

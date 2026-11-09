@@ -17,7 +17,8 @@ import contact from './contact'
 import chat from './chat'
 import guides from './guides'
 import legal from './legal'
+import policies from './policies'
 import meta from './meta'
 
-const zh = { common, hero, trust, problem, features, how, finalCta, showcase, roles, calculator, testimonials, security, pricing, faq, contact, chat, guides, legal, meta }
+const zh = { common, hero, trust, problem, features, how, finalCta, showcase, roles, calculator, testimonials, security, pricing, faq, contact, chat, guides, legal, policies, meta }
 export default zh

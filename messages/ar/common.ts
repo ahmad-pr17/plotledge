@@ -43,7 +43,7 @@ const common: Messages['common'] = {
     product: { heading: 'المنتج', features: 'المزايا', how: 'كيف يعمل', pricing: 'الأسعار', faq: 'الأسئلة الشائعة' },
     company: { heading: 'الشركة', contact: 'اتصل بنا', guides: 'الأدلة' },
     start: { heading: 'ابدأ الآن', demo: 'احجز عرضًا تجريبيًا مجانيًا', login: 'تسجيل الدخول إلى نظام CRM' },
-    legal: { heading: 'القانونية', privacy: 'سياسة الخصوصية', cookies: 'سياسة ملفات تعريف الارتباط', refund: 'سياسة الاسترداد', terms: 'شروط الخدمة' },
+    legal: { heading: 'القانونية', privacy: 'سياسة الخصوصية', cookies: 'سياسة ملفات تعريف الارتباط', refund: 'سياسة الاسترداد', terms: 'شروط الخدمة', security: 'الأمان', all: 'جميع المستندات القانونية' },
   },
   cookieBanner: {
     title: 'ملفات تعريف الارتباط والتحليلات',

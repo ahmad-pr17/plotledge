@@ -44,6 +44,8 @@ export async function Footer() {
         { label: f.legal.cookies, href: '/cookie-policy' },
         { label: f.legal.refund, href: '/refund-policy' },
         { label: f.legal.terms, href: '/terms' },
+        { label: f.legal.security, href: '/security' },
+        { label: f.legal.all, href: '/legal' },
       ],
     },
   ]

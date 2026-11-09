@@ -338,7 +338,6 @@ const terms: Legal['terms'] = {
   description: 'Les conditions d’utilisation du site et du service Plot Ledge : votre compte, les formules, l’usage acceptable, vos données et nos responsabilités.',
   intro: 'Les règles d’utilisation de Plot Ledge, écrites pour être lues.',
   updated: '2026-11-09',
-  draftNote: 'Projet à relire. Faites-le vérifier par un juriste avant le lancement.',
   summary: [
     'Plot Ledge est un logiciel de suivi des parcelles, des ventes, des échéances et des paiements.',
     'Les données que vous enregistrez vous appartiennent, et vous êtes responsable de leur exactitude.',
@@ -490,7 +489,6 @@ const refund: Legal['refund'] = {
   description: 'Comment fonctionnent l’essai gratuit, la facturation, la résiliation et les remboursements pour les formules Plot Ledge, et comment en faire la demande.',
   intro: 'Comment fonctionnent les essais, la facturation et la résiliation, et dans quels cas nous remboursons.',
   updated: '2026-11-09',
-  draftNote: 'Projet à relire. Faites-le vérifier par un juriste avant le lancement, et vérifiez qu’il correspond aux conditions de votre prestataire de facturation réel.',
   summary: [
     'Vous bénéficiez d’un essai gratuit de 15 jours sans aucun paiement, et vous pouvez résilier pendant l’essai sans être facturé.',
     'Les formules payantes sont facturées en roupies, à l’avance, mensuellement ou annuellement.',
@@ -601,6 +599,8 @@ const legal: Legal = {
     questionsTitle: 'Des questions sur cette page ?',
     contactSentence: 'Écrivez à <mail>{email}</mail> et une personne vous répondra.',
     contactAria: 'Contact et politiques associées',
+    /** Breadcrumb link back to the page that lists every legal document. */
+    allDocuments: 'Tous les documents juridiques',
     policyNames: {
       privacy: 'Politique de confidentialité',
       cookies: 'Politique relative aux cookies',
