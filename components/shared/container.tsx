@@ -20,7 +20,7 @@ export function Section({ tone = 'base', className, containerClassName, flush, c
     <section
       className={cn(
         'relative scroll-mt-20',
-        !flush && 'section-y',
+        !flush && 'section-y cv-auto',
         tone === 'alt' && 'section-alt',
         tone === 'deep' && 'on-deep bg-deep text-white',
         className,

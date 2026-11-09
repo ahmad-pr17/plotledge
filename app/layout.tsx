@@ -1,8 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
-import { GoogleAnalytics } from '@next/third-parties/google'
 import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque, Inter } from 'next/font/google'
 import { ChatMount } from '@/components/chatbot/ChatMount'
+import { DeferredAnalytics } from '@/components/shared/deferred-analytics'
+import { RevealObserver } from '@/components/shared/reveal-observer'
 import { jsonLdString, siteJsonLd } from '@/lib/jsonld'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from '@/lib/site'
 import './globals.css'
@@ -55,10 +56,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className={`${inter.variable} ${display.variable}`}>
         {children}
+        <RevealObserver />
         <ChatMount />
         {process.env.NODE_ENV === 'production' && <Analytics />}
         {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+          <DeferredAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}
       </body>
     </html>

@@ -116,7 +116,7 @@
   --primary-glow: rgba(22, 163, 74, .20);
   --accent-glow: rgba(245, 158, 11, .22);
   --grid-line: rgba(15, 81, 50, .04);
-  --glass: rgba(255, 253, 248, .78);
+  --glass: rgba(255, 253, 248, .92);
   --border-strong: #dccfae;
   --shadow-color: 92 64 12;
 }
@@ -202,11 +202,8 @@
 
 /* Glass card with a 1px gradient border and layered shadow */
 .card-glass {
-  color: var(--card-foreground);
   position: relative;
   background: var(--glass);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
   border-radius: var(--radius-2xl);
   box-shadow:
     0 1px 0 rgb(255 255 255 / .6) inset,
@@ -223,7 +220,6 @@
 
 /* Solid surface card, quieter than glass */
 .card-solid {
-  color: var(--card-foreground);
   transition: border-color .3s ease, box-shadow .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-2xl);
   box-shadow: 0 1px 2px rgb(var(--shadow-color) / .05), 0 12px 32px -16px rgb(var(--shadow-color) / .14);
@@ -309,3 +305,21 @@ footer.on-deep.bg-deep {
 
 /* Light cards sitting on a deep band stay nearly opaque so their text keeps its contrast. */
 .on-deep .card-glass { background: rgba(255, 253, 248, .96); }
+
+/* Skip layout and paint for sections that are far off screen. They render as soon as they near the viewport. */
+.cv-auto { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* Scroll reveal. Only hides content when scripting is on and motion is allowed, so it is never stuck invisible. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, var(--ry, 18px), 0);
+    transition: opacity .6s cubic-bezier(.22,1,.36,1) var(--rd, 0s), transform .6s cubic-bezier(.22,1,.36,1) var(--rd, 0s);
+  }
+  [data-reveal].is-in { opacity: 1; transform: none; }
+}
+
+/* Cards use their own ink on dark bands. In the base layer so utilities such as text-white still win. */
+@layer base {
+  :where(.card-solid, .card-glass) { color: var(--card-foreground); }
+}

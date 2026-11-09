@@ -1,32 +1,24 @@
-'use client'
-
-import { motion, useReducedMotion } from 'motion/react'
-
 type Props = {
   children: React.ReactNode
   className?: string
+  /** Delay in seconds before the fade starts. */
   delay?: number
   /** Distance in px to travel upward. */
   y?: number
+  /** Kept for compatibility. The blur was dropped because animating it is expensive on phones. */
   blur?: boolean
   as?: 'div' | 'li' | 'article' | 'section'
 }
 
-const tags = { div: motion.div, li: motion.li, article: motion.article, section: motion.section } as const
-
-/** Gentle fade-up, once, when scrolled into view. Soft blur-in with the fade. */
-export function Reveal({ children, className, delay = 0, y = 18, blur = true, as = 'div' }: Props) {
-  const reduce = useReducedMotion()
-  const Tag = tags[as]
-  if (reduce) return <Tag className={className}>{children}</Tag>
+/**
+ * Gentle fade-up, once, when scrolled into view. Pure CSS: a single shared observer (RevealObserver)
+ * adds the "is-in" class. The content is always in the HTML, and without JavaScript or with
+ * reduced motion it is simply visible.
+ */
+export function Reveal({ children, className, delay = 0, y = 18, as: Tag = 'div' }: Props) {
+  const style = { '--rd': `${delay}s`, '--ry': `${y}px` } as React.CSSProperties
   return (
-    <Tag
-      className={className}
-      initial={{ opacity: 0, y, filter: blur ? 'blur(6px)' : 'blur(0px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: '0px 0px -8% 0px' }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <Tag className={className} style={style} data-reveal="">
       {children}
     </Tag>
   )
