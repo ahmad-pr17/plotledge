@@ -1,9 +1,11 @@
-import { faqs } from '@/data/faqs'
+import { LOCALE_META, type Locale } from '@/i18n/config'
+import { localePath } from '@/i18n/path'
 import { GOLD_MONTHLY, SILVER_MONTHLY } from '@/data/pricing'
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
+import { SITE_NAME, SITE_URL } from '@/lib/site'
 
 // Every entry describes content visible on the page. No ratings, reviews or addresses are claimed.
-export function siteJsonLd() {
+export function siteJsonLd(locale: Locale, description: string) {
+  const home = `${SITE_URL}${localePath(locale, '/')}`
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -17,10 +19,10 @@ export function siteJsonLd() {
       {
         '@type': 'WebSite',
         '@id': `${SITE_URL}/#website`,
-        url: `${SITE_URL}/`,
+        url: home,
         name: SITE_NAME,
         publisher: { '@id': `${SITE_URL}/#organization` },
-        inLanguage: 'en',
+        inLanguage: LOCALE_META[locale].htmlLang,
       },
       {
         '@type': 'SoftwareApplication',
@@ -28,8 +30,9 @@ export function siteJsonLd() {
         name: SITE_NAME,
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Web',
-        description: SITE_DESCRIPTION,
-        url: `${SITE_URL}/`,
+        description,
+        url: home,
+        inLanguage: LOCALE_META[locale].htmlLang,
         publisher: { '@id': `${SITE_URL}/#organization` },
         offers: [
           ...[['Silver', SILVER_MONTHLY], ['Gold', GOLD_MONTHLY]].map(([name, price]) => ({
@@ -58,7 +61,7 @@ export function breadcrumbJsonLd(items: { name: string; path: string }[]) {
   }
 }
 
-export function faqJsonLd() {
+export function faqJsonLd(faqs: { q: string; a: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',

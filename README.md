@@ -19,7 +19,8 @@ Marketing website for **Plot Ledge**, a CRM for plot and property dealers. It tr
 
 ## Features
 
-- Responsive single-page marketing site with light and dark themes
+- Responsive single-page marketing site in one cream and emerald theme
+- Eight languages: English, French, Italian, Mexican Spanish, Arabic, Urdu, Simplified Chinese and Russian (Arabic and Urdu read right to left). See [docs/i18n.md](docs/i18n.md) for how text is organized and how to add or change it
 - Server-rendered HTML, so content is crawlable without JavaScript
 - Technical SEO: canonical URL, Open Graph and Twitter/X cards, `robots.txt`, `sitemap.xml`, JSON-LD structured data
 - Generated 1200×630 social sharing image

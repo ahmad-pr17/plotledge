@@ -14,8 +14,12 @@ function text(raw: unknown, max: number): string {
   return typeof raw === 'string' ? raw.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max) : ''
 }
 
-/** Trims, limits and checks the fields. Returns either clean data or a map of field errors. */
-export function cleanLead(raw: Record<string, unknown>, source: string): { data: Lead } | { errors: Record<string, string> } {
+/** Why a field was rejected. The browser maps these codes to text in the visitor's language. */
+export type FieldError = 'required' | 'invalid'
+export type FieldErrors = Partial<Record<'name' | 'phone' | 'plots', FieldError>>
+
+/** Trims, limits and checks the fields. Returns either clean data or a map of field error codes. */
+export function cleanLead(raw: Record<string, unknown>, source: string): { data: Lead } | { errors: FieldErrors } {
   const data: Lead = {
     name: text(raw.name, 100),
     phone: text(raw.phone, 30),
@@ -25,13 +29,13 @@ export function cleanLead(raw: Record<string, unknown>, source: string): { data:
     message: text(raw.message, 1000),
     source,
   }
-  const errors: Record<string, string> = {}
-  if (data.name.length < 2) errors.name = 'Enter your name.'
+  const errors: FieldErrors = {}
+  if (data.name.length < 2) errors.name = 'required'
   const digits = data.phone.replace(/\D/g, '')
   if (!/^[0-9+\-\s()]+$/.test(data.phone) || digits.length < 10 || digits.length > 15) {
-    errors.phone = 'Enter a phone number with 10 to 15 digits.'
+    errors.phone = 'invalid'
   }
-  if (!(PLOT_COUNT_OPTIONS as readonly string[]).includes(data.plots)) errors.plots = 'Pick how many plots you manage.'
+  if (!(PLOT_COUNT_OPTIONS as readonly string[]).includes(data.plots)) errors.plots = 'required'
   return Object.keys(errors).length ? { errors } : { data }
 }
 

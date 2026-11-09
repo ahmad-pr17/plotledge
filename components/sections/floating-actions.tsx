@@ -3,6 +3,7 @@
 import { MessageCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { ButtonLink } from '@/components/shared/button-link'
+import { useMessages } from '@/i18n/client'
 import { DEMO_URL, whatsappLink } from '@/lib/site'
 
 /**
@@ -10,6 +11,7 @@ import { DEMO_URL, whatsappLink } from '@/lib/site'
  * While the chat window is open, CSS hides it through the data-chat-open flag on <html> (see globals.css).
  */
 export function FloatingActions() {
+  const m = useMessages()
   const [show, setShow] = useState(false)
   const [nearEnd, setNearEnd] = useState(false)
 
@@ -25,6 +27,18 @@ export function FloatingActions() {
   }, [])
 
   const visible = show && !nearEnd
+
+  // Tell the chat button (see globals.css) whether this bar is showing, and whether the first screen has been passed.
+  useEffect(() => {
+    const root = document.documentElement
+    root.toggleAttribute('data-cta-bar', visible)
+    root.toggleAttribute('data-scrolled', show)
+    return () => {
+      root.removeAttribute('data-cta-bar')
+      root.removeAttribute('data-scrolled')
+    }
+  }, [visible, show])
+
   return (
     <div
       className="sticky-cta fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/90 px-4 pt-3 backdrop-blur-xl transition-[transform,opacity] duration-300 md:hidden"
@@ -32,8 +46,8 @@ export function FloatingActions() {
       aria-hidden={!visible}
     >
       <div className="mx-auto flex max-w-md gap-2">
-        <ButtonLink href={DEMO_URL} className="flex-1" tabIndex={visible ? 0 : -1}>Book a free demo</ButtonLink>
-        <ButtonLink href={whatsappLink()} variant="secondary" aria-label="Chat on WhatsApp" className="px-4" tabIndex={visible ? 0 : -1}>
+        <ButtonLink href={DEMO_URL} className="flex-1" tabIndex={visible ? 0 : -1}>{m.common.floating.demo}</ButtonLink>
+        <ButtonLink href={whatsappLink(m.common.whatsappMessage)} variant="secondary" aria-label={m.common.floating.whatsapp} className="px-4" tabIndex={visible ? 0 : -1}>
           <MessageCircle />
         </ButtonLink>
       </div>

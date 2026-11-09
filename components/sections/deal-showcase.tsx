@@ -5,16 +5,18 @@ import { ReceiptCard } from '@/components/cards/receipt-card'
 import { Section } from '@/components/shared/container'
 import { Reveal } from '@/components/shared/reveal'
 import { SectionHeading } from '@/components/shared/section-heading'
+import { getMessages } from '@/i18n/server'
 
-export function DealShowcase() {
+export async function DealShowcase() {
+  const m = (await getMessages()).showcase.deal
   return (
     <Section id="deals" tone="alt">
       <SectionHeading
-        eyebrow="Inside a deal"
-        title="One buyer, one page, nothing missing."
-        description="Open a plot to see the price, the down payment, every installment and every receipt. No scrolling through chats."
+        eyebrow={m.eyebrow}
+        title={m.title}
+        description={m.description}
       />
-      <div className="mt-12 grid items-stretch gap-4 lg:grid-cols-12">
+      <div className="mt-10 grid items-stretch gap-4 lg:grid-cols-12">
         <div className="flex flex-col gap-4 lg:col-span-7 [&>*:last-child]:flex-1">
           <Reveal className="flex [&>*]:w-full"><PlotMap /></Reveal>
           <Reveal delay={0.05} className="flex [&>*]:w-full"><DealSummary /></Reveal>

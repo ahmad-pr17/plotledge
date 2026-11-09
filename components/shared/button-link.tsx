@@ -1,5 +1,7 @@
-import Link from 'next/link'
+'use client'
+
 import type { ComponentPropsWithoutRef } from 'react'
+import { LocaleLink } from '@/components/shared/locale-link'
 import { cn } from '@/lib/utils'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'deep' | 'link'
@@ -34,8 +36,8 @@ export function ButtonLink({ href, variant = 'primary', size = 'md', className, 
     )
   }
   return (
-    <Link href={href} className={cls} {...props}>
+    <LocaleLink href={href} className={cls} {...props}>
       {children}
-    </Link>
+    </LocaleLink>
   )
 }

@@ -15,13 +15,13 @@ type Props = {
   trackClassName?: string
 }
 
-/** Progress bar that fills from the left once, when scrolled into view. Transform only. */
+/** Progress bar that fills from the start edge once, when scrolled into view. Transform only. */
 export function FillBar({ pct, color = 'var(--chart-1)', className, delay = 0, trackClassName }: Props) {
   const reduce = useReducedMotion()
   return (
     <div className={cn('h-2 overflow-hidden rounded-full bg-muted', trackClassName, className)} aria-hidden="true">
       <motion.div
-        className="h-full origin-left rounded-full"
+        className="h-full origin-left rtl:origin-right rounded-full"
         style={{ width: `${Math.min(100, Math.max(0, pct))}%`, background: color }}
         initial={{ scaleX: reduce ? 1 : 0 }}
         whileInView={{ scaleX: 1 }}

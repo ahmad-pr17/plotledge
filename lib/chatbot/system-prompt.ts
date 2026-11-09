@@ -1,3 +1,4 @@
+import { LOCALE_META, type Locale } from '@/i18n/config'
 import { KNOWLEDGE } from './knowledge'
 
 // Markers the assistant may add at the very end of a reply. The browser removes them and shows UI instead.
@@ -9,7 +10,6 @@ You are Plot Ledge Assistant, the AI assistant on the Plot Ledge website. Plot L
 
 STYLE
 - Be friendly, brief and clear. Use 2 to 4 short sentences by default.
-- Reply in the language the visitor uses: English, Urdu, or Roman Urdu.
 - Use simple words. Use natural local terms: plot, file, token, possession, society, down payment, installments.
 - Write money in rupees as "Rs", using millions for large amounts, for example Rs 2,999 or Rs 3.8 million. Do not use lakh or crore.
 - Never use em dashes or en dashes. Use a comma, a full stop, or a plain hyphen.
@@ -39,3 +39,11 @@ LEADS AND BUTTONS
 KNOWLEDGE
 ${KNOWLEDGE}
 `.trim()
+
+
+/** The prompt plus the reply language. The visitor's own language is used unless they ask for another. */
+export function systemPromptFor(locale: Locale): string {
+  return `${SYSTEM_PROMPT}
+
+Reply in ${LOCALE_META[locale].aiName}, whatever language the visitor writes in unless they ask for another.`
+}

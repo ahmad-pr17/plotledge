@@ -2,28 +2,32 @@
 
 import { motion, useReducedMotion } from 'motion/react'
 import { CalendarClock, Circle, CircleCheck, Clock, TriangleAlert, type LucideIcon } from 'lucide-react'
-import { deal, timeline, type TimelineState } from '@/data/showcase'
-import { formatRs } from '@/lib/format'
+import { deal, formatDate, formatRsL, timeline, type TimelineState } from '@/data/showcase'
+import { useLocale, useMessages } from '@/i18n/client'
+import { fmt, rich } from '@/i18n/text'
 import { cn } from '@/lib/utils'
 import { CardShell } from './card-shell'
 import { EASE, FillBar } from './fill-bar'
 
-const stateMeta: Record<TimelineState, { icon: LucideIcon; chip: string; label: string; text: string }> = {
-  paid: { icon: CircleCheck, chip: 'bg-paid-soft text-paid-ink', label: 'Paid', text: 'text-paid-ink' },
-  due: { icon: Clock, chip: 'bg-pending-soft text-pending-ink', label: 'Due next', text: 'text-pending-ink' },
-  overdue: { icon: TriangleAlert, chip: 'bg-overdue-soft text-overdue-ink', label: 'Overdue', text: 'text-overdue-ink' },
-  upcoming: { icon: Circle, chip: 'bg-muted text-muted-foreground', label: 'Upcoming', text: 'text-muted-foreground' },
+const stateMeta: Record<TimelineState, { icon: LucideIcon; chip: string; text: string }> = {
+  paid: { icon: CircleCheck, chip: 'bg-paid-soft text-paid-ink', text: 'text-paid-ink' },
+  due: { icon: Clock, chip: 'bg-pending-soft text-pending-ink', text: 'text-pending-ink' },
+  overdue: { icon: TriangleAlert, chip: 'bg-overdue-soft text-overdue-ink', text: 'text-overdue-ink' },
+  upcoming: { icon: Circle, chip: 'bg-muted text-muted-foreground', text: 'text-muted-foreground' },
 }
 
 export function InstallmentTimeline({ className }: { className?: string }) {
   const reduce = useReducedMotion()
+  const msg = useMessages().showcase
+  const m = msg.timeline
+  const locale = useLocale()
   const pct = (deal.installmentsPaid / deal.installmentCount) * 100
   return (
-    <CardShell title="Installment timeline" icon={CalendarClock} className={className}>
+    <CardShell title={m.title} icon={CalendarClock} className={className}>
       <div className="mb-5">
         <div className="mb-2 flex items-baseline justify-between text-sm">
           <span className="font-medium">
-            <span className="num">{deal.installmentsPaid}</span> of <span className="num">{deal.installmentCount}</span> installments paid
+            {rich(m.progress, { n: (c) => <span className="num">{c}</span> }, { paid: deal.installmentsPaid, total: deal.installmentCount })}
           </span>
           <span className="num text-muted-foreground">{pct.toFixed(0)}%</span>
         </div>
@@ -35,11 +39,11 @@ export function InstallmentTimeline({ className }: { className?: string }) {
           const Icon = meta.icon
           const last = i === timeline.length - 1
           return (
-            <li key={step.label} className="relative flex gap-3 pb-5 last:pb-0">
+            <li key={`${step.kind}-${step.n ?? 0}`} className="relative flex gap-3 pb-5 last:pb-0">
               {!last && (
                 <motion.span
                   aria-hidden="true"
-                  className={cn('absolute left-[15px] top-8 bottom-0 w-0.5 origin-top rounded-full', step.state === 'paid' ? 'bg-paid' : 'bg-border')}
+                  className={cn('absolute start-[15px] top-8 bottom-0 w-0.5 origin-top rounded-full', step.state === 'paid' ? 'bg-paid' : 'bg-border')}
                   initial={{ scaleY: reduce ? 1 : 0 }}
                   whileInView={{ scaleY: 1 }}
                   viewport={{ once: true }}
@@ -60,12 +64,12 @@ export function InstallmentTimeline({ className }: { className?: string }) {
               </motion.span>
               <div className="flex min-w-0 flex-1 items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-sm font-medium leading-8">{step.label}</p>
-                  <p className="-mt-1 text-xs text-muted-foreground">{step.date}</p>
+                  <p className="text-sm font-medium leading-8">{step.kind === 'down' ? m.downPayment : fmt(m.installmentN, { n: step.n ?? 0 })}</p>
+                  <p className="-mt-1 text-xs text-muted-foreground">{formatDate(locale, step.date, msg.dateFormat)}</p>
                 </div>
-                <div className="text-right">
-                  <p className="num text-sm font-semibold leading-8">{formatRs(step.amount)}</p>
-                  <p className={cn('-mt-1 text-xs font-medium', meta.text)}>{meta.label}</p>
+                <div className="text-end">
+                  <p className="num text-sm font-semibold leading-8">{formatRsL(locale, step.amount)}</p>
+                  <p className={cn('-mt-1 text-xs font-medium', meta.text)}>{m.states[step.state]}</p>
                 </div>
               </div>
             </li>

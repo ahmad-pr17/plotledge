@@ -1,7 +1,7 @@
 // Prices are defined in rupees. Visitors outside Pakistan see an approximate local amount.
 // Live rates are fetched on the server (see lib/rates.ts); the fixed rates below are the fallback.
 // Rates are rupees per 1 unit. Billing itself stays in rupees.
-import { CURRENCY_PREFIX } from '@/lib/format'
+import { formatRs, numberLocale } from '@/lib/format'
 
 export type Rates = Record<string, number>
 
@@ -46,13 +46,14 @@ export function detectCurrency(rates: Rates = RATES_PKR): string {
   }
 }
 
-export function formatPrice(amountPkr: number, currency: string, rates: Rates = RATES_PKR): string {
+/** `locale` is the page language; numbers group per language with Western digits. Converted amounts keep the ~ marker. */
+export function formatPrice(amountPkr: number, currency: string, rates: Rates = RATES_PKR, locale: string = 'en'): string {
   const rate = rates[currency]
-  if (currency === 'PKR' || !rate) return `${CURRENCY_PREFIX} ${amountPkr.toLocaleString('en-US')}`
+  if (currency === 'PKR' || !rate) return formatRs(amountPkr, locale)
   const converted = Math.round(amountPkr / rate)
   try {
-    return `~${new Intl.NumberFormat('en', { style: 'currency', currency, maximumFractionDigits: 0 }).format(converted)}`
+    return `~${new Intl.NumberFormat(numberLocale(locale), { style: 'currency', currency, maximumFractionDigits: 0 }).format(converted)}`
   } catch {
-    return `${CURRENCY_PREFIX} ${amountPkr.toLocaleString('en-US')}`
+    return formatRs(amountPkr, locale)
   }
 }

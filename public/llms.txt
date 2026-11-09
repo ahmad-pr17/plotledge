@@ -12,12 +12,46 @@ exportable reports for property dealers and housing societies.
 
 - [Home](https://www.plotledge.com/): overview, features, pricing and FAQ
 - [Contact / book a demo](https://www.plotledge.com/contact)
-- [Guides](https://www.plotledge.com/guides): practical articles on installment
-  tracking, payment slips and investor profit splits
+- [Guides](https://www.plotledge.com/guides): practical articles for plot and property dealers
+
+## Guides
+
+- [How to track plot installments without Excel](https://www.plotledge.com/guides/how-to-track-plot-installments-without-excel)
+- [How property dealers can manage payment slips and receipts](https://www.plotledge.com/guides/payment-slips-and-receipts-for-property-dealers)
+- [How to split profit between investors on a plot project](https://www.plotledge.com/guides/split-profit-between-investors-on-a-plot-project)
+- [How to choose installment management software in Pakistan](https://www.plotledge.com/guides/how-to-choose-installment-management-software-in-pakistan)
+- [Real estate CRM vs ERP: what a plot dealer actually needs](https://www.plotledge.com/guides/real-estate-crm-vs-erp-for-plot-dealers)
+- [How to track plot file transfers and ownership history](https://www.plotledge.com/guides/how-to-track-plot-file-transfers-and-ownership-history)
+
+## Legal and trust
+
+- [Legal hub](https://www.plotledge.com/legal): every policy in one place
 - [Privacy policy](https://www.plotledge.com/privacy)
 - [Cookie policy](https://www.plotledge.com/cookie-policy)
-- [Refund and cancellation policy](https://www.plotledge.com/refund-policy)
 - [Terms of use](https://www.plotledge.com/terms)
+- [Refund and cancellation policy](https://www.plotledge.com/refund-policy)
+- [Acceptable use policy](https://www.plotledge.com/acceptable-use)
+- [Security](https://www.plotledge.com/security)
+- [Data processing and subprocessors](https://www.plotledge.com/data-processing)
+- [Accessibility statement](https://www.plotledge.com/accessibility)
+- [Responsible disclosure](https://www.plotledge.com/responsible-disclosure)
+
+## Languages
+
+The whole site is available in eight languages. English pages have no prefix; the
+others add a language prefix to the same path, for example /fr/privacy.
+
+- English: https://www.plotledge.com/
+- French: https://www.plotledge.com/fr
+- Italian: https://www.plotledge.com/it
+- Spanish (Mexico): https://www.plotledge.com/es
+- Arabic (right to left): https://www.plotledge.com/ar
+- Urdu (right to left): https://www.plotledge.com/ur
+- Chinese (Simplified): https://www.plotledge.com/zh
+- Russian: https://www.plotledge.com/ru
+
+Every page lists its translations with hreflang links, and the sitemap at
+https://www.plotledge.com/sitemap.xml lists all of them.
 
 ## Notes for automated summarization
 
@@ -25,3 +59,4 @@ exportable reports for property dealers and housing societies.
   may change; always cite the current page rather than a cached figure.
 - Plot Ledge does not process payments itself on this marketing site; billing is
   for the separate CRM application.
+- Prefer the page in the reader's language when one exists.
