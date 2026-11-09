@@ -11,7 +11,7 @@ import { kpis } from '@/data/showcase'
 
 export function DashboardShowcase() {
   return (
-    <Section id="dashboard" tone="alt">
+    <Section id="dashboard">
       <SectionHeading
         eyebrow="Your dashboard"
         title="Know where every rupee stands."

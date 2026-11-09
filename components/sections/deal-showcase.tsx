@@ -8,7 +8,7 @@ import { SectionHeading } from '@/components/shared/section-heading'
 
 export function DealShowcase() {
   return (
-    <Section id="deals">
+    <Section id="deals" tone="alt">
       <SectionHeading
         eyebrow="Inside a deal"
         title="One buyer, one page, nothing missing."

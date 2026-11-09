@@ -11,7 +11,8 @@ export const SITE_TITLE = 'Plot Management Software for Property Dealers'
 export const SITE_DESCRIPTION =
   'Plot management software for Pakistani dealers. Track installments, payments and receipts in one place. Book a demo to get started.'
 
-export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://realestatemanager-chi.vercel.app/login'
+export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://app.plotledge.com'
+export const CRM_SIGNUP_URL = process.env.NEXT_PUBLIC_CRM_SIGNUP_URL ?? 'https://app.plotledge.com/signup'
 
 // Set the real WhatsApp number (international format, digits only) in .env.local or in Vercel.
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '923196796717'

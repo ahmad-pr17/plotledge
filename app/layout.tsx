@@ -41,23 +41,16 @@ export const metadata: Metadata = {
   },
 }
 
-// Theme colors are the site background in each mode.
+// One light, creamy theme. The theme color is the site background.
 export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#faf8f3' },
-    { media: '(prefers-color-scheme: dark)', color: '#0b1f17' },
-  ],
+  colorScheme: 'light',
+  themeColor: '#fbf6ea',
 }
-
-// Runs before first paint so the saved theme never flashes.
-const themeScript = `try{var t=localStorage.getItem('theme');if(t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark')}catch(e){}`
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(siteJsonLd()) }} />
       </head>
       <body className={`${inter.variable} ${display.variable}`}>

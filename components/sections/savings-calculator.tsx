@@ -51,8 +51,9 @@ export function SavingsCalculator() {
   const valueYear = hoursSavedYear * rate
 
   return (
-    <Section id="calculator" tone="alt" aria-labelledby="calc-title">
+    <Section id="calculator" tone="deep" aria-labelledby="calc-title">
       <SectionHeading
+        tone="deep"
         eyebrow="Savings calculator"
         title={<span id="calc-title">What does tracking cost you today?</span>}
         description="Move the sliders to match your business. The result uses your own numbers."
@@ -92,7 +93,7 @@ export function SavingsCalculator() {
       </div>
 
       <Reveal>
-        <p className="measure mt-6 text-sm leading-6 text-muted-foreground">
+        <p className="measure mt-6 text-sm leading-6 text-emerald-100/80">
           This is arithmetic on the numbers you entered. It is not a promise of results. How much time you save depends on how you work today.
         </p>
       </Reveal>
