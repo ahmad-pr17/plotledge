@@ -86,7 +86,7 @@ export function PlotMap({ className }: { className?: string }) {
       <div ref={gridRef} className="flex flex-col gap-4">
         {blocks.map(([block, items], bi) => (
           <div key={block}>
-            <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Block {block}</p>
+            <p className="mb-1.5 text-xs font-semibold tracking-normal text-muted-foreground">Block {block}</p>
             <div className="grid grid-cols-5 gap-1.5 sm:grid-cols-10">
               {items.map((p, i) => {
                 const st = live[p.id] ?? p.status
@@ -113,7 +113,7 @@ export function PlotMap({ className }: { className?: string }) {
                     <button
                       type="button"
                       aria-label={`Plot ${p.id}, ${p.size}, ${formatRs(p.price)}, ${LABEL[st]}`}
-                      className="num grid h-11 w-full place-items-center rounded-lg border text-[11px] font-semibold transition-[transform,background-color,border-color] duration-500 hover:scale-105 focus-visible:scale-105"
+                      className="num grid h-11 w-full place-items-center rounded-lg border text-xs font-semibold transition-[transform,background-color,border-color] duration-500 hover:scale-105 focus-visible:scale-105"
                       style={cellStyle[st]}
                     >
                       {p.id.slice(2)}

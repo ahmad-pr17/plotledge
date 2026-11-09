@@ -75,7 +75,7 @@ export function Pricing({ rates }: { rates: Rates }) {
               >
                 {opt.label}
                 {opt.v && (
-                  <span className={cn('rounded-full px-2 py-0.5 text-[11px] font-bold', yearly ? 'bg-amber-400 text-emerald-950' : 'bg-pending-soft text-pending-ink')}>
+                  <span className={cn('rounded-full px-2 py-0.5 text-xs font-bold', yearly ? 'bg-amber-400 text-emerald-950' : 'bg-pending-soft text-pending-ink')}>
                     Save {YEARLY_SAVING_PERCENT}%
                   </span>
                 )}
