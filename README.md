@@ -26,6 +26,7 @@ Marketing website for **Plot Ledge**, a CRM for plot and property dealers. It tr
 - Generated 1200×630 social sharing image
 - Pricing displayed in rupees, with an approximate local currency for visitors in other regions
 - Accessible FAQ, tabs and mobile navigation built on Base UI
+- A QR code that opens the app's install page, plus ready-made QR images for Instagram, Facebook and print. See [docs/qr-codes.md](docs/qr-codes.md)
 
 ## Tech stack
 
@@ -72,6 +73,12 @@ Create a `.env.local` file in the project root. Both variables are optional.
 | `NEXT_PUBLIC_CRM_URL` | `https://app.plotledge.com` | Destination of the "Log in" and "Open the CRM" buttons |
 | `NEXT_PUBLIC_CRM_SIGNUP_URL` | `https://app.plotledge.com/signup` | Destination of the "Sign up free" button |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | unset | Google Analytics 4 Measurement ID. Only loaded in production; leave unset to disable GA |
+| `NEXT_PUBLIC_INSTAGRAM_URL` | `https://www.instagram.com/plotledge/` | Instagram profile for the footer icon. Full `https://` address |
+| `NEXT_PUBLIC_FACEBOOK_URL` | unset | Facebook page for the footer icon. Hidden until set |
+
+`NEXT_PUBLIC_CRM_URL` also decides where the website's QR code points: it opens `<that address>/install`. The app must serve that page on the same domain. See [docs/qr-codes.md](docs/qr-codes.md).
+
+The contact form and chat assistant need more settings on Vercel (`ANTHROPIC_API_KEY`, and `LEAD_WEBHOOK_URL` or `RESEND_API_KEY` + `LEAD_EMAIL_TO`). See [Chat assistant](#chat-assistant) and `.env.example` for the full list.
 
 ## Available scripts
 
@@ -80,6 +87,7 @@ Create a `.env.local` file in the project root. Both variables are optional.
 | `npm run dev` | Start the development server |
 | `npm run build` | Create a production build |
 | `npm run start` | Serve the production build |
+| `npm run qr` | Regenerate the QR images in `qr-codes/` for social media and print |
 | `npx tsc --noEmit` | Type-check the project (`next build` skips type errors, see `next.config.mjs`) |
 
 ## Project structure
