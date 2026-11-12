@@ -72,7 +72,7 @@ The website footer shows an icon for each social profile whose address is set (`
 | Environment variable | Default |
 |---|---|
 | `NEXT_PUBLIC_INSTAGRAM_URL` | `https://www.instagram.com/plotledge/` |
-| `NEXT_PUBLIC_FACEBOOK_URL` | not set, so no Facebook icon yet |
+| `NEXT_PUBLIC_FACEBOOK_URL` | `https://www.facebook.com/share/1FLGBuUT4X/` |
 
 - Set the full `https://` address in Vercel (Project Settings > Environment Variables), then redeploy. A platform with no address is not shown. Only `https://` addresses are accepted.
 - The same addresses go into the site's structured data (`sameAs`), which helps Google connect the profiles to the website.

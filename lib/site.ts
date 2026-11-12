@@ -31,7 +31,7 @@ export const DEMO_URL = '/contact#demo'
 // To add another platform, add its env var here and its icon in components/shared/social-icons.tsx.
 const socialCandidates = [
   { key: 'instagram', label: 'Instagram', href: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://www.instagram.com/plotledge/' },
-  { key: 'facebook', label: 'Facebook', href: process.env.NEXT_PUBLIC_FACEBOOK_URL },
+  { key: 'facebook', label: 'Facebook', href: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? 'https://www.facebook.com/share/1FLGBuUT4X/' },
 ] as const
 
 export type SocialKey = (typeof socialCandidates)[number]['key']

@@ -74,7 +74,7 @@ Create a `.env.local` file in the project root. Both variables are optional.
 | `NEXT_PUBLIC_CRM_SIGNUP_URL` | `https://app.plotledge.com/signup` | Destination of the "Sign up free" button |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | unset | Google Analytics 4 Measurement ID. Only loaded in production; leave unset to disable GA |
 | `NEXT_PUBLIC_INSTAGRAM_URL` | `https://www.instagram.com/plotledge/` | Instagram profile for the footer icon. Full `https://` address |
-| `NEXT_PUBLIC_FACEBOOK_URL` | unset | Facebook page for the footer icon. Hidden until set |
+| `NEXT_PUBLIC_FACEBOOK_URL` | `https://www.facebook.com/share/1FLGBuUT4X/` | Facebook page for the footer icon. Full `https://` address |
 
 `NEXT_PUBLIC_CRM_URL` also decides where the website's QR code points: it opens `<that address>/install`. The app must serve that page on the same domain. See [docs/qr-codes.md](docs/qr-codes.md).
 
