@@ -12,6 +12,9 @@ export const SITE_DESCRIPTION =
   'Plot management software for Pakistani dealers. Track installments, payments and receipts in one place. Book a demo to get started.'
 
 export const CRM_LOGIN_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://app.plotledge.com'
+// The app's own install screen (the QR code opens it). It must be on the app's domain, because browsers only
+// offer to install an app from the site that serves it. Built from the app address, so it follows NEXT_PUBLIC_CRM_URL.
+export const CRM_INSTALL_URL = new URL('/install', CRM_LOGIN_URL).toString()
 export const CRM_SIGNUP_URL = process.env.NEXT_PUBLIC_CRM_SIGNUP_URL ?? 'https://app.plotledge.com/signup'
 
 // Set the real WhatsApp number (international format, digits only) in .env.local or in Vercel.
