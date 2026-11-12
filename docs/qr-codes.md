@@ -28,6 +28,19 @@ Ready-made files are in the `qr-codes/` folder:
 - **SVG**: use this for print. It stays sharp at any size.
 - Every link also has `utm_medium=qr&utm_campaign=profile_qr`. In Google Analytics, filter by source to see which platform sent the visit.
 
+### Ready-to-post graphics
+
+Finished post images, in the Plot Ledge colors with the logo, a headline and the QR code, are in `qr-codes/posts/`:
+
+| File | Size | Post it on |
+|---|---|---|
+| `plotledge-instagram-post.png` | 1080 x 1080 (square) | Instagram |
+| `plotledge-facebook-post.png` | 1200 x 630 (landscape) | Facebook |
+
+Their links use `utm_campaign=profile_post`, so analytics can tell a scan from a post apart from a scan of the plain profile image. Both were run through a QR reader and open the right link.
+
+To change the wording, colors or layout, edit `scripts/make-posts.mjs` and run `npm run posts`. It uses a bold system font (Arial or a Liberation Sans equivalent) already on the computer, and nothing is downloaded.
+
 ### Regenerating them
 
 Run this from the project root. It needs no setup beyond `npm install` or `pnpm install`.
@@ -37,7 +50,7 @@ npm run qr                          # points at https://www.plotledge.com
 npm run qr -- https://example.com   # points somewhere else
 ```
 
-The script is `scripts/make-qr.mjs`. To add another platform (for example TikTok), add one line to its `targets` list and run it again.
+For the post graphics, run `npm run posts` (it takes the same optional address). The plain QR images come from `scripts/make-qr.mjs`. To add another platform (for example TikTok), add one line to its `targets` list and run it again.
 
 ## Rules every QR code here follows
 
