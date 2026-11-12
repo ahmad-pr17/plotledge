@@ -1,7 +1,7 @@
 import { LOCALE_META, type Locale } from '@/i18n/config'
 import { localePath } from '@/i18n/path'
 import { GOLD_MONTHLY, SILVER_MONTHLY } from '@/data/pricing'
-import { SITE_NAME, SITE_URL } from '@/lib/site'
+import { SITE_NAME, SITE_URL, SOCIAL_LINKS } from '@/lib/site'
 
 // Every entry describes content visible on the page. No ratings, reviews or addresses are claimed.
 export function siteJsonLd(locale: Locale, description: string) {
@@ -15,6 +15,8 @@ export function siteJsonLd(locale: Locale, description: string) {
         name: SITE_NAME,
         url: `${SITE_URL}/`,
         logo: `${SITE_URL}/apple-icon.png`,
+        // Lets search engines tie the official profiles to the site. Left out until a profile address is set.
+        ...(SOCIAL_LINKS.length ? { sameAs: SOCIAL_LINKS.map((s) => s.href) } : {}),
       },
       {
         '@type': 'WebSite',

@@ -26,6 +26,19 @@ export const CONTACT_CITY = 'Lahore, Pakistan'
 
 export const DEMO_URL = '/contact#demo'
 
+// Social profiles. Set the full profile address in .env.local or in Vercel. A platform with no address set is
+// not shown anywhere on the site. Only https:// addresses are accepted, so a typo cannot create an unsafe link.
+// To add another platform, add its env var here and its icon in components/shared/social-icons.tsx.
+const socialCandidates = [
+  { key: 'instagram', label: 'Instagram', href: process.env.NEXT_PUBLIC_INSTAGRAM_URL },
+  { key: 'facebook', label: 'Facebook', href: process.env.NEXT_PUBLIC_FACEBOOK_URL },
+] as const
+
+export type SocialKey = (typeof socialCandidates)[number]['key']
+export const SOCIAL_LINKS: { key: SocialKey; label: string; href: string }[] = socialCandidates.flatMap(({ key, label, href }) =>
+  href && /^https:\/\//i.test(href.trim()) ? [{ key, label, href: href.trim() }] : [],
+)
+
 /** Adds campaign tags so analytics can tell which placement (for example the QR code) brought a visit. */
 export function trackedUrl(url: string, medium: string, campaign: string) {
   const u = new URL(url)

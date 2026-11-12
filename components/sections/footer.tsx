@@ -4,6 +4,7 @@ import { Container } from '@/components/shared/container'
 import { LanguageSwitcher } from '@/components/shared/language-switcher'
 import { LocaleLink } from '@/components/shared/locale-link'
 import { Logo } from '@/components/shared/logo'
+import { SocialIcons } from '@/components/shared/social-icons'
 import { fmt } from '@/i18n/text'
 import { getMessages } from '@/i18n/server'
 import { CONTACT_EMAIL, CRM_LOGIN_URL, whatsappLink } from '@/lib/site'
@@ -62,6 +63,7 @@ export async function Footer() {
               <li><a href={whatsappLink(m.common.whatsappMessage)} target="_blank" rel="noopener noreferrer" className={linkCls}><MessageCircle className="size-4 shrink-0" aria-hidden /> {f.whatsapp}</a></li>
               <li className="flex min-h-11 items-center gap-2"><MapPin className="size-4 shrink-0" aria-hidden /> {f.city}</li>
             </ul>
+            <SocialIcons />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
             {columns.map((c) => (
