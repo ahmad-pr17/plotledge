@@ -5,6 +5,6 @@ const finalCta = {
   cta: { primary: 'Book a free demo', secondary: 'Open the CRM' },
   trialNote: '15-day free trial, no payment needed.',
   whatsapp: 'Chat on WhatsApp',
-  qr: { title: 'Scan to start on your phone', hint: 'Point your phone camera at the code to open Plot Ledge and start the free trial.', label: 'QR code: open Plot Ledge on your phone' },
+  qr: { title: 'Get the app on your phone', hint: 'Scan with your phone camera, then tap Install. On iPhone, open the link in Safari and choose Add to Home Screen.', label: 'QR code: install the Plot Ledge app on your phone' },
 }
 export default finalCta

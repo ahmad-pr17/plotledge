@@ -6,6 +6,6 @@ const finalCta: Messages['finalCta'] = {
   cta: { primary: '预约免费演示', secondary: '打开 CRM' },
   trialNote: '15 天免费试用，无需付款。',
   whatsapp: 'WhatsApp 咨询',
-  qr: { title: '扫码，在手机上开始', hint: '用手机相机对准二维码，即可打开 Plot Ledge 并开始免费试用。', label: '二维码：在手机上打开 Plot Ledge' },
+  qr: { title: '在手机上安装应用', hint: '用手机相机扫码，然后点击“安装”。在 iPhone 上请用 Safari 打开链接，选择“添加到主屏幕”。', label: '二维码：在手机上安装 Plot Ledge 应用' },
 }
 export default finalCta

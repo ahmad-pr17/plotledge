@@ -6,6 +6,6 @@ const finalCta: Messages['finalCta'] = {
   cta: { primary: 'Agendar una demo gratuita', secondary: 'Abrir el CRM' },
   trialNote: 'Prueba gratuita de 15 días, sin necesidad de pago.',
   whatsapp: 'Chatear por WhatsApp',
-  qr: { title: 'Escanea para empezar desde tu teléfono', hint: 'Apunta la cámara del teléfono al código para abrir Plot Ledge e iniciar la prueba gratuita.', label: 'Código QR: abrir Plot Ledge en tu teléfono' },
+  qr: { title: 'Instala la app en tu teléfono', hint: 'Escanea con la cámara del teléfono y toca Instalar. En iPhone, abre el enlace en Safari y elige Añadir a pantalla de inicio.', label: 'Código QR: instalar la app Plot Ledge en tu teléfono' },
 }
 export default finalCta
