@@ -30,7 +30,7 @@ export const DEMO_URL = '/contact#demo'
 // not shown anywhere on the site. Only https:// addresses are accepted, so a typo cannot create an unsafe link.
 // To add another platform, add its env var here and its icon in components/shared/social-icons.tsx.
 const socialCandidates = [
-  { key: 'instagram', label: 'Instagram', href: process.env.NEXT_PUBLIC_INSTAGRAM_URL },
+  { key: 'instagram', label: 'Instagram', href: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? 'https://www.instagram.com/plotledge/' },
   { key: 'facebook', label: 'Facebook', href: process.env.NEXT_PUBLIC_FACEBOOK_URL },
 ] as const
 
