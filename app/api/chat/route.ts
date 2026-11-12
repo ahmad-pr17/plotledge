@@ -55,27 +55,42 @@ function toTextStream(upstream: ReadableStream<Uint8Array>): ReadableStream<Uint
   let buffer = ''
   const reader = upstream.getReader()
 
+  /** Handles one event block. Returns false when the provider reported an error and the stream was failed. */
+  function handle(evt: string, controller: ReadableStreamDefaultController<Uint8Array>): boolean {
+    const line = evt.split('\n').find((l) => l.startsWith('data: '))
+    if (!line) return true
+    let data: { type?: string; delta?: { type?: string; text?: string } }
+    try {
+      data = JSON.parse(line.slice(6))
+    } catch {
+      return true
+    }
+    if (data.type === 'error') {
+      controller.error(new Error('upstream error'))
+      return false
+    }
+    if (data.type === 'content_block_delta' && data.delta?.type === 'text_delta' && data.delta.text) {
+      controller.enqueue(encoder.encode(data.delta.text.replace(/[–—]/g, '-')))
+    }
+    return true
+  }
+
   return new ReadableStream({
     async pull(controller) {
       try {
         const { done, value } = await reader.read()
-        if (done) return controller.close()
-        buffer += decoder.decode(value, { stream: true })
+        if (done) {
+          // The last event may arrive without a trailing blank line. Do not lose it.
+          buffer += decoder.decode()
+          if (buffer.trim() && !handle(buffer.replace(/\r\n/g, '\n'), controller)) return
+          return controller.close()
+        }
+        // Some proxies use \r\n line endings. Normalize before splitting into events.
+        buffer = (buffer + decoder.decode(value, { stream: true })).replace(/\r\n/g, '\n')
         const events = buffer.split('\n\n')
         buffer = events.pop() ?? ''
         for (const evt of events) {
-          const line = evt.split('\n').find((l) => l.startsWith('data: '))
-          if (!line) continue
-          let data: { type?: string; delta?: { type?: string; text?: string } }
-          try {
-            data = JSON.parse(line.slice(6))
-          } catch {
-            continue
-          }
-          if (data.type === 'error') return controller.error(new Error('upstream error'))
-          if (data.type === 'content_block_delta' && data.delta?.type === 'text_delta' && data.delta.text) {
-            controller.enqueue(encoder.encode(data.delta.text.replace(/[–—]/g, '-')))
-          }
+          if (!handle(evt, controller)) return
         }
       } catch (err) {
         controller.error(err)
@@ -88,7 +103,7 @@ function toTextStream(upstream: ReadableStream<Uint8Array>): ReadableStream<Uint
 }
 
 export async function POST(req: Request) {
-  const limited = rateLimit(`chat:${clientIp(req)}`, LIMITS.chat)
+  const limited = rateLimit(`chat:${clientIp(req.headers)}`, LIMITS.chat)
   if (!limited.ok) {
     return NextResponse.json({ error: 'rate_limited' }, { status: 429, headers: { 'Retry-After': String(limited.retryAfterSec) } })
   }

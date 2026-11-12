@@ -5,7 +5,7 @@ export const runtime = 'nodejs'
 
 /** Thumbs up or down on an assistant reply. Only the vote is recorded. No message text is stored or logged. */
 export async function POST(req: Request) {
-  if (!rateLimit(`feedback:${clientIp(req)}`, LIMITS.feedback).ok) return new NextResponse(null, { status: 429 })
+  if (!rateLimit(`feedback:${clientIp(req.headers)}`, LIMITS.feedback).ok) return new NextResponse(null, { status: 429 })
 
   let body: { value?: unknown }
   try {

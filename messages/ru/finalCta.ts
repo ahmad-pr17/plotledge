@@ -6,5 +6,6 @@ const finalCta: Messages['finalCta'] = {
   cta: { primary: 'Бесплатная демонстрация', secondary: 'Открыть CRM' },
   trialNote: '15 дней бесплатно, оплата не нужна.',
   whatsapp: 'Написать в WhatsApp',
+  qr: { title: 'Сканируйте, чтобы начать с телефона', hint: 'Наведите камеру телефона на код, чтобы открыть Plot Ledge и начать бесплатный пробный период.', label: 'QR-код: открыть Plot Ledge на телефоне' },
 }
 export default finalCta

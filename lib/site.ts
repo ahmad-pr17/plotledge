@@ -23,6 +23,15 @@ export const CONTACT_CITY = 'Lahore, Pakistan'
 
 export const DEMO_URL = '/contact#demo'
 
+/** Adds campaign tags so analytics can tell which placement (for example the QR code) brought a visit. */
+export function trackedUrl(url: string, medium: string, campaign: string) {
+  const u = new URL(url)
+  u.searchParams.set('utm_source', 'website')
+  u.searchParams.set('utm_medium', medium)
+  u.searchParams.set('utm_campaign', campaign)
+  return u.toString()
+}
+
 /** Pass the translated message: whatsappLink(m.common.whatsappMessage). */
 export function whatsappLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`

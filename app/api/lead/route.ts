@@ -5,7 +5,7 @@ import { clientIp, LIMITS, rateLimit } from '@/lib/chatbot/rate-limit'
 export const runtime = 'nodejs'
 
 export async function POST(req: Request) {
-  const limited = rateLimit(`lead:${clientIp(req)}`, LIMITS.lead)
+  const limited = rateLimit(`lead:${clientIp(req.headers)}`, LIMITS.lead)
   if (!limited.ok) {
     return NextResponse.json({ code: 'rate_limited' }, { status: 429, headers: { 'Retry-After': String(limited.retryAfterSec) } })
   }
@@ -14,7 +14,12 @@ export async function POST(req: Request) {
   try {
     const raw = await req.text()
     if (raw.length > 5_000) return NextResponse.json({ code: 'too_large' }, { status: 413 })
-    body = JSON.parse(raw)
+    const parsed: unknown = JSON.parse(raw)
+    // Valid JSON can still be null, a number or an array. Only a plain object is a form.
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return NextResponse.json({ code: 'bad_request' }, { status: 400 })
+    }
+    body = parsed as Record<string, unknown>
   } catch {
     return NextResponse.json({ code: 'bad_request' }, { status: 400 })
   }

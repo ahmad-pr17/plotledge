@@ -30,9 +30,17 @@ export function rateLimit(key: string, { limit, windowMs }: Options): { ok: bool
   return { ok: true, retryAfterSec: 0 }
 }
 
-export function clientIp(req: Request): string {
-  const forwarded = req.headers.get('x-forwarded-for')
-  return forwarded?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown'
+/**
+ * The visitor's address, taken only from headers the hosting platform sets itself.
+ * The left-most x-forwarded-for entry is written by the client, so it is never used: a bot could send a new value
+ * on every request and dodge the limit. The right-most entry is the one added by the nearest proxy.
+ * Works with request.headers and with the headers() helper that server actions use.
+ */
+export function clientIp(headers: Pick<Headers, 'get'>): string {
+  const platform = headers.get('x-vercel-forwarded-for') ?? headers.get('x-real-ip')
+  if (platform?.trim()) return platform.split(',')[0].trim()
+  const forwarded = headers.get('x-forwarded-for')?.split(',')
+  return forwarded?.[forwarded.length - 1]?.trim() || 'unknown'
 }
 
 export const LIMITS = {

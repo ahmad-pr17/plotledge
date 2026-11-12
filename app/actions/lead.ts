@@ -1,5 +1,7 @@
 'use server'
 
+import { headers } from 'next/headers'
+import { clientIp, LIMITS, rateLimit } from '@/lib/chatbot/rate-limit'
 import { cleanLead, deliverLead, type FieldErrors } from '@/lib/leads'
 
 /** Machine codes only. The form turns them into text in the visitor's language. */
@@ -14,6 +16,10 @@ export async function submitLead(_prev: LeadState, form: FormData): Promise<Lead
   if (typeof form.get('website') === 'string' && (form.get('website') as string).trim()) {
     return { ok: true, code: 'ok' }
   }
+
+  // Same limit as /api/lead (shared key), so the form cannot be used to flood the inbox or the webhook.
+  // The form shows its normal "could not send" message with the WhatsApp fallback.
+  if (!rateLimit(`lead:${clientIp(await headers())}`, LIMITS.lead).ok) return { ok: false, code: 'failed' }
 
   const result = cleanLead(Object.fromEntries(form.entries()), 'website-form')
   if ('errors' in result) return { ok: false, code: 'invalid', errors: result.errors }

@@ -2,8 +2,9 @@ import { ArrowRight, MessageCircle } from 'lucide-react'
 import { ButtonLink } from '@/components/shared/button-link'
 import { Reveal } from '@/components/shared/reveal'
 import { Section } from '@/components/shared/container'
+import { QrCode } from '@/components/shared/qr-code'
 import { getMessages } from '@/i18n/server'
-import { CRM_LOGIN_URL, DEMO_URL, whatsappLink } from '@/lib/site'
+import { CRM_LOGIN_URL, CRM_SIGNUP_URL, DEMO_URL, trackedUrl, whatsappLink } from '@/lib/site'
 
 export async function FinalCta() {
   const { finalCta: m, common } = await getMessages()
@@ -24,6 +25,15 @@ export async function FinalCta() {
             <MessageCircle className="size-4" aria-hidden /> {m.whatsapp}
           </a>
         </p>
+        {/* Phones cannot scan their own screen, so the code only shows where a second device is likely. */}
+        <div className="mx-auto mt-10 hidden max-w-md items-center gap-5 rounded-2xl border border-white/15 bg-white/5 p-5 text-start md:flex">
+          <QrCode value={trackedUrl(CRM_SIGNUP_URL, 'qr', 'final_cta')} label={m.qr.label} size={144} className="shrink-0 rounded-lg" />
+          <div>
+            <p className="font-display text-base font-semibold text-white">{m.qr.title}</p>
+            <p className="mt-1 text-sm leading-6 text-emerald-100/80">{m.qr.hint}</p>
+            <p className="mt-2 text-xs text-emerald-100/80" dir="ltr">{CRM_SIGNUP_URL.replace(/^https?:\/\//, '')}</p>
+          </div>
+        </div>
       </Reveal>
     </Section>
   )

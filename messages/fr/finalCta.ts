@@ -6,5 +6,6 @@ const finalCta: Messages['finalCta'] = {
   cta: { primary: 'Réserver une démo gratuite', secondary: 'Ouvrir le CRM' },
   trialNote: 'Essai gratuit de 15 jours, aucun paiement requis.',
   whatsapp: 'Discuter sur WhatsApp',
+  qr: { title: 'Scannez pour commencer sur votre téléphone', hint: 'Dirigez l’appareil photo de votre téléphone vers le code pour ouvrir Plot Ledge et démarrer l’essai gratuit.', label: 'Code QR : ouvrir Plot Ledge sur votre téléphone' },
 }
 export default finalCta
