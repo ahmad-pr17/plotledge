@@ -10,7 +10,7 @@ import { guides } from '@/data/guides'
 import { localePath } from '@/i18n/path'
 import { openGraphLocale, pageAlternates } from '@/i18n/seo'
 import { getLocale, getMessages } from '@/i18n/server'
-import { breadcrumbJsonLd, jsonLdString } from '@/lib/jsonld'
+import { breadcrumbJsonLd, guidesIndexJsonLd, jsonLdString } from '@/lib/jsonld'
 import { DEMO_URL, whatsappLink } from '@/lib/site'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,10 +33,12 @@ export default async function GuidesPage() {
     { name: m.breadcrumb.guides, path: localePath(locale, '/guides') },
   ])
   const [featured, ...rest] = guides
+  const collection = guidesIndexJsonLd(locale, m.index.title, m.index.description, guides.map((g) => ({ name: m.articles[g.slug].title, path: localePath(locale, `/guides/${g.slug}`) })))
 
   return (
     <PageShell flush>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(breadcrumbs) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(collection) }} />
 
       <section className="relative overflow-hidden pb-10 pt-28 md:pb-14 md:pt-36">
         <HeroBackdrop />

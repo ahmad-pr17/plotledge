@@ -41,6 +41,13 @@ export async function generateMetadata(): Promise<Metadata> {
     description: meta.siteDescription,
     applicationName: meta.siteName,
     keywords: meta.keywords,
+    authors: [{ name: meta.siteName, url: SITE_URL }],
+    creator: meta.siteName,
+    publisher: meta.siteName,
+    category: 'business software',
+    formatDetection: { telephone: false, email: false, address: false },
+    // Allow full-size image previews and long snippets in results (Google Discover, rich results).
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
     alternates: pageAlternates(locale, '/'),
     openGraph: { title: fullTitle, description: meta.siteDescription, type: 'website', siteName: meta.siteName, url: '/', ...openGraphLocale(locale) },
     twitter: { card: 'summary_large_image', title: fullTitle, description: meta.siteDescription },

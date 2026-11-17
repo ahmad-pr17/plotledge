@@ -6,6 +6,7 @@ import { localePath } from '@/i18n/path'
 import { openGraphLocale, pageAlternates } from '@/i18n/seo'
 import { PageShell } from '@/components/sections/page-shell'
 import { ButtonLink } from '@/components/shared/button-link'
+import { contactPageJsonLd, jsonLdString } from '@/lib/jsonld'
 import { CONTACT_CITY, CONTACT_EMAIL, CONTACT_PHONE_DISPLAY, whatsappLink } from '@/lib/site'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -22,10 +23,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
+  const locale = await getLocale()
   const m = await getMessages()
   const c = m.contact
   return (
     <PageShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(contactPageJsonLd(locale, c.meta.title, c.meta.description, '/contact')) }} />
       <div className="grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:gap-16">
         <div id="demo" className="scroll-mt-28">
           <p className="eyebrow">{c.eyebrow}</p>

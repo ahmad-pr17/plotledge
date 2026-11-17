@@ -37,7 +37,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     description: article.description,
     keywords: article.keywords,
     alternates: pageAlternates(locale, path),
-    openGraph: { type: 'article', title: article.title, description: article.description, publishedTime: guide.date, url: localePath(locale, path), ...openGraphLocale(locale) },
+    openGraph: { type: 'article', title: article.title, description: article.description, publishedTime: guide.date, modifiedTime: guide.date, section: m.breadcrumb.guides, authors: [SITE_NAME], url: localePath(locale, path), ...openGraphLocale(locale) },
+    twitter: { card: 'summary_large_image', title: article.title, description: article.description },
   }
 }
 
@@ -61,9 +62,13 @@ export default async function GuidePage({ params }: Params) {
     inLanguage: LOCALE_META[locale].htmlLang,
     datePublished: guide.date,
     dateModified: guide.date,
-    mainEntityOfPage: `${SITE_URL}${localePath(locale, path)}`,
-    author: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    image: [`${SITE_URL}/opengraph-image`],
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}${localePath(locale, path)}` },
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    keywords: article.keywords,
+    wordCount: article.body.reduce((n, b) => n + ('text' in b ? b.text : 'items' in b ? b.items.join(' ') : '').split(/\s+/).filter(Boolean).length, 0),
+    author: { '@id': `${SITE_URL}/#organization` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
   }
   const breadcrumbs = breadcrumbJsonLd([
     { name: m.breadcrumb.home, path: localePath(locale, '/') },
