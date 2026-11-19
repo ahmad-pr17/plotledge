@@ -1,10 +1,11 @@
 'use client'
 
 import { CheckCircle2, Loader2, MessageCircle, TriangleAlert } from 'lucide-react'
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
 import { submitLead, type LeadState } from '@/app/actions/lead'
 import { ButtonLink } from '@/components/shared/button-link'
 import { useMessages } from '@/i18n/client'
+import { trackEvent } from '@/lib/events'
 import { PLOT_COUNT_OPTIONS } from '@/lib/lead-options'
 import { whatsappLink } from '@/lib/site'
 import { cn } from '@/lib/utils'
@@ -32,6 +33,7 @@ export function LeadForm() {
   const f = c.form
   const [state, action, pending] = useActionState(submitLead, initial)
   const err = state.errors ?? {}
+  useEffect(() => { if (state.ok) trackEvent('generate_lead', { source: 'contact_form' }) }, [state.ok])
 
   if (state.ok) {
     return (

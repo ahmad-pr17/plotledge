@@ -4,6 +4,7 @@ import { Bricolage_Grotesque, Inter, Noto_Naskh_Arabic, Noto_Nastaliq_Urdu, Noto
 import { ChatMount } from '@/components/chatbot/ChatMount'
 import { ConsentAnalytics } from '@/components/consent/consent-analytics'
 import { CookieBanner } from '@/components/consent/cookie-banner'
+import { EventTracker } from '@/components/shared/event-tracker'
 import { MotionProvider } from '@/components/shared/motion-provider'
 import { RevealObserver } from '@/components/shared/reveal-observer'
 import { SkipLink } from '@/components/shared/skip-link'
@@ -89,6 +90,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <MotionProvider>
           {children}
           <RevealObserver />
+          <EventTracker />
           <ChatMount />
           {process.env.NODE_ENV === 'production' && <Analytics />}
           {process.env.NODE_ENV === 'production' && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
